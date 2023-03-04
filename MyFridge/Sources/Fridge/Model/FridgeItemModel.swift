@@ -16,7 +16,7 @@ struct FridgeItemConfig {
     var itemType: ItemType
 }
 
-struct FridgeItemModel: Encodable {
+struct FridgeItemModel: Codable {
     var itemName: String
     var expireDay: Int
     var memo: String?
@@ -42,7 +42,7 @@ struct ItemTypeModel {
     var type: Category
 }
 
-enum KeepType: String, Encodable {
+enum KeepType: String, Codable {
     case fridge = "냉장"
     case freezer = "냉동"
 }

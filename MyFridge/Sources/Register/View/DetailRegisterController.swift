@@ -130,6 +130,7 @@ class DetailRegisterController: UIViewController {
     }
     
     @objc func handleRegisterAction() {
+        
         guard let name = nameTextField.text else { return }
         guard let expireDayString = expireTextField.text else { return }
         guard let expireDay = Int(expireDayString) else { return }
@@ -137,9 +138,10 @@ class DetailRegisterController: UIViewController {
         let color = "red"
         let itemConfig = FridgeItemConfig(itemName: name, expireDay: expireDay, memo: memo, color: color, keepType: keepType, itemType: selectedItem)
         let item = FridgeItemModel(config: itemConfig)
-        Network().uploadTweet(item: item) { isSuccess in
-            if isSuccess {
-                print("업로드 성공")
+        
+        Network().uploadItem(item: item) { [weak self] isSuccess in
+            if isSuccess == true {
+                self?.navigationController?.dismiss(animated: true)
             }
         }
     }

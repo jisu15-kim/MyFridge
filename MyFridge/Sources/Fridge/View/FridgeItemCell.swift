@@ -10,20 +10,11 @@ import UIKit
 class FridgeItemCell: UICollectionViewCell {
     
     //MARK: - Properties
-    var itemName: String?
-    
-    var index: Int?
-    
-//    let categoryLabel: UILabel = {
-//        let label = UILabel()
-//        label.font = .systemFont(ofSize: 13, weight: .light)
-//        label.textAlignment = .left
-//        label.textColor = .systemBackground
-//        label.text = "야채"
-//        label.sizeToFit()
-//        label.backgroundColor = .lightGray
-//        return label
-//    }()
+    var cellViewModel: FridgeItemViewModel? {
+        didSet {
+            configure()
+        }
+    }
     
     let categoryLabel = CategoryView(text: "야채", backgroundColors: .systemIndigo)
     
@@ -56,16 +47,14 @@ class FridgeItemCell: UICollectionViewCell {
     
     private let expireDateLabel: UILabel = {
         let label = UILabel()
-        label.text = "D-12"
         label.textAlignment = .center
         label.font = .systemFont(ofSize: 17, weight: .bold)
         label.textColor = .systemBackground
         return label
     }()
     
-    private let itemCaptionLabel: UILabel = {
+    private let memoLabel: UILabel = {
         let label = UILabel()
-        label.text = "벼룩시장에서 사온 양파"
         label.textAlignment = .left
         label.font = .systemFont(ofSize: 12)
         label.textColor = .systemBackground
@@ -126,8 +115,8 @@ class FridgeItemCell: UICollectionViewCell {
             $0.top.equalTo(expireLabel.snp.bottom)
         }
         
-        addSubview(itemCaptionLabel)
-        itemCaptionLabel.snp.makeConstraints {
+        addSubview(memoLabel)
+        memoLabel.snp.makeConstraints {
             $0.leading.equalTo(itemTitleLabel.snp.leading)
             $0.top.equalTo(itemTitleLabel.snp.bottom).inset(-10)
             $0.trailing.equalTo(expireLabel.snp.leading).inset(-2)
@@ -135,13 +124,11 @@ class FridgeItemCell: UICollectionViewCell {
     }
     
     func configure() {
-        if let item = itemName {
-            itemTitleLabel.text = item
-        }
-        
-        if let index = index {
-            let item = ItemType.allCases[index].rawValue
-            imageView.image = UIImage(named: item)
-        }
+        guard let viewModel = cellViewModel else { return }
+        itemTitleLabel.text = viewModel.itemName
+        imageView.image = viewModel.itemIcon
+        expireDateLabel.text = viewModel.expireDDay
+        categoryLabel.text = viewModel.category
+        memoLabel.text = viewModel.memoShortText
     }
 }

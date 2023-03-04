@@ -6,6 +6,7 @@
 //
 
 import UIKit
+import Combine
 import SnapKit
 
 private let itemCellIdentifier = "FridgeItemCell"
@@ -18,9 +19,8 @@ class FridgeController: UIViewController {
     
     //MARK: - Properties
     weak var authDelegate: AuthDelegate?
-    
-    private let items = ["양파", "마늘", "당근", "파프리카", "다진마늘", "아스파라거스", "오이"]
     private let viewModel: FridgeViewModel
+    private var subscription = Set<AnyCancellable>()
     
     private let cellSpacing: Int = 10
     private let rowItemCount: Int = 2
@@ -57,7 +57,23 @@ class FridgeController: UIViewController {
         super.viewDidLoad()
         setupUI()
         setupNav()
+        bind()
         setupCollectionView()
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        navigationController?.navigationBar.prefersLargeTitles = true
+        viewModel.fetchItems()
+    }
+    
+    //MARK: - Bind
+    private func bind() {
+        viewModel.items
+            .receive(on: RunLoop.main)
+            .sink { [weak self] _ in
+                self?.collectionView.reloadData()
+            }.store(in: &subscription)
     }
     
     //MARK: - Selector
@@ -89,6 +105,8 @@ class FridgeController: UIViewController {
             addButton.layer.cornerRadius = 40 / 2
             addButton.clipsToBounds = true
         }
+        
+        viewModel.fetchItems()
     }
     
     func setupNav() {
@@ -110,16 +128,22 @@ extension FridgeController: UICollectionViewDelegate, UICollectionViewDataSource
     }
     
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        print("Count: \(items.count)")
-        return items.count
+        return viewModel.items.value.count
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: itemCellIdentifier, for: indexPath) as? FridgeItemCell else { return UICollectionViewCell() }
-        cell.itemName = items[indexPath.row]
-        cell.index = indexPath.row
-        cell.configure()
+        let item = viewModel.items.value[indexPath.row]
+        let cellViewModel = FridgeItemViewModel(item: item, indexPath: indexPath)
+        cell.cellViewModel = cellViewModel
         return cell
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        guard let cell = collectionView.cellForItem(at: indexPath) as? FridgeItemCell else { return }
+        guard let viewModel = cell.cellViewModel else { return }
+        let vc = DetailController(viewModel: viewModel)
+        navigationController?.pushViewController(vc, animated: true)
     }
 }
 
