@@ -6,6 +6,7 @@
 //
 
 import UIKit
+import Firebase
 
 class MainTabViewController: UITabBarController {
 
@@ -14,16 +15,29 @@ class MainTabViewController: UITabBarController {
     //MARK: - Lifecycle
     override func viewDidLoad() {
         super.viewDidLoad()
-    
-        configureViewController()
-        uiTabBarSetting()
+        authenticateUserAndConfigureUI()
     }
     
     //MARK: - API
+    func authenticateUserAndConfigureUI() {
+        if Auth.auth().currentUser == nil {
+            print("DEBUG: 로그인 상태가 아닙니다")
+            DispatchQueue.main.async {
+                let nav = UINavigationController(rootViewController: LoginController())
+                nav.modalPresentationStyle = .fullScreen
+                self.present(nav, animated: true)
+            }
+        } else {
+            print("DEBUG: 로그인 되었습니다")
+            configureViewController()
+            uiTabBarSetting()
+        }
+    }
     
     //MARK: - Helper
     func configureViewController() {
         let fridge = FridgeController()
+        fridge.authDelegate = self
         let nav1 = templateNavigationController("refrigerator.fill", viewController: fridge)
         
         let explore = UIViewController()
@@ -53,5 +67,11 @@ class MainTabViewController: UITabBarController {
             tabBar.standardAppearance = appearance
             tabBar.scrollEdgeAppearance = appearance
         }
+    }
+}
+
+extension MainTabViewController: AuthDelegate {
+    func logUserOut() {
+        authenticateUserAndConfigureUI()
     }
 }

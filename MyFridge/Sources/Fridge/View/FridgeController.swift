@@ -10,9 +10,15 @@ import SnapKit
 
 private let itemCellIdentifier = "FridgeItemCell"
 
+protocol AuthDelegate: AnyObject {
+    func logUserOut()
+}
+
 class FridgeController: UIViewController {
     
     //MARK: - Properties
+    weak var authDelegate: AuthDelegate?
+    
     private let items = ["양파", "마늘", "당근", "파프리카", "다진마늘", "아스파라거스", "오이"]
     private let viewModel: FridgeViewModel
     
@@ -56,6 +62,10 @@ class FridgeController: UIViewController {
     
     //MARK: - Selector
     @objc func handleAddButtonTapped() {
+//        임시 로그아웃기능
+//        AuthService.shared.logUserOut { [weak self] in
+//            self?.authDelegate?.logUserOut()
+//        }
         let vc = CategoryRegisterController()
         let nav = MainNaviViewController(rootViewController: vc)
         nav.modalPresentationStyle = .fullScreen

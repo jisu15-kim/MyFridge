@@ -11,11 +11,6 @@ import SkyFloatingLabelTextField
 import BetterSegmentedControl
 import FloatingPanel
 
-enum KeepType: String {
-    case fridge = "냉장"
-    case freezer = "냉동"
-}
-
 class DetailRegisterController: UIViewController {
     //MARK: - Properties
     private let selectedItem: ItemType
@@ -137,11 +132,16 @@ class DetailRegisterController: UIViewController {
     @objc func handleRegisterAction() {
         guard let name = nameTextField.text else { return }
         guard let expireDayString = expireTextField.text else { return }
-        let expireDay = Int(expireDayString) ?? 0
+        guard let expireDay = Int(expireDayString) else { return }
         guard let memo = memoTextField.text else { return }
         let color = "red"
-        let itemModel = FridgeItemModel(itemName: name, expireDay: expireDay, memo: memo, color: color, itemType: selectedItem)
-        dump(itemModel)
+        let itemConfig = FridgeItemConfig(itemName: name, expireDay: expireDay, memo: memo, color: color, keepType: keepType, itemType: selectedItem)
+        let item = FridgeItemModel(config: itemConfig)
+        Network().uploadTweet(item: item) { isSuccess in
+            if isSuccess {
+                print("업로드 성공")
+            }
+        }
     }
     
     //MARK: - Helper
@@ -164,8 +164,6 @@ class DetailRegisterController: UIViewController {
         let expireInfoLabel = makeInfoLabel(text: "💡선택하신 재료의 추천 유통기한이 자동 입력됩니다")
         let expireDateLabel = makeInfoLabel(text: "🗓️ 유통기한: 2023년 4월 25일 까지")
         let memoInfoLabel = makeInfoLabel(text: "💡재료에 메모를 추가합니다(선택)")
-        //        let spacingView1 = makeContentSpacingView(height: 20)
-        //        let spacingView2 = makeContentSpacingView(height: 15)
         
         let nameStack = makeStackView(UIViews: [nameTextField, nameInfoLabel])
         let expireStack = makeStackView(UIViews: [expireTextField, expireInfoLabel, expireDateLabel])

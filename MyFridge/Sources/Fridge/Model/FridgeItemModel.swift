@@ -7,21 +7,34 @@
 
 import Foundation
 
-struct FridgeItemModel {
+struct FridgeItemConfig {
     var itemName: String
     var expireDay: Int
     var memo: String?
     var color: String
+    var keepType: KeepType
+    var itemType: ItemType
+}
+
+struct FridgeItemModel: Encodable {
+    var itemName: String
+    var expireDay: Int
+    var memo: String?
+    var color: String
+    var timestamp: Date
+    var keepType: KeepType
     var category: Category
     var itemType: ItemType
     
-    init(itemName: String, expireDay: Int, memo: String? = nil, color: String, itemType: ItemType) {
-        self.itemName = itemName
-        self.expireDay = expireDay
-        self.memo = memo
-        self.color = color
-        self.itemType = itemType
+    init(config: FridgeItemConfig) {
+        self.itemName = config.itemName
+        self.expireDay = config.expireDay
+        self.memo = config.memo
+        self.color = config.color
+        self.itemType = config.itemType
         self.category = Category.allCases[itemType.id]
+        self.keepType = config.keepType
+        self.timestamp = Date()
     }
 }
 
@@ -29,7 +42,12 @@ struct ItemTypeModel {
     var type: Category
 }
 
-enum Category: String, CaseIterable {
+enum KeepType: String, Encodable {
+    case fridge = "냉장"
+    case freezer = "냉동"
+}
+
+enum Category: String, CaseIterable, Codable {
     case green
     case fruit
     case fish
@@ -62,7 +80,7 @@ enum Category: String, CaseIterable {
     }
 }
 
-enum ItemType: String, CaseIterable {
+enum ItemType: String, CaseIterable, Codable {
     // 채소
     case Asparagus
     case Eggplant

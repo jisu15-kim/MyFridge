@@ -23,47 +23,47 @@ class RegistrationController: UIViewController {
     }()
     
     private lazy var emailContainerView: UIView = {
-        let image = #imageLiteral(resourceName: "ic_mail_outline_white_2x-1")
-        let view = Utilities().inputContainerView(withImage: image, textField: emailTextField)
+        let image = #imageLiteral(resourceName: "Watermelon")
+        let view = AuthViewHelper().inputContainerView(withImage: image, textField: emailTextField)
         return view
     }()
     
     private lazy var passwordContainerView: UIView = {
-        let image = #imageLiteral(resourceName: "ic_lock_outline_white_2x")
-        let view = Utilities().inputContainerView(withImage: image, textField: passwordTextField)
+        let image = #imageLiteral(resourceName: "Watermelon")
+        let view = AuthViewHelper().inputContainerView(withImage: image, textField: passwordTextField)
         return view
     }()
     
     private lazy var fullNameContainerView: UIView = {
-        let image = #imageLiteral(resourceName: "ic_menu_white_3x")
-        let view = Utilities().inputContainerView(withImage: image, textField: fullNameTextField)
+        let image = #imageLiteral(resourceName: "Watermelon")
+        let view = AuthViewHelper().inputContainerView(withImage: image, textField: fullNameTextField)
         return view
     }()
     
     private lazy var userNameContainerView: UIView = {
-        let image = #imageLiteral(resourceName: "ic_lock_outline_white_2x")
-        let view = Utilities().inputContainerView(withImage: image, textField: userNameTextField)
+        let image = #imageLiteral(resourceName: "fruit")
+        let view = AuthViewHelper().inputContainerView(withImage: image, textField: userNameTextField)
         return view
     }()
     
     private let emailTextField: UITextField = {
-        let tf = Utilities().textFields(withPlaceholder: "Email")
+        let tf = AuthViewHelper().textFields(withPlaceholder: "Email")
         return tf
     }()
     
     private let passwordTextField: UITextField = {
-        let tf = Utilities().textFields(withPlaceholder: "Password")
+        let tf = AuthViewHelper().textFields(withPlaceholder: "Password")
         tf.isSecureTextEntry = true
         return tf
     }()
     
     private let fullNameTextField: UITextField = {
-        let tf = Utilities().textFields(withPlaceholder: "Full Name")
+        let tf = AuthViewHelper().textFields(withPlaceholder: "Full Name")
         return tf
     }()
     
     private let userNameTextField: UITextField = {
-        let tf = Utilities().textFields(withPlaceholder: "User Name")
+        let tf = AuthViewHelper().textFields(withPlaceholder: "User Name")
         return tf
     }()
     
@@ -71,7 +71,7 @@ class RegistrationController: UIViewController {
         let button = UIButton(type: .system)
         button.backgroundColor = .white
         button.setTitle("Sign Up", for: .normal)
-        button.setTitleColor(.twitterBlue, for: .normal)
+        button.setTitleColor(.systemIndigo, for: .normal)
         button.heightAnchor.constraint(equalToConstant: 50).isActive = true
         button.layer.cornerRadius = 5
         button.titleLabel?.font = .systemFont(ofSize: 20)
@@ -80,7 +80,7 @@ class RegistrationController: UIViewController {
     }()
     
     private let alreadyHaveAccountButton: UIButton = {
-        let button = Utilities().attributedButton("Already have an account? ", "Sign In")
+        let button = AuthViewHelper().attributedButton("Already have an account? ", "Sign In")
         button.addTarget(nil, action: #selector(handleShowSignIn), for: .touchUpInside)
         return button
     }()
@@ -103,18 +103,14 @@ class RegistrationController: UIViewController {
     
     // 회원가입 버튼
     @objc func handleRegistration() {
-        guard let profileImage = profileImage else {
-            print("DEBUG: 프로필 이미지를 선택해주세요")
-            return
-        }
         guard let email = emailTextField.text else { return }
         guard let password = passwordTextField.text else { return }
         guard let fullname = fullNameTextField.text else { return }
         guard let username = userNameTextField.text?.lowercased() else { return }
 
-        let credentials = AuthCredentials(email: email, password: password, fullname: fullname, username: username, profileImage: profileImage)
+        let credentials = AuthCredentials(email: email, password: password, fullname: fullname, username: username)
         
-        AuthService.shared.registerUser(credentials: credentials) { (error, ref) in
+        AuthService.shared.registerUser(credentials: credentials) { isSuccess in
             print("DEBUG: 회원가입 성공")
             // 회원가입 성공
             // UIApplication의 Window / 루트뷰를 찾아서, Auth 인증 함수 호출, 이후 Dismiss
@@ -122,7 +118,7 @@ class RegistrationController: UIViewController {
             let windowScenes = scenes.first as? UIWindowScene
             guard let window = windowScenes?.windows.first(where: { $0.isKeyWindow }) else { return }
             
-            guard let tab = window.rootViewController as? MainTabController else { return }
+            guard let tab = window.rootViewController as? MainTabViewController else { return }
             tab.authenticateUserAndConfigureUI()
             
             self.dismiss(animated: true)
@@ -132,7 +128,7 @@ class RegistrationController: UIViewController {
     //MARK: - Helpers
     
     func configureUI() {
-        view.backgroundColor = .twitterBlue
+        view.backgroundColor = .systemIndigo
         
         imagePicker.delegate = self
         imagePicker.allowsEditing = true
