@@ -10,7 +10,11 @@ import SnapKit
 
 class DetailController: UIViewController {
     //MARK: - Properties
-    let viewModel: FridgeItemViewModel
+    var viewModel: FridgeItemViewModel {
+        didSet {
+            configure()
+        }
+    }
     
     lazy var categoryLabel = CategoryView(text: viewModel.category, backgroundColors: .systemIndigo)
     lazy var keepTypeLabel = CategoryView(text: viewModel.item.keepType.rawValue, backgroundColors: .lightGray)
@@ -78,8 +82,8 @@ class DetailController: UIViewController {
         return label
     }()
     
-    lazy var aiActionView1 = AIActionView(image: #imageLiteral(resourceName: "fish"), title: "\(viewModel.itemName) 보관방법 알려줘")
-    lazy var aiActionView2 = AIActionView(image: #imageLiteral(resourceName: "fish"), title: "\(viewModel.itemName) 추천 레시피 알려줘")
+    lazy var aiActionView1 = AIActionView(image: #imageLiteral(resourceName: "fish"), title: "\(viewModel.item.itemType.itemName) 보관방법 알려줘")
+    lazy var aiActionView2 = AIActionView(image: #imageLiteral(resourceName: "fish"), title: "\(viewModel.item.itemType.itemName) 추천 레시피 알려줘")
     
     //MARK: - Lifecycle
     init(viewModel: FridgeItemViewModel) {
@@ -101,7 +105,31 @@ class DetailController: UIViewController {
     
     //MARK: - Selector
     @objc func handleMenuTapped() {
-        print(#function)
+        let actionSheet = UIAlertController()
+        print(viewModel.itemID)
+        
+        let modify = UIAlertAction(title: "수정하기", style: .default) { [weak self] _ in
+            guard let type = self?.viewModel.item.itemType else { return }
+            let vc = DetailRegisterController(withSelectedType: type, actionType: .modify, itemViewModel: self?.viewModel)
+            vc.delegate = self
+            self?.navigationController?.pushViewController(vc, animated: true)
+        }
+        let delete = UIAlertAction(title: "삭제하기", style: .destructive) { [weak self] _ in
+            self?.viewModel.deleteItem { isSucess in
+                if isSucess == true {
+                    self?.navigationController?.popViewController(animated: true)
+                } else {
+                    print("ERROR: 삭제 실패 alert")
+                }
+            }
+        }
+        let cancel = UIAlertAction(title: "취소", style: .cancel)
+        
+        actionSheet.addAction(modify)
+        actionSheet.addAction(delete)
+        actionSheet.addAction(cancel)
+        
+        present(actionSheet, animated: true)
     }
     
     @objc func handleBackTapped() {
@@ -226,4 +254,13 @@ class DetailController: UIViewController {
         memoLabel.attributedText = viewModel.memoText
     }
     
+}
+
+extension DetailController: RegistrationControllerDelegate {
+    func actionDone(itemID: String) {
+        Network().fetchSingleItem(itemID: itemID) { [weak self] item in
+            let viewModel = FridgeItemViewModel(item: item)
+            self?.viewModel = viewModel
+        }
+    }
 }

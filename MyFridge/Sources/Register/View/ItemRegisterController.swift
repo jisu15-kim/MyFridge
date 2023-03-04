@@ -98,7 +98,7 @@ extension ItemRegisterController: UICollectionViewDelegate, UICollectionViewData
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         guard let cell = collectionView.cellForItem(at: indexPath) as? RegisterIconCell else { return }
         guard let type = cell.itemType else { return }
-        let vc = DetailRegisterController(withSelectedType: type)
+        let vc = DetailRegisterController(withSelectedType: type, actionType: .register)
         navigationController?.pushViewController(vc, animated: true)
     }
 }

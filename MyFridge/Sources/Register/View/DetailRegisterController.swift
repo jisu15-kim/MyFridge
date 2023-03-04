@@ -11,9 +11,23 @@ import SkyFloatingLabelTextField
 import BetterSegmentedControl
 import FloatingPanel
 
+protocol RegistrationControllerDelegate: AnyObject {
+    func actionDone(itemID: String)
+}
+
+// actionType에 따라서 Register / Modify 액션이 달라짐
 class DetailRegisterController: UIViewController {
+    
+    enum ActionType {
+        case register
+        case modify
+    }
+    
     //MARK: - Properties
+    weak var delegate: RegistrationControllerDelegate?
     private let selectedItem: ItemType
+    private let actionType: ActionType
+    private var viewModel: FridgeItemViewModel?
     
     private var keepType: KeepType = .fridge {
         didSet {
@@ -28,10 +42,10 @@ class DetailRegisterController: UIViewController {
     }()
     
     private lazy var keepTypeSeg: BetterSegmentedControl = {
-        let fridge = LabelSegment.segments(withTitles: ["냉장실", "냉동실"])
+        let fridge = LabelSegment.segments(withTitles: ["냉장실", "냉동실"], normalTextColor: .systemGray, selectedTextColor: .black)
         let seg = BetterSegmentedControl(frame: .zero,
                                          segments: fridge,
-                                         options: [.cornerRadius(15.0), .backgroundColor(UIColor.systemGray5), .indicatorViewBackgroundColor(.white)])
+                                         options: [.cornerRadius(15.0), .backgroundColor(UIColor.systemGray6), .indicatorViewBackgroundColor(.white)])
         seg.addTarget(self, action: #selector(keepTypeChanged(_:)), for: .valueChanged)
         return seg
     }()
@@ -80,8 +94,10 @@ class DetailRegisterController: UIViewController {
     private lazy var expireTextField: SkyFloatingLabelTextFieldWithIcon = {
         let tf = makeTextField(placeholder: "유통기한", imageName: "calendar")
         tf.keyboardType = .numberPad
+        tf.delegate = self
         return tf
     }()
+    lazy var expireDateLabel = makeInfoLabel(text: "🗓️ 유통기한: - 까지")
     private lazy var memoTextField = makeTextField(placeholder: "수량, 원산지 등..", title: "메모", imageName: "doc.text")
     
     private var scrollView: UIScrollView = {
@@ -96,9 +112,11 @@ class DetailRegisterController: UIViewController {
         return footer
     }()
     
-    init(withSelectedType type: ItemType) {
+    init(withSelectedType type: ItemType, actionType: ActionType, itemViewModel: FridgeItemViewModel? = nil) {
         
         self.selectedItem = type
+        self.actionType = actionType
+        self.viewModel = itemViewModel
         super.init(nibName: nil, bundle: nil)
         self.setupUI()
         self.setupNavi()
@@ -129,7 +147,7 @@ class DetailRegisterController: UIViewController {
         }
     }
     
-    @objc func handleRegisterAction() {
+    @objc func handleDoneAction() {
         
         guard let name = nameTextField.text else { return }
         guard let expireDayString = expireTextField.text else { return }
@@ -139,16 +157,27 @@ class DetailRegisterController: UIViewController {
         let itemConfig = FridgeItemConfig(itemName: name, expireDay: expireDay, memo: memo, color: color, keepType: keepType, itemType: selectedItem)
         let item = FridgeItemModel(config: itemConfig)
         
-        Network().uploadItem(item: item) { [weak self] isSuccess in
-            if isSuccess == true {
-                self?.navigationController?.dismiss(animated: true)
+        switch actionType {
+        case .register:
+            Network().itemCreateUpdate(item: item, type: actionType) { [weak self] isSuccess in
+                if isSuccess == true {
+                    self?.navigationController?.dismiss(animated: true)
+                }
+            }
+        case .modify:
+            Network().itemCreateUpdate(item: item, type: actionType, itemID: viewModel?.itemID) { [weak self] isSuccess in
+                if isSuccess == true {
+                    guard let viewModel = self?.viewModel else { return }
+                    self?.delegate?.actionDone(itemID: viewModel.itemID)
+                    self?.navigationController?.popViewController(animated: true)
+                }
             }
         }
     }
     
     //MARK: - Helper
     private func setupNavi() {
-        let item = UIBarButtonItem(title: "등록", style: .done, target: self, action: #selector(handleRegisterAction))
+        let item = UIBarButtonItem(image: UIImage(systemName: "checkmark"), style: .done, target: self, action: #selector(handleDoneAction))
         navigationItem.rightBarButtonItem = item
     }
     
@@ -164,7 +193,6 @@ class DetailRegisterController: UIViewController {
         }
         let nameInfoLabel = makeInfoLabel(text: "💡품명은 자유롭게 수정 가능합니다")
         let expireInfoLabel = makeInfoLabel(text: "💡선택하신 재료의 추천 유통기한이 자동 입력됩니다")
-        let expireDateLabel = makeInfoLabel(text: "🗓️ 유통기한: 2023년 4월 25일 까지")
         let memoInfoLabel = makeInfoLabel(text: "💡재료에 메모를 추가합니다(선택)")
         
         let nameStack = makeStackView(UIViews: [nameTextField, nameInfoLabel])
@@ -192,9 +220,20 @@ class DetailRegisterController: UIViewController {
     }
     
     private func configureUI(type: ItemType) {
-        imageView.image = UIImage(named: type.rawValue)
-        statusLabel.text = "#\(type.itemName) 등록하는 중"
-        nameTextField.text = type.itemName
+        switch actionType {
+        case .register:
+            imageView.image = UIImage(named: type.rawValue)
+            statusLabel.text = "#\(type.itemName) 등록하는 중"
+            nameTextField.text = type.itemName
+        case.modify:
+            guard let viewModel = viewModel else { return }
+            imageView.image = UIImage(named: type.rawValue)
+            statusLabel.text = "#\(viewModel.itemName) 수정하는 중"
+            nameTextField.text = viewModel.itemName
+            expireTextField.text = "\(viewModel.item.expireDay)"
+            memoTextField.text = viewModel.item.memo
+            updateExpireDate(offsetDay: viewModel.item.expireDay)
+        }
     }
     
     private func configureType() {
@@ -242,7 +281,7 @@ class DetailRegisterController: UIViewController {
         let stack = UIStackView(arrangedSubviews: UIViews)
         stack.spacing = 15
         stack.axis = .vertical
-        stack.backgroundColor = .systemGray5
+        stack.backgroundColor = .systemGray6
         stack.layer.cornerRadius = 15
         stack.clipsToBounds = true
         stack.layoutMargins = UIEdgeInsets(top: 10, left: 10, bottom: 20, right: 10)
@@ -257,5 +296,52 @@ class DetailRegisterController: UIViewController {
         panel.set(contentViewController: vc)
         panel.addPanel(toParent: self, animated: true)
         panel.backdropView.dismissalTapGestureRecognizer.isEnabled = true
+    }
+    
+    private func calculateExpireDate(_ days: Int, to date: Date) -> Date? {
+        var dateComponents = DateComponents()
+        dateComponents.day = days
+        
+        let calendar = Calendar.current
+        return calendar.date(byAdding: dateComponents, to: date)
+    }
+
+    // 유통기한 업데이트 함수
+    private func updateExpireDate(offsetDay: Int) {
+        guard let futureDate = getDateFromDays(offsetDay) else { return }
+        let dateString = dateConvertToString(futureDate)
+        expireDateLabel.text = "🗓️ 유통기한: \(dateString) 까지"
+    }
+    
+    // n일 후의 날짜 Date 구하기
+    private func getDateFromDays(_ days: Int) -> Date? {
+        switch actionType {
+        case .register:
+            let currentDate = Date()
+            let futureDate = Calendar.current.date(byAdding: .day, value: days, to: currentDate)
+            return futureDate
+        case .modify:
+            guard let viewModel = viewModel else { return Date() }
+            let offsetDate = viewModel.item.timestamp
+            let futureDate = Calendar.current.date(byAdding: .day, value: days, to: offsetDate)
+            return futureDate
+        }
+        
+    }
+    
+    // 구한 날짜 String으로
+    private func dateConvertToString(_ date: Date) -> String {
+        let dateFormatter = DateFormatter()
+        dateFormatter.dateFormat = "yyyy년 MM월 dd일"
+        let dateString = dateFormatter.string(from: date)
+        return dateString
+    }
+}
+
+extension DetailRegisterController: UITextFieldDelegate {
+    func textFieldDidChangeSelection(_ textField: UITextField) {
+        guard let text = textField.text else { return }
+        let data = Int(text) ?? 0
+        updateExpireDate(offsetDay: data)
     }
 }

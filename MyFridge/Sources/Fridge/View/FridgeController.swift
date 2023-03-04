@@ -134,7 +134,7 @@ extension FridgeController: UICollectionViewDelegate, UICollectionViewDataSource
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: itemCellIdentifier, for: indexPath) as? FridgeItemCell else { return UICollectionViewCell() }
         let item = viewModel.items.value[indexPath.row]
-        let cellViewModel = FridgeItemViewModel(item: item, indexPath: indexPath)
+        let cellViewModel = FridgeItemViewModel(item: item)
         cell.cellViewModel = cellViewModel
         return cell
     }

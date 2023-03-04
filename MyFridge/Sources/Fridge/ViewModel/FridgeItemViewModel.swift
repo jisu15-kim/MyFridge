@@ -11,7 +11,10 @@ class FridgeItemViewModel {
     
     //MARK: - Properties
     var item: FridgeItemModel
-    var indexPath: IndexPath
+    
+    var itemID: String {
+        return item.docID ?? ""
+    }
     
     var itemName: String {
         return item.itemName
@@ -61,9 +64,8 @@ class FridgeItemViewModel {
     }
     
     //MARK: - Lifecycle
-    init(item: FridgeItemModel, indexPath: IndexPath) {
+    init(item: FridgeItemModel) {
         self.item = item
-        self.indexPath = indexPath
     }
     
     //MARK: - Helper
@@ -91,5 +93,9 @@ class FridgeItemViewModel {
     func memoLabelAttributeText(text: String, font: UIFont, color: UIColor) -> NSAttributedString {
         let attributedTitle = NSMutableAttributedString(string: text, attributes: [.font :font, .foregroundColor: color])
         return attributedTitle
+    }
+    
+    func deleteItem(completion: @escaping (Bool) -> Void) {
+        Network().deleteItem(itemID: itemID, completion: completion)
     }
 }

@@ -17,6 +17,7 @@ struct FridgeItemConfig {
 }
 
 struct FridgeItemModel: Codable {
+    var docID: String?
     var itemName: String
     var expireDay: Int
     var memo: String?
