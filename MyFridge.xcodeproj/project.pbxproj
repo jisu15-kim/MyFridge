@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		CD0B50CF29B0815600DF49D7 /* AIChatViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CD0B50CE29B0815600DF49D7 /* AIChatViewController.swift */; };
+		CD0B50D129B081BD00DF49D7 /* AIChatViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = CD0B50D029B081BD00DF49D7 /* AIChatViewModel.swift */; };
 		CD1445AB29AF82AB00EFBE65 /* SkyFloatingLabelTextField in Frameworks */ = {isa = PBXBuildFile; productRef = CD1445AA29AF82AB00EFBE65 /* SkyFloatingLabelTextField */; };
 		CD1445AE29AFA3E500EFBE65 /* BetterSegmentedControl in Frameworks */ = {isa = PBXBuildFile; productRef = CD1445AD29AFA3E500EFBE65 /* BetterSegmentedControl */; };
 		CD1445B329AFAE5F00EFBE65 /* AIManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = CD1445B229AFAE5F00EFBE65 /* AIManager.swift */; };
@@ -35,6 +37,8 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		CD0B50CE29B0815600DF49D7 /* AIChatViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AIChatViewController.swift; sourceTree = "<group>"; };
+		CD0B50D029B081BD00DF49D7 /* AIChatViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AIChatViewModel.swift; sourceTree = "<group>"; };
 		CD1445B229AFAE5F00EFBE65 /* AIManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AIManager.swift; sourceTree = "<group>"; };
 		CD1445B529AFAE7000EFBE65 /* Secret.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Secret.swift; sourceTree = "<group>"; };
 		CD1445BE29AFC12A00EFBE65 /* Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Extension.swift; sourceTree = "<group>"; };
@@ -75,6 +79,15 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		CD0B50CC29B07C5100DF49D7 /* Chat */ = {
+			isa = PBXGroup;
+			children = (
+				CD0B50CE29B0815600DF49D7 /* AIChatViewController.swift */,
+				CD0B50D029B081BD00DF49D7 /* AIChatViewModel.swift */,
+			);
+			path = Chat;
+			sourceTree = "<group>";
+		};
 		CD1445B429AFAE6A00EFBE65 /* Secret */ = {
 			isa = PBXGroup;
 			children = (
@@ -121,9 +134,9 @@
 				CD1445BD29AFC12200EFBE65 /* Util */,
 				CD1445C029AFC15400EFBE65 /* API */,
 				CD1445B429AFAE6A00EFBE65 /* Secret */,
+				CDB1EB4C29ADF623004D474A /* Sources */,
 				CDB1EB3829ADF4ED004D474A /* AppDelegate.swift */,
 				CDB1EB3A29ADF4ED004D474A /* SceneDelegate.swift */,
-				CDB1EB4C29ADF623004D474A /* Sources */,
 				CDB1EB4129ADF4EE004D474A /* Assets.xcassets */,
 				CDB1EB4329ADF4EE004D474A /* LaunchScreen.storyboard */,
 				CDB1EB4629ADF4EE004D474A /* Info.plist */,
@@ -134,6 +147,7 @@
 		CDB1EB4C29ADF623004D474A /* Sources */ = {
 			isa = PBXGroup;
 			children = (
+				CD0B50CC29B07C5100DF49D7 /* Chat */,
 				CDB1EB5329ADF6CF004D474A /* Base */,
 				CDB1EB6429AE4D52004D474A /* Register */,
 				CDB1EB5429ADF6DA004D474A /* Fridge */,
@@ -199,9 +213,9 @@
 			children = (
 				CDB1EB6629AE4D96004D474A /* CategoryRegisterController.swift */,
 				CDB1EB6E29AE5E28004D474A /* ItemRegisterController.swift */,
+				CDB1EB7029AE7242004D474A /* DetailRegisterController.swift */,
 				CDB1EB6A29AE5292004D474A /* RegisterIconCell.swift */,
 				CDB1EB6C29AE597D004D474A /* CategoryHeaderView.swift */,
-				CDB1EB7029AE7242004D474A /* DetailRegisterController.swift */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -303,11 +317,13 @@
 				CDB1EB6929AE50CE004D474A /* MainNaviViewController.swift in Sources */,
 				CDB1EB6F29AE5E28004D474A /* ItemRegisterController.swift in Sources */,
 				CD1445BF29AFC12A00EFBE65 /* Extension.swift in Sources */,
+				CD0B50D129B081BD00DF49D7 /* AIChatViewModel.swift in Sources */,
 				CDB1EB3B29ADF4ED004D474A /* SceneDelegate.swift in Sources */,
 				CDB1EB5229ADF6A1004D474A /* FridgeViewModel.swift in Sources */,
 				CDB1EB6029AE2FF9004D474A /* CategoryCapsuleView.swift in Sources */,
 				CD1445B629AFAE7000EFBE65 /* Secret.swift in Sources */,
 				CDB1EB6B29AE5292004D474A /* RegisterIconCell.swift in Sources */,
+				CD0B50CF29B0815600DF49D7 /* AIChatViewController.swift in Sources */,
 				CDB1EB6729AE4D96004D474A /* CategoryRegisterController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

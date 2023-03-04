@@ -106,6 +106,7 @@ class DetailRegisterController: UIViewController {
         self.selectedItem = type
         super.init(nibName: nil, bundle: nil)
         self.setupUI()
+        self.setupNavi()
         self.configureUI(type: type)
         configureType()
     }
@@ -122,7 +123,6 @@ class DetailRegisterController: UIViewController {
     
     //MARK: - Selector
     @objc func handleAiAction() {
-//        AIManager().askRecommandStoreWay(item: selectedItem, type: keepType)
         showAIBottomSheet()
     }
     
@@ -134,7 +134,22 @@ class DetailRegisterController: UIViewController {
         }
     }
     
+    @objc func handleRegisterAction() {
+        guard let name = nameTextField.text else { return }
+        guard let expireDayString = expireTextField.text else { return }
+        let expireDay = Int(expireDayString) ?? 0
+        guard let memo = memoTextField.text else { return }
+        let color = "red"
+        let itemModel = FridgeItemModel(itemName: name, expireDay: expireDay, memo: memo, color: color, itemType: selectedItem)
+        dump(itemModel)
+    }
+    
     //MARK: - Helper
+    private func setupNavi() {
+        let item = UIBarButtonItem(title: "등록", style: .done, target: self, action: #selector(handleRegisterAction))
+        navigationItem.rightBarButtonItem = item
+    }
+    
     private func setupUI() {
         
         view.backgroundColor = .systemBackground
@@ -237,9 +252,10 @@ class DetailRegisterController: UIViewController {
     
     private func showAIBottomSheet() {
         let panel = FloatingPanelController()
-        let vc = UIViewController()
-        panel.backdropView.dismissalTapGestureRecognizer.isEnabled = true
+        let vm = AIChatViewModel(storageType: keepType, selectedItem: selectedItem)
+        let vc = AIChatViewController(viewModel: vm)
         panel.set(contentViewController: vc)
         panel.addPanel(toParent: self, animated: true)
+        panel.backdropView.dismissalTapGestureRecognizer.isEnabled = true
     }
 }

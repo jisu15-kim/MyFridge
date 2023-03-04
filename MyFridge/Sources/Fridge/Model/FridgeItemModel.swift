@@ -9,9 +9,20 @@ import Foundation
 
 struct FridgeItemModel {
     var itemName: String
-    var description: String?
-    var type: Category
     var expireDay: Int
+    var memo: String?
+    var color: String
+    var category: Category
+    var itemType: ItemType
+    
+    init(itemName: String, expireDay: Int, memo: String? = nil, color: String, itemType: ItemType) {
+        self.itemName = itemName
+        self.expireDay = expireDay
+        self.memo = memo
+        self.color = color
+        self.itemType = itemType
+        self.category = Category.allCases[itemType.id]
+    }
 }
 
 struct ItemTypeModel {
