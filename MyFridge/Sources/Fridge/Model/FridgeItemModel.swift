@@ -11,7 +11,7 @@ struct FridgeItemConfig {
     var itemName: String
     var expireDay: Int
     var memo: String?
-    var color: String
+    var color: UserColorPreset
     var keepType: KeepType
     var itemType: ItemType
 }
@@ -21,7 +21,7 @@ struct FridgeItemModel: Codable {
     var itemName: String
     var expireDay: Int
     var memo: String?
-    var color: String
+    var color: UserColorPreset
     var timestamp: Date
     var keepType: KeepType
     var category: Category

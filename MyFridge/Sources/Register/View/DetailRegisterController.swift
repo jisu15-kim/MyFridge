@@ -15,6 +15,8 @@ protocol RegistrationControllerDelegate: AnyObject {
     func actionDone(itemID: String)
 }
 
+private let reuseIdentifier = "ColorCell"
+
 // actionType에 따라서 Register / Modify 액션이 달라짐
 class DetailRegisterController: UIViewController {
     
@@ -35,10 +37,21 @@ class DetailRegisterController: UIViewController {
         }
     }
     
+    private var selectedColor: UserColorPreset?
+    
     private let imageView: UIImageView = {
         let iv = UIImageView()
         iv.contentMode = .scaleAspectFit
         return iv
+    }()
+    
+    private let colorCollectionView: UICollectionView = {
+        let layout = UICollectionViewFlowLayout()
+        layout.minimumInteritemSpacing = 10
+        layout.scrollDirection = .horizontal
+        let cv = UICollectionView(frame: .zero, collectionViewLayout: layout)
+        cv.heightAnchor.constraint(equalToConstant: 35).isActive = true
+        return cv
     }()
     
     private lazy var keepTypeSeg: BetterSegmentedControl = {
@@ -70,7 +83,7 @@ class DetailRegisterController: UIViewController {
     
     private lazy var headerContainerView: UIView = {
         let container = UIView()
-        container.heightAnchor.constraint(equalToConstant: 100).isActive = true
+        container.heightAnchor.constraint(equalToConstant: 70).isActive = true
         
         container.addSubview(imageView)
         imageView.snp.makeConstraints {
@@ -112,26 +125,32 @@ class DetailRegisterController: UIViewController {
         return footer
     }()
     
+    //MARK: - Lifecycle
+    
     init(withSelectedType type: ItemType, actionType: ActionType, itemViewModel: FridgeItemViewModel? = nil) {
         
         self.selectedItem = type
         self.actionType = actionType
         self.viewModel = itemViewModel
         super.init(nibName: nil, bundle: nil)
-        self.setupUI()
-        self.setupNavi()
-        self.configureUI(type: type)
-        configureType()
     }
     
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
     
-    //MARK: - Lifecycle
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         //        navigationController?.navigationBar.isHidden = true
+    }
+    
+    override func viewDidLoad() {
+        self.setupUI()
+        self.setupNavi()
+        self.configureUI()
+        self.configureType()
+        self.setupCollectionView()
+        self.configureSelectedColor()
     }
     
     //MARK: - Selector
@@ -153,8 +172,9 @@ class DetailRegisterController: UIViewController {
         guard let expireDayString = expireTextField.text else { return }
         guard let expireDay = Int(expireDayString) else { return }
         guard let memo = memoTextField.text else { return }
-        let color = "red"
-        let itemConfig = FridgeItemConfig(itemName: name, expireDay: expireDay, memo: memo, color: color, keepType: keepType, itemType: selectedItem)
+        guard let selectedColor = selectedColor else { return }
+        print("DEBUT - SelectedColor: \(selectedColor)")
+        let itemConfig = FridgeItemConfig(itemName: name, expireDay: expireDay, memo: memo, color: selectedColor, keepType: keepType, itemType: selectedItem)
         let item = FridgeItemModel(config: itemConfig)
         
         switch actionType {
@@ -175,10 +195,63 @@ class DetailRegisterController: UIViewController {
         }
     }
     
+    @objc private func handleBackTapped() {
+        navigationController?.popViewController(animated: true)
+    }
+    
     //MARK: - Helper
     private func setupNavi() {
-        let item = UIBarButtonItem(image: UIImage(systemName: "checkmark"), style: .done, target: self, action: #selector(handleDoneAction))
-        navigationItem.rightBarButtonItem = item
+        let rightItem = UIBarButtonItem(image: UIImage(systemName: "checkmark"), style: .done, target: self, action: #selector(handleDoneAction))
+        
+        let backButton = UIButton(type: .system)
+        backButton.setImage(UIImage(named: "backArrow"), for: .normal)
+        backButton.addTarget(self, action: #selector(handleBackTapped), for: .touchUpInside)
+        let leftBackButton = UIBarButtonItem(customView: backButton)
+        
+        navigationItem.rightBarButtonItem = rightItem
+        navigationItem.leftBarButtonItem = leftBackButton
+        
+        switch actionType {
+        case .register:
+            navigationItem.title = "등록하기"
+        case .modify:
+            navigationItem.title = "수정하기"
+        }
+    }
+    
+    private func setupCollectionView() {
+        colorCollectionView.dataSource = self
+        colorCollectionView.delegate = self
+        colorCollectionView.register(ColorCell.self, forCellWithReuseIdentifier: reuseIdentifier)
+        colorCollectionView.showsHorizontalScrollIndicator = false
+        colorCollectionView.allowsSelection = true
+    }
+    
+    private func configureSelectedColor() {
+        
+        switch actionType {
+        case .register:
+            // 시작할때 랜덤으로 하나 선택
+            let randomValue = Int.random(in: 0..<UserColorPreset.allCases.count)
+            let indexPath = IndexPath(item: randomValue, section: 0)
+            colorCollectionView.layoutIfNeeded()
+            colorCollectionView.selectItem(at: indexPath, animated: false, scrollPosition: .centeredHorizontally)
+            selectedColor = UserColorPreset.allCases[randomValue]
+        case .modify:
+            // viewModel에서 불러오기
+            guard let vm = viewModel else { return }
+            let color = vm.item.color
+            selectedColor = color // 값 전달
+            var selectedIndex = 0
+            UserColorPreset.allCases.enumerated().forEach { (index, value) in
+                if color == value {
+                    selectedIndex = index
+                }
+            }
+            let indexPath = IndexPath(row: selectedIndex, section: 0)
+            colorCollectionView.layoutIfNeeded()
+            colorCollectionView.selectItem(at: indexPath, animated: false, scrollPosition: .centeredHorizontally)
+        }
     }
     
     private func setupUI() {
@@ -200,6 +273,7 @@ class DetailRegisterController: UIViewController {
         let memoStack = makeStackView(UIViews: [memoTextField, memoInfoLabel])
         
         let stack = UIStackView(arrangedSubviews: [headerContainerView,
+                                                   colorCollectionView,
                                                    keepTypeSeg,
                                                    nameStack,
                                                    expireStack,
@@ -219,15 +293,15 @@ class DetailRegisterController: UIViewController {
         scrollView.layer.masksToBounds = false
     }
     
-    private func configureUI(type: ItemType) {
+    private func configureUI() {
         switch actionType {
         case .register:
-            imageView.image = UIImage(named: type.rawValue)
-            statusLabel.text = "#\(type.itemName) 등록하는 중"
-            nameTextField.text = type.itemName
+            imageView.image = UIImage(named: selectedItem.rawValue)
+            statusLabel.text = "#\(selectedItem.itemName) 등록하는 중"
+            nameTextField.text = selectedItem.itemName
         case.modify:
             guard let viewModel = viewModel else { return }
-            imageView.image = UIImage(named: type.rawValue)
+            imageView.image = UIImage(named: selectedItem.rawValue)
             statusLabel.text = "#\(viewModel.itemName) 수정하는 중"
             nameTextField.text = viewModel.itemName
             expireTextField.text = "\(viewModel.item.expireDay)"
@@ -343,5 +417,43 @@ extension DetailRegisterController: UITextFieldDelegate {
         guard let text = textField.text else { return }
         let data = Int(text) ?? 0
         updateExpireDate(offsetDay: data)
+    }
+}
+
+extension DetailRegisterController: UICollectionViewDataSource, UICollectionViewDelegate {
+    func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
+        return UserColorPreset.allCases.count
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
+        guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: reuseIdentifier, for: indexPath) as? ColorCell else { return UICollectionViewCell() }
+        cell.color = UserColorPreset.allCases[indexPath.row]
+        return cell
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        // 현재 선택된 컬러 변경
+        guard let cell = collectionView.cellForItem(at: indexPath) as? ColorCell else { return }
+        guard let color = cell.color else { return }
+        self.selectedColor = color
+        print("DEBUG - Selected Color: \(selectedColor ?? .smokyRose)")
+        
+        // 셀 위치 변경
+        let cellWidth = collectionView.cellForItem(at: indexPath)?.frame.size.width ?? 0
+        let inset = (collectionView.frame.width - cellWidth) / 2
+        let contentInset = collectionView.contentInset.left
+        var offset = CGFloat(indexPath.row) * (cellWidth + 10) - (inset + contentInset)
+        
+        // collectionView 범위를 벗어나지 않도록 보정
+        let maxOffset = collectionView.contentSize.width - collectionView.frame.width + collectionView.contentInset.right
+        offset = max(0, min(offset, maxOffset))
+        collectionView.setContentOffset(CGPoint(x: offset, y: 0), animated: true)
+    }
+}
+
+extension DetailRegisterController: UICollectionViewDelegateFlowLayout {
+    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
+        
+        return CGSize(width: 35, height: 35)
     }
 }

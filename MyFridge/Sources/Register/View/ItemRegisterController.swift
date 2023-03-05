@@ -49,8 +49,11 @@ class ItemRegisterController: UIViewController {
     //MARK: - Helper
     private func setupNavi() {
         navigationItem.title = "등록하기"
-        let backBtn = UIBarButtonItem(title: "뒤로", style: .done, target: self, action: #selector(handleDismissTapped))
-        navigationItem.leftBarButtonItem = backBtn
+        let backButton = UIButton(type: .system)
+        backButton.setImage(UIImage(named: "backArrow"), for: .normal)
+        backButton.addTarget(self, action: #selector(handleDismissTapped), for: .touchUpInside)
+        let leftBackButton = UIBarButtonItem(customView: backButton)
+        navigationItem.leftBarButtonItem = leftBackButton
     }
     
     private func setupUI() {

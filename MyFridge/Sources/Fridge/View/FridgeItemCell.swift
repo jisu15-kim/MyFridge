@@ -65,7 +65,6 @@ class FridgeItemCell: UICollectionViewCell {
     //MARK: - Lifecycle
     override func layoutSubviews() {
         super.layoutSubviews()
-        backgroundColor = #colorLiteral(red: 0.2536777854, green: 0.7792022824, blue: 0.5558792949, alpha: 1)
         layer.cornerRadius = 25
         clipsToBounds = true
     }
@@ -130,5 +129,6 @@ class FridgeItemCell: UICollectionViewCell {
         expireDateLabel.text = viewModel.expireDDay
         categoryLabel.text = viewModel.category
         memoLabel.text = viewModel.memoShortText
+        backgroundColor = viewModel.item.color.color
     }
 }

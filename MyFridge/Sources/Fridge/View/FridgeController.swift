@@ -37,9 +37,9 @@ class FridgeController: UIViewController {
     private lazy var addButton: UIButton = {
         let button = UIButton(type: .system)
         button.setTitle("추가하기", for: .normal)
-        button.backgroundColor = .systemIndigo
+        button.backgroundColor = .appMainGray
         button.addTarget(self, action: #selector(handleAddButtonTapped), for: .touchUpInside)
-        button.setTitleColor(.systemBackground, for: .normal)
+        button.setTitleColor(.white, for: .normal)
         return button
     }()
     
@@ -90,7 +90,6 @@ class FridgeController: UIViewController {
     
     //MARK: - Helper
     func setupUI() {
-        view.backgroundColor = .systemBackground
         
         view.addSubview(collectionView)
         collectionView.snp.makeConstraints {
@@ -107,6 +106,7 @@ class FridgeController: UIViewController {
         }
         
         viewModel.fetchItems()
+        view.backgroundColor = .appBackground
     }
     
     func setupNav() {
@@ -115,6 +115,7 @@ class FridgeController: UIViewController {
     }
     
     func setupCollectionView() {
+        collectionView.backgroundColor = .systemBackground
         collectionView.register(FridgeItemCell.self, forCellWithReuseIdentifier: itemCellIdentifier)
         collectionView.dataSource = self
         collectionView.delegate = self

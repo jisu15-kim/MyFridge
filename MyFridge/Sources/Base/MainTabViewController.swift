@@ -47,7 +47,7 @@ class MainTabViewController: UITabBarController {
     }
     
     func templateNavigationController(_ image: String, viewController:UIViewController) -> UINavigationController {
-        let nav = UINavigationController(rootViewController: viewController)
+        let nav = MainNaviViewController(rootViewController: viewController)
         nav.tabBarItem.image = UIImage(systemName: image)
         
         let appearance = UINavigationBarAppearance()
@@ -66,6 +66,7 @@ class MainTabViewController: UITabBarController {
             appearance.backgroundColor = .systemBackground
             tabBar.standardAppearance = appearance
             tabBar.scrollEdgeAppearance = appearance
+            tabBar.tintColor = .label
         }
     }
 }
