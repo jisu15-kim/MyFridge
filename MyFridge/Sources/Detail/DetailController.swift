@@ -82,8 +82,21 @@ class DetailController: UIViewController {
         return label
     }()
     
-    lazy var aiActionView1 = AIActionView(image: #imageLiteral(resourceName: "fish"), title: "\(viewModel.item.itemType.itemName) 보관방법 알려줘")
-    lazy var aiActionView2 = AIActionView(image: #imageLiteral(resourceName: "fish"), title: "\(viewModel.item.itemType.itemName) 추천 레시피 알려줘")
+    lazy var aiActionView1: AIActionView = {
+        let view = AIActionView(image: #imageLiteral(resourceName: "fish"), title: "\(viewModel.item.itemType.itemName) 보관방법 알려줘")
+        let tap = UITapGestureRecognizer(target: self, action: #selector(handleAIViewTapped1))
+        view.isUserInteractionEnabled = true
+        view.addGestureRecognizer(tap)
+        return view
+    }()
+    
+    lazy var aiActionView2: AIActionView = {
+        let view = AIActionView(image: #imageLiteral(resourceName: "fish"), title: "\(viewModel.item.itemType.itemName) 추천 레시피 알려줘")
+        let tap = UITapGestureRecognizer(target: self, action: #selector(handleAIViewTapped2))
+        view.isUserInteractionEnabled = true
+        view.addGestureRecognizer(tap)
+        return view
+    }()
     
     //MARK: - Lifecycle
     init(viewModel: FridgeItemViewModel) {
@@ -134,6 +147,24 @@ class DetailController: UIViewController {
     
     @objc func handleBackTapped() {
         navigationController?.popViewController(animated: true)
+    }
+    
+    // 보관 방법
+    @objc func handleAIViewTapped1() {
+        let keepType = viewModel.item.keepType
+        let selected = viewModel.item.itemType
+        let viewModel = AIChatViewModel(storageType: keepType, selectedItem: selected, askType: .keep)
+        let vc = AIChatViewController(viewModel: viewModel)
+        present(vc, animated: true)
+    }
+    
+    // 레시피
+    @objc func handleAIViewTapped2() {
+        let keepType = viewModel.item.keepType
+        let selected = viewModel.item.itemType
+        let viewModel = AIChatViewModel(storageType: keepType, selectedItem: selected, askType: .recipe)
+        let vc = AIChatViewController(viewModel: viewModel)
+        present(vc, animated: true)
     }
     
     //MARK: - Helper

@@ -9,12 +9,24 @@ import Foundation
 import Alamofire
 
 class AIManager {
+    let maxToken = 300
+    let davinci = "text-davinci-003"
+    let chatAI = "gpt-3.5-turbo"
+    
     func askRecommandStoreWay(keyword: String, completion: @escaping (String) -> Void) {
         let baseUrl = Secret.baseUrl
-        let body = OpenAICompletionsBody(model: "text-davinci-003", prompt: keyword, temperature: 0.7, max_tokens: 300)
+        let body = OpenAICompletionsBody(model: davinci, prompt: keyword, temperature: 0.7, max_tokens: maxToken)
         let headers: HTTPHeaders = ["Authorization": "Bearer \(Secret.token)"]
         
-        AF.request(baseUrl + "completions", method: .post, parameters: body, encoder: .json, headers: headers)
+        AF.request(baseUrl + "chat/completions", method: .post, parameters: body, encoder: .json, headers: headers)
+            .responseData(completionHandler: { data in
+                switch data.result {
+                case .success(let data):
+                    print(data)
+                case .failure(let error):
+                    print(error)
+                }
+            })
             .responseDecodable(of: OpenAICompletionsResponse.self) { response in
                 switch response.result {
                 case .success(let result):
@@ -25,6 +37,38 @@ class AIManager {
                 }
             }
     }
+    
+    func askChatAIApi(keyword: String, completion: @escaping (String) -> Void) {
+        let baseUrl = Secret.baseUrl + "chat/completions"
+        let message = Message(role: "user", content: keyword)
+        
+        let body = ChatAIPostBody(model: "gpt-3.5-turbo", messages: [message], max_tokens: maxToken)
+        let headers: HTTPHeaders = ["Authorization": "Bearer \(Secret.token)", "content-Type": "application/json"]
+        AF.request(baseUrl, method: .post, parameters: body, encoder: .json, headers: headers)
+            .responseDecodable(of: OpenAIChatResponse.self) { response in
+                switch response.result {
+                case .success(let result):
+                    let message = result.choices.first?.message.content ?? "error"
+                    print("DEBUG - 사용된 토큰: \(result.usage.totalTokens)")
+                    completion(message)
+                case .failure(let error):
+                    print(error)
+                    return
+                }
+            }
+    }
+}
+
+
+struct ChatAIPostBody: Codable {
+    let model: String
+    let messages: [Message]
+    let max_tokens: Int
+}
+
+struct ChatAIPostBodyMessage: Codable {
+    let role: String
+    let content: String
 }
 
 struct OpenAICompletionsBody: Encodable {

@@ -291,7 +291,7 @@ class DetailRegisterController: UIViewController {
     
     private func showAIBottomSheet() {
         let panel = FloatingPanelController()
-        let vm = AIChatViewModel(storageType: keepType, selectedItem: selectedItem)
+        let vm = AIChatViewModel(storageType: keepType, selectedItem: selectedItem, askType: .keep)
         let vc = AIChatViewController(viewModel: vm)
         panel.set(contentViewController: vc)
         panel.addPanel(toParent: self, animated: true)

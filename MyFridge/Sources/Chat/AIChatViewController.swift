@@ -45,6 +45,7 @@ class AIChatViewController: UIViewController {
     
     //MARK: - Helper
     func setupUI() {
+        view.backgroundColor = .systemBackground
         
         view.addSubview(questionLabel)
         questionLabel.snp.makeConstraints {

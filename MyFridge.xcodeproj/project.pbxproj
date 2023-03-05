@@ -26,6 +26,8 @@
 		CD0B50F929B3633F00DF49D7 /* DetailController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CD0B50F829B3633F00DF49D7 /* DetailController.swift */; };
 		CD0B50FB29B36DA500DF49D7 /* DateViewContainer.swift in Sources */ = {isa = PBXBuildFile; fileRef = CD0B50FA29B36DA500DF49D7 /* DateViewContainer.swift */; };
 		CD0B50FD29B38A1E00DF49D7 /* AIActionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CD0B50FC29B38A1E00DF49D7 /* AIActionView.swift */; };
+		CD0B510329B4A8C400DF49D7 /* OpenAIKit in Frameworks */ = {isa = PBXBuildFile; productRef = CD0B510229B4A8C400DF49D7 /* OpenAIKit */; };
+		CD0B510529B4ADD700DF49D7 /* OpenAIChatResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = CD0B510429B4ADD700DF49D7 /* OpenAIChatResponse.swift */; };
 		CD1445AB29AF82AB00EFBE65 /* SkyFloatingLabelTextField in Frameworks */ = {isa = PBXBuildFile; productRef = CD1445AA29AF82AB00EFBE65 /* SkyFloatingLabelTextField */; };
 		CD1445AE29AFA3E500EFBE65 /* BetterSegmentedControl in Frameworks */ = {isa = PBXBuildFile; productRef = CD1445AD29AFA3E500EFBE65 /* BetterSegmentedControl */; };
 		CD1445B329AFAE5F00EFBE65 /* AIManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = CD1445B229AFAE5F00EFBE65 /* AIManager.swift */; };
@@ -67,6 +69,7 @@
 		CD0B50F829B3633F00DF49D7 /* DetailController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailController.swift; sourceTree = "<group>"; };
 		CD0B50FA29B36DA500DF49D7 /* DateViewContainer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DateViewContainer.swift; sourceTree = "<group>"; };
 		CD0B50FC29B38A1E00DF49D7 /* AIActionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AIActionView.swift; sourceTree = "<group>"; };
+		CD0B510429B4ADD700DF49D7 /* OpenAIChatResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OpenAIChatResponse.swift; sourceTree = "<group>"; };
 		CD1445B229AFAE5F00EFBE65 /* AIManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AIManager.swift; sourceTree = "<group>"; };
 		CD1445B529AFAE7000EFBE65 /* Secret.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Secret.swift; sourceTree = "<group>"; };
 		CD1445BE29AFC12A00EFBE65 /* Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Extension.swift; sourceTree = "<group>"; };
@@ -98,6 +101,7 @@
 				CDB1EB5C29ADFC5F004D474A /* Kingfisher in Frameworks */,
 				CD1445AE29AFA3E500EFBE65 /* BetterSegmentedControl in Frameworks */,
 				CD1445B929AFB92A00EFBE65 /* Alamofire in Frameworks */,
+				CD0B510329B4A8C400DF49D7 /* OpenAIKit in Frameworks */,
 				CD0B50F029B3381300DF49D7 /* FirebaseFirestoreCombine-Community in Frameworks */,
 				CD1445BC29AFBE5600EFBE65 /* FloatingPanel in Frameworks */,
 				CD0B50F429B3381300DF49D7 /* FirebaseStorage in Frameworks */,
@@ -118,6 +122,7 @@
 			children = (
 				CD0B50CE29B0815600DF49D7 /* AIChatViewController.swift */,
 				CD0B50D029B081BD00DF49D7 /* AIChatViewModel.swift */,
+				CD0B510429B4ADD700DF49D7 /* OpenAIChatResponse.swift */,
 			);
 			path = Chat;
 			sourceTree = "<group>";
@@ -310,6 +315,7 @@
 				CD0B50EF29B3381300DF49D7 /* FirebaseFirestoreCombine-Community */,
 				CD0B50F129B3381300DF49D7 /* FirebaseFirestoreSwift */,
 				CD0B50F329B3381300DF49D7 /* FirebaseStorage */,
+				CD0B510229B4A8C400DF49D7 /* OpenAIKit */,
 			);
 			productName = MyFridge;
 			productReference = CDB1EB3529ADF4ED004D474A /* MyFridge.app */;
@@ -347,6 +353,7 @@
 				CD1445B729AFB92A00EFBE65 /* XCRemoteSwiftPackageReference "Alamofire" */,
 				CD1445BA29AFBE5600EFBE65 /* XCRemoteSwiftPackageReference "FloatingPanel" */,
 				CD0B50E829B3381300DF49D7 /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */,
+				CD0B510129B4A8C400DF49D7 /* XCRemoteSwiftPackageReference "openai-kit" */,
 			);
 			productRefGroup = CDB1EB3629ADF4ED004D474A /* Products */;
 			projectDirPath = "";
@@ -387,6 +394,7 @@
 				CDB1EB5E29ADFCE2004D474A /* FridgeItemCell.swift in Sources */,
 				CDB1EB3929ADF4ED004D474A /* AppDelegate.swift in Sources */,
 				CD0B50E729B333D100DF49D7 /* Network.swift in Sources */,
+				CD0B510529B4ADD700DF49D7 /* OpenAIChatResponse.swift in Sources */,
 				CD0B50DF29B32CC900DF49D7 /* RegistrationController.swift in Sources */,
 				CDB1EB5029ADF68C004D474A /* FridgeController.swift in Sources */,
 				CDB1EB6929AE50CE004D474A /* MainNaviViewController.swift in Sources */,
@@ -623,6 +631,14 @@
 				minimumVersion = 9.0.0;
 			};
 		};
+		CD0B510129B4A8C400DF49D7 /* XCRemoteSwiftPackageReference "openai-kit" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/dylanshine/openai-kit.git";
+			requirement = {
+				kind = upToNextMinorVersion;
+				minimumVersion = 1.2.0;
+			};
+		};
 		CD1445A929AF82AA00EFBE65 /* XCRemoteSwiftPackageReference "SkyFloatingLabelTextField" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/Skyscanner/SkyFloatingLabelTextField.git";
@@ -703,6 +719,11 @@
 			isa = XCSwiftPackageProductDependency;
 			package = CD0B50E829B3381300DF49D7 /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */;
 			productName = FirebaseStorage;
+		};
+		CD0B510229B4A8C400DF49D7 /* OpenAIKit */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = CD0B510129B4A8C400DF49D7 /* XCRemoteSwiftPackageReference "openai-kit" */;
+			productName = OpenAIKit;
 		};
 		CD1445AA29AF82AB00EFBE65 /* SkyFloatingLabelTextField */ = {
 			isa = XCSwiftPackageProductDependency;
