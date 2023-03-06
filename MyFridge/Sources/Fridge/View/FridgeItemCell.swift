@@ -6,6 +6,7 @@
 //
 
 import UIKit
+import SnapKit
 
 class FridgeItemCell: UICollectionViewCell {
     
@@ -29,11 +30,19 @@ class FridgeItemCell: UICollectionViewCell {
     
     private let imageView: UIImageView = {
         let iv = UIImageView()
-        iv.backgroundColor = .systemBackground
         iv.contentMode = .scaleAspectFit
-        iv.layer.borderColor = UIColor.white.cgColor
-        iv.layer.borderWidth = 3
         return iv
+    }()
+    
+    lazy var iconContainerView: UIView = {
+        let view = UIView()
+        view.addSubview(imageView)
+        imageView.snp.makeConstraints {
+            $0.edges.equalToSuperview().inset(8)
+        }
+        view.layer.borderColor = UIColor.white.cgColor
+        view.layer.borderWidth = 3
+        return view
     }()
     
     private let expireLabel: UILabel = {
@@ -92,25 +101,25 @@ class FridgeItemCell: UICollectionViewCell {
             $0.top.equalTo(categoryLabel.snp.bottom).inset(-10)
         }
         
-        addSubview(imageView)
-        imageView.snp.makeConstraints {
-            $0.top.trailing.equalToSuperview().inset(5)
-            $0.size.equalTo(50)
-            imageView.layer.cornerRadius = 25
-            imageView.clipsToBounds = true
+        addSubview(iconContainerView)
+        iconContainerView.snp.makeConstraints {
+            $0.top.trailing.equalToSuperview().inset(10)
+            $0.size.equalTo(60)
+            iconContainerView.layer.cornerRadius = 30
+            iconContainerView.clipsToBounds = true
         }
         
         addSubview(expireLabel)
         expireLabel.snp.makeConstraints {
-            $0.leading.equalTo(imageView.snp.leading)
-            $0.trailing.equalTo(imageView.snp.trailing)
-            $0.top.equalTo(imageView.snp.bottom).inset(-14)
+            $0.leading.equalTo(iconContainerView.snp.leading)
+            $0.trailing.equalTo(iconContainerView.snp.trailing)
+            $0.top.equalTo(iconContainerView.snp.bottom).inset(-8)
         }
         
         addSubview(expireDateLabel)
         expireDateLabel.snp.makeConstraints {
-            $0.leading.equalTo(imageView.snp.leading)
-            $0.trailing.equalTo(imageView.snp.trailing)
+            $0.leading.equalTo(iconContainerView.snp.leading)
+            $0.trailing.equalTo(iconContainerView.snp.trailing)
             $0.top.equalTo(expireLabel.snp.bottom)
         }
         
@@ -129,6 +138,7 @@ class FridgeItemCell: UICollectionViewCell {
         expireDateLabel.text = viewModel.expireDDay
         categoryLabel.text = viewModel.category
         memoLabel.text = viewModel.memoShortText
-        backgroundColor = viewModel.item.color.color
+        backgroundColor = .appMainGray
+        iconContainerView.backgroundColor = viewModel.item.color.color
     }
 }

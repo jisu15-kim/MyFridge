@@ -6,6 +6,7 @@
 //
 
 import UIKit
+import Combine
 import SnapKit
 import SkyFloatingLabelTextField
 import BetterSegmentedControl
@@ -37,12 +38,22 @@ class DetailRegisterController: UIViewController {
         }
     }
     
-    private var selectedColor: UserColorPreset?
+    private var subscription = Set<AnyCancellable>()
+    private var selectedColor: CurrentValueSubject<UserColorPreset?, Never>
     
     private let imageView: UIImageView = {
         let iv = UIImageView()
         iv.contentMode = .scaleAspectFit
         return iv
+    }()
+    
+    lazy var iconContainerView: UIView = {
+        let view = UIView()
+        view.addSubview(imageView)
+        imageView.snp.makeConstraints {
+            $0.edges.equalToSuperview().inset(10)
+        }
+        return view
     }()
     
     private let colorCollectionView: UICollectionView = {
@@ -85,16 +96,18 @@ class DetailRegisterController: UIViewController {
         let container = UIView()
         container.heightAnchor.constraint(equalToConstant: 70).isActive = true
         
-        container.addSubview(imageView)
-        imageView.snp.makeConstraints {
-            $0.size.equalTo(50)
+        container.addSubview(iconContainerView)
+        iconContainerView.snp.makeConstraints {
+            $0.size.equalTo(70)
             $0.leading.equalToSuperview()
             $0.centerY.equalToSuperview()
+            iconContainerView.layer.cornerRadius = 35
+            iconContainerView.clipsToBounds = true
         }
         
         container.addSubview(statusLabel)
         statusLabel.snp.makeConstraints {
-            $0.leading.equalTo(imageView.snp.trailing).inset(-10)
+            $0.leading.equalTo(iconContainerView.snp.trailing).inset(-10)
             $0.centerY.equalToSuperview()
         }
         
@@ -132,16 +145,12 @@ class DetailRegisterController: UIViewController {
         self.selectedItem = type
         self.actionType = actionType
         self.viewModel = itemViewModel
+        self.selectedColor = CurrentValueSubject(nil)
         super.init(nibName: nil, bundle: nil)
     }
     
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
-    }
-    
-    override func viewWillAppear(_ animated: Bool) {
-        super.viewWillAppear(animated)
-        //        navigationController?.navigationBar.isHidden = true
     }
     
     override func viewDidLoad() {
@@ -150,7 +159,22 @@ class DetailRegisterController: UIViewController {
         self.configureUI()
         self.configureType()
         self.setupCollectionView()
+        self.bind()
         self.configureSelectedColor()
+    }
+    
+    //MARK: - Bind
+    func bind() {
+        selectedColor
+            .receive(on: RunLoop.main)
+            .sink { [weak self] color in
+                guard let color = color else { return }
+                guard let self = self else { return }
+                self.iconContainerView.backgroundColor = color.color
+                let indexPath = self.getColorToIndex(color: color)
+                self.colorCollectionView.layoutIfNeeded()
+                self.colorCollectionView.selectItem(at: indexPath, animated: true, scrollPosition: .centeredHorizontally)
+            }.store(in: &subscription)
     }
     
     //MARK: - Selector
@@ -172,7 +196,7 @@ class DetailRegisterController: UIViewController {
         guard let expireDayString = expireTextField.text else { return }
         guard let expireDay = Int(expireDayString) else { return }
         guard let memo = memoTextField.text else { return }
-        guard let selectedColor = selectedColor else { return }
+        guard let selectedColor = selectedColor.value else { return }
         print("DEBUT - SelectedColor: \(selectedColor)")
         let itemConfig = FridgeItemConfig(itemName: name, expireDay: expireDay, memo: memo, color: selectedColor, keepType: keepType, itemType: selectedItem)
         let item = FridgeItemModel(config: itemConfig)
@@ -234,24 +258,24 @@ class DetailRegisterController: UIViewController {
             // 시작할때 랜덤으로 하나 선택
             let randomValue = Int.random(in: 0..<UserColorPreset.allCases.count)
             let indexPath = IndexPath(item: randomValue, section: 0)
-            colorCollectionView.layoutIfNeeded()
-            colorCollectionView.selectItem(at: indexPath, animated: false, scrollPosition: .centeredHorizontally)
-            selectedColor = UserColorPreset.allCases[randomValue]
+            selectedColor.send(UserColorPreset.allCases[randomValue])
         case .modify:
             // viewModel에서 불러오기
             guard let vm = viewModel else { return }
             let color = vm.item.color
-            selectedColor = color // 값 전달
-            var selectedIndex = 0
-            UserColorPreset.allCases.enumerated().forEach { (index, value) in
-                if color == value {
-                    selectedIndex = index
-                }
-            }
-            let indexPath = IndexPath(row: selectedIndex, section: 0)
-            colorCollectionView.layoutIfNeeded()
-            colorCollectionView.selectItem(at: indexPath, animated: false, scrollPosition: .centeredHorizontally)
+            selectedColor.send(color) // 값 전달
         }
+    }
+    
+    private func getColorToIndex(color: UserColorPreset) -> IndexPath {
+        var selectedIndex = 0
+        UserColorPreset.allCases.enumerated().forEach { (index, value) in
+            if color == value {
+                selectedIndex = index
+            }
+        }
+        let indexPath = IndexPath(row: selectedIndex, section: 0)
+        return indexPath
     }
     
     private func setupUI() {
@@ -432,22 +456,9 @@ extension DetailRegisterController: UICollectionViewDataSource, UICollectionView
     }
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        // 현재 선택된 컬러 변경
         guard let cell = collectionView.cellForItem(at: indexPath) as? ColorCell else { return }
         guard let color = cell.color else { return }
-        self.selectedColor = color
-        print("DEBUG - Selected Color: \(selectedColor ?? .smokyRose)")
-        
-        // 셀 위치 변경
-        let cellWidth = collectionView.cellForItem(at: indexPath)?.frame.size.width ?? 0
-        let inset = (collectionView.frame.width - cellWidth) / 2
-        let contentInset = collectionView.contentInset.left
-        var offset = CGFloat(indexPath.row) * (cellWidth + 10) - (inset + contentInset)
-        
-        // collectionView 범위를 벗어나지 않도록 보정
-        let maxOffset = collectionView.contentSize.width - collectionView.frame.width + collectionView.contentInset.right
-        offset = max(0, min(offset, maxOffset))
-        collectionView.setContentOffset(CGPoint(x: offset, y: 0), animated: true)
+        selectedColor.send(color)
     }
 }
 

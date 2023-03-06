@@ -25,6 +25,15 @@ class DetailController: UIViewController {
         return iv
     }()
     
+    lazy var iconContainerView: UIView = {
+        let view = UIView()
+        view.addSubview(imageView)
+        imageView.snp.makeConstraints {
+            $0.edges.equalToSuperview().inset(10)
+        }
+        return view
+    }()
+    
     let itemTitleLabel: UILabel = {
         let label = UILabel()
         label.font = .boldSystemFont(ofSize: 30)
@@ -116,6 +125,12 @@ class DetailController: UIViewController {
         configure()
     }
     
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+//        navigationController?.navigationBar.prefersLargeTitles = false
+        self.navigationItem.largeTitleDisplayMode = .never
+    }
+    
     //MARK: - Selector
     @objc func handleMenuTapped() {
         let actionSheet = UIAlertController()
@@ -169,7 +184,6 @@ class DetailController: UIViewController {
     
     //MARK: - Helper
     private func setupNavi() {
-        navigationController?.navigationBar.prefersLargeTitles = false
         navigationItem.title = "상세보기"
         
         let backButton = UIButton(type: .system)
@@ -189,20 +203,13 @@ class DetailController: UIViewController {
     private func setupUI() {
         view.backgroundColor = .systemBackground
         
-        let imageContainer = UIView()
-        
-        imageContainer.addSubview(imageView)
-        imageView.snp.makeConstraints {
-            $0.edges.equalToSuperview().inset(2)
-        }
-        
-        view.addSubview(imageContainer)
-        imageContainer.snp.makeConstraints {
+        view.addSubview(iconContainerView)
+        iconContainerView.snp.makeConstraints {
             $0.leading.top.equalTo(view.safeAreaLayoutGuide).inset(20)
             $0.width.height.equalTo(90)
-            imageContainer.backgroundColor = .lightGray
-            imageContainer.layer.cornerRadius = 45
-            imageContainer.clipsToBounds = true
+            iconContainerView.backgroundColor = .lightGray
+            iconContainerView.layer.cornerRadius = 45
+            iconContainerView.clipsToBounds = true
         }
         
         let capsuleStack = UIStackView(arrangedSubviews: [categoryLabel, keepTypeLabel])
@@ -213,8 +220,8 @@ class DetailController: UIViewController {
         
         view.addSubview(stack)
         stack.snp.makeConstraints {
-            $0.leading.equalTo(imageContainer.snp.trailing).inset(-16)
-            $0.centerY.equalTo(imageContainer)
+            $0.leading.equalTo(iconContainerView.snp.trailing).inset(-16)
+            $0.centerY.equalTo(iconContainerView)
         }
         
         let lineView = UIView()
@@ -222,7 +229,7 @@ class DetailController: UIViewController {
         lineView.snp.makeConstraints {
             $0.leading.trailing.equalToSuperview().inset(16)
             $0.height.equalTo(1)
-            $0.top.equalTo(imageContainer.snp.bottom).inset(-20)
+            $0.top.equalTo(iconContainerView.snp.bottom).inset(-20)
             lineView.backgroundColor = .systemGray5
         }
         
@@ -283,6 +290,7 @@ class DetailController: UIViewController {
         itemTitleLabel.text = viewModel.itemName
         expireInfoLabel.attributedText = viewModel.expireInfoText
         memoLabel.attributedText = viewModel.memoText
+        iconContainerView.backgroundColor = viewModel.item.color.color
     }
     
 }

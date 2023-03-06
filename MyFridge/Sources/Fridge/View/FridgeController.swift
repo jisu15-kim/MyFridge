@@ -64,6 +64,7 @@ class FridgeController: UIViewController {
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         navigationController?.navigationBar.prefersLargeTitles = true
+        self.navigationItem.largeTitleDisplayMode = .always
         viewModel.fetchItems()
     }
     
@@ -111,7 +112,7 @@ class FridgeController: UIViewController {
     
     func setupNav() {
         navigationItem.title = "우리집 냉장고"
-        navigationController?.navigationBar.prefersLargeTitles = true
+        navigationController?.interactivePopGestureRecognizer?.delegate = nil
     }
     
     func setupCollectionView() {

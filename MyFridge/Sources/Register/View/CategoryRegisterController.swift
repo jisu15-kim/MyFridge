@@ -40,6 +40,8 @@ class CategoryRegisterController: UIViewController {
         navigationItem.title = "등록하기"
         let backBtn = UIBarButtonItem(title: "닫기", style: .done, target: self, action: #selector(handleDismissTapped))
         navigationItem.leftBarButtonItem = backBtn
+        // 스와이프 백 제스쳐
+        navigationController?.interactivePopGestureRecognizer?.delegate = nil
     }
     
     private func setupUI() {
