@@ -19,6 +19,7 @@ class CategoryRegisterController: UIViewController {
         layout.minimumInteritemSpacing = 20
         layout.sectionInset = UIEdgeInsets(top: 5, left: 25, bottom: 5, right: 25)
         let cv = UICollectionView(frame: .zero, collectionViewLayout: layout)
+        cv.backgroundColor = .mainGrayBackground
         return cv
     }()
     
@@ -45,8 +46,6 @@ class CategoryRegisterController: UIViewController {
     }
     
     private func setupUI() {
-        view.backgroundColor = .systemBackground
-        
         view.addSubview(collectionView)
         collectionView.snp.makeConstraints {
             $0.edges.equalToSuperview()

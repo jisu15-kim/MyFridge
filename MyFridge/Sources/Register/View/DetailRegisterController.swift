@@ -18,9 +18,8 @@ protocol RegistrationControllerDelegate: AnyObject {
 
 private let reuseIdentifier = "ColorCell"
 
-// actionType에 따라서 Register / Modify 액션이 달라짐
 class DetailRegisterController: UIViewController {
-    
+    // actionType에 따라서 Register / Modify에 따라 본 뷰컨트롤러의 액션이 달라짐
     enum ActionType {
         case register
         case modify
@@ -60,16 +59,19 @@ class DetailRegisterController: UIViewController {
         let layout = UICollectionViewFlowLayout()
         layout.minimumInteritemSpacing = 10
         layout.scrollDirection = .horizontal
+        layout.sectionInset = UIEdgeInsets(top: 0, left: 20, bottom: 0, right: 20)
         let cv = UICollectionView(frame: .zero, collectionViewLayout: layout)
         cv.heightAnchor.constraint(equalToConstant: 35).isActive = true
+        cv.backgroundColor = .clear
+        cv.layer.masksToBounds = false
         return cv
     }()
     
     private lazy var keepTypeSeg: BetterSegmentedControl = {
-        let fridge = LabelSegment.segments(withTitles: ["냉장실", "냉동실"], normalTextColor: .systemGray, selectedTextColor: .black)
+        let fridge = LabelSegment.segments(withTitles: ["냉장실", "냉동실"], normalTextColor: .systemGray, selectedTextColor: .white)
         let seg = BetterSegmentedControl(frame: .zero,
                                          segments: fridge,
-                                         options: [.cornerRadius(15.0), .backgroundColor(UIColor.systemGray6), .indicatorViewBackgroundColor(.white)])
+                                         options: [.cornerRadius(15.0), .backgroundColor(UIColor.systemGray6), .indicatorViewBackgroundColor(.mainAccent)])
         seg.addTarget(self, action: #selector(keepTypeChanged(_:)), for: .valueChanged)
         return seg
     }()
@@ -77,7 +79,7 @@ class DetailRegisterController: UIViewController {
     private lazy var aiActionButton: UIButton = {
         let button = UIButton(type: .system)
         button.setTitleColor(.white, for: .normal)
-        button.backgroundColor = .systemIndigo
+        button.backgroundColor = .mainAccent
         button.heightAnchor.constraint(equalToConstant: 40).isActive = true
         button.addTarget(self, action: #selector(handleAiAction), for: .touchUpInside)
         button.layer.cornerRadius = 20
@@ -88,6 +90,8 @@ class DetailRegisterController: UIViewController {
     private let statusLabel: UILabel = {
         let label = UILabel()
         label.font = .systemFont(ofSize: 26, weight: .black)
+        label.adjustsFontSizeToFitWidth = true
+        label.minimumScaleFactor = 0.5
         label.textAlignment = .left
         return label
     }()
@@ -108,6 +112,7 @@ class DetailRegisterController: UIViewController {
         container.addSubview(statusLabel)
         statusLabel.snp.makeConstraints {
             $0.leading.equalTo(iconContainerView.snp.trailing).inset(-10)
+            $0.trailing.equalToSuperview().inset(20)
             $0.centerY.equalToSuperview()
         }
         
@@ -116,15 +121,29 @@ class DetailRegisterController: UIViewController {
     
     private lazy var nameTitle = makeTitleLabel(withTitle: "재료 정보 입력하기")
     private lazy var keepRecomTitle = makeTitleLabel(withTitle: "추천 보관 방법")
-    private lazy var nameTextField = makeTextField(placeholder: "품명", imageName: "pencil")
-    private lazy var expireTextField: SkyFloatingLabelTextFieldWithIcon = {
+    
+    private lazy var nameTextField: CustomTextField = {
+        let tf = makeTextField(placeholder: "품명", imageName: "pencil")
+        return tf
+    }()
+    
+    private lazy var expireTextField: CustomTextField = {
         let tf = makeTextField(placeholder: "유통기한", imageName: "calendar")
-        tf.keyboardType = .numberPad
-        tf.delegate = self
+        let suffix = UILabel()
+        suffix.text = "일"
+        suffix.font = .systemFont(ofSize: 13)
+        tf.textField.rightView = suffix
+        tf.textField.rightViewMode = .always
+        tf.textField.keyboardType = .numberPad
+        tf.textField.delegate = self
         return tf
     }()
     lazy var expireDateLabel = makeInfoLabel(text: "🗓️ 유통기한: - 까지")
-    private lazy var memoTextField = makeTextField(placeholder: "수량, 원산지 등..", title: "메모", imageName: "doc.text")
+    private lazy var memoTextField: CustomTextField = {
+        let tf = makeTextField(placeholder: "수량, 원산지 등..", title: "메모", imageName: "doc.text")
+        tf.textField.delegate = self
+        return tf
+    }()
     
     private var scrollView: UIScrollView = {
         let sv = UIScrollView()
@@ -156,6 +175,7 @@ class DetailRegisterController: UIViewController {
     override func viewDidLoad() {
         self.setupUI()
         self.setupNavi()
+        self.setupTextField()
         self.configureUI()
         self.configureType()
         self.setupCollectionView()
@@ -223,7 +243,48 @@ class DetailRegisterController: UIViewController {
         navigationController?.popViewController(animated: true)
     }
     
+//    @objc func keyboardWillShow(notification: NSNotification) {
+//        guard let userInfo = notification.userInfo,
+//              let keyboardFrame = userInfo[UIResponder.keyboardFrameEndUserInfoKey] as? NSValue,
+//              let currentTextField = UIResponder.currentFirst() as? UITextField else { return }
+//
+//        let keyboardTopY = keyboardFrame.cgRectValue.origin.y
+//        let convertedTextFieldFrame = view.convert(currentTextField.frame, from: currentTextField.superview)
+//        let textFieldBottomY = convertedTextFieldFrame.origin.y + convertedTextFieldFrame.size.height
+//
+//        print("DEBUG - textFieldBottomY: \(textFieldBottomY), keyboardTopY: \(keyboardTopY)")
+//
+//        // 안올라갔다면
+//        if view.window?.frame.origin.y == view.frame.origin.y {
+//            if textFieldBottomY > keyboardTopY - 100 {
+//                let textBoxY = convertedTextFieldFrame.origin.y
+//    //            let newFrameY = (textBoxY - keyboardTopY / 2) * -1
+//                view.frame.origin.y -= keyboardFrame.cgRectValue.height
+//            }
+//        }
+//    }
+//
+//    @objc func keyboardWillHide(notification: NSNotification) {
+//        if self.view.frame.origin.y != 0 {
+//            UIView.animate(withDuration: 0.5) {
+//                guard let offset = self.view.window?.frame.origin.y else { return }
+//                self.view.frame.origin.y = offset
+//            }
+//        }
+//    }
+    
     //MARK: - Helper
+    private func setupTextField() {
+        self.hideKeyboardWhenTappedAround()
+        setKeyboardObserver()
+    }
+    // 옵저버 세팅
+    func setKeyboardObserver() {
+//        NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillShow), name: UIResponder.keyboardWillShowNotification, object: nil)
+//
+//        NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillHide), name: UIResponder.keyboardWillHideNotification, object:nil)
+    }
+    
     private func setupNavi() {
         let rightItem = UIBarButtonItem(image: UIImage(systemName: "checkmark"), style: .done, target: self, action: #selector(handleDoneAction))
         
@@ -257,7 +318,6 @@ class DetailRegisterController: UIViewController {
         case .register:
             // 시작할때 랜덤으로 하나 선택
             let randomValue = Int.random(in: 0..<UserColorPreset.allCases.count)
-            let indexPath = IndexPath(item: randomValue, section: 0)
             selectedColor.send(UserColorPreset.allCases[randomValue])
         case .modify:
             // viewModel에서 불러오기
@@ -280,24 +340,32 @@ class DetailRegisterController: UIViewController {
     
     private func setupUI() {
         
-        view.backgroundColor = .systemBackground
+        view.backgroundColor = .mainGrayBackground
         
         view.addSubview(scrollView)
         scrollView.snp.makeConstraints {
-            $0.leading.trailing.equalToSuperview().inset(20)
+            $0.leading.trailing.equalToSuperview()
             $0.bottom.equalToSuperview()
             $0.top.equalTo(view.safeAreaLayoutGuide).inset(15)
         }
+        let nameTitle = makeTitleLabel(withTitle: "품명")
         let nameInfoLabel = makeInfoLabel(text: "💡품명은 자유롭게 수정 가능합니다")
+        let expireTitle = makeTitleLabel(withTitle: "유통기한")
         let expireInfoLabel = makeInfoLabel(text: "💡선택하신 재료의 추천 유통기한이 자동 입력됩니다")
+        let memoTitle = makeTitleLabel(withTitle: "메모")
         let memoInfoLabel = makeInfoLabel(text: "💡재료에 메모를 추가합니다(선택)")
         
-        let nameStack = makeStackView(UIViews: [nameTextField, nameInfoLabel])
-        let expireStack = makeStackView(UIViews: [expireTextField, expireInfoLabel, expireDateLabel])
-        let memoStack = makeStackView(UIViews: [memoTextField, memoInfoLabel])
+        let nameStack = makeStackView(UIViews: [nameTitle, nameTextField, nameInfoLabel])
+        let expireStack = makeStackView(UIViews: [expireTitle, expireTextField, expireInfoLabel, expireDateLabel])
+        let memoStack = makeStackView(UIViews: [memoTitle, memoTextField, memoInfoLabel])
+        
+        let dummyCollectionView = UIView()
+        
+        // 컬렉션뷰 영역 차지
+        dummyCollectionView.heightAnchor.constraint(equalToConstant: 35).isActive = true
         
         let stack = UIStackView(arrangedSubviews: [headerContainerView,
-                                                   colorCollectionView,
+                                                   dummyCollectionView,
                                                    keepTypeSeg,
                                                    nameStack,
                                                    expireStack,
@@ -314,7 +382,15 @@ class DetailRegisterController: UIViewController {
             $0.edges.equalToSuperview()
             $0.width.equalToSuperview()
         }
+        stack.layoutMargins = UIEdgeInsets(top: 0, left: 20, bottom: 0, right: 20)
+        stack.isLayoutMarginsRelativeArrangement = true
         scrollView.layer.masksToBounds = false
+        
+        scrollView.addSubview(colorCollectionView)
+        colorCollectionView.snp.makeConstraints {
+            $0.leading.trailing.equalToSuperview()
+            $0.top.bottom.equalTo(dummyCollectionView)
+        }
     }
     
     private func configureUI() {
@@ -342,23 +418,14 @@ class DetailRegisterController: UIViewController {
         let label = UILabel()
         label.text = title
         label.textAlignment = .left
-        label.font = .boldSystemFont(ofSize: 24)
+        label.font = .boldSystemFont(ofSize: 16)
         return label
     }
     
-    private func makeTextField(placeholder: String, title: String? = nil, imageName: String) -> SkyFloatingLabelTextFieldWithIcon {
-        let tf = SkyFloatingLabelTextFieldWithIcon(frame: .zero, iconType: .image)
-        tf.placeholder = placeholder
-        tf.iconImage = UIImage(systemName: imageName)
-        tf.heightAnchor.constraint(equalToConstant: 50).isActive = true
-        tf.iconMarginLeft = 2
-        tf.iconColor = .gray
-        tf.selectedIconColor = .label
-        tf.selectedTitleColor = .label
-        tf.selectedLineColor = .label
-        if let title = title {
-            tf.title = title
-        }
+    private func makeTextField(placeholder: String, title: String? = nil, imageName: String) -> CustomTextField {
+        let tf = CustomTextField(placeHolderText: placeholder, imageName: imageName)
+        tf.textField.autocorrectionType = .no
+        tf.heightAnchor.constraint(equalToConstant: 30).isActive = true
         return tf
     }
     
@@ -379,10 +446,10 @@ class DetailRegisterController: UIViewController {
         let stack = UIStackView(arrangedSubviews: UIViews)
         stack.spacing = 15
         stack.axis = .vertical
-        stack.backgroundColor = .systemGray6
+        stack.backgroundColor = .mainReverseLabel
         stack.layer.cornerRadius = 15
         stack.clipsToBounds = true
-        stack.layoutMargins = UIEdgeInsets(top: 10, left: 10, bottom: 20, right: 10)
+        stack.layoutMargins = UIEdgeInsets(top: 20, left: 10, bottom: 20, right: 10)
         stack.isLayoutMarginsRelativeArrangement = true
         return stack
     }
@@ -403,7 +470,7 @@ class DetailRegisterController: UIViewController {
         let calendar = Calendar.current
         return calendar.date(byAdding: dateComponents, to: date)
     }
-
+    
     // 유통기한 업데이트 함수
     private func updateExpireDate(offsetDay: Int) {
         guard let futureDate = getDateFromDays(offsetDay) else { return }
@@ -437,6 +504,7 @@ class DetailRegisterController: UIViewController {
 }
 
 extension DetailRegisterController: UITextFieldDelegate {
+    
     func textFieldDidChangeSelection(_ textField: UITextField) {
         guard let text = textField.text else { return }
         let data = Int(text) ?? 0

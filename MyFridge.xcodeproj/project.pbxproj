@@ -55,6 +55,8 @@
 		CDB1EB6D29AE597D004D474A /* CategoryHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CDB1EB6C29AE597D004D474A /* CategoryHeaderView.swift */; };
 		CDB1EB6F29AE5E28004D474A /* ItemRegisterController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CDB1EB6E29AE5E28004D474A /* ItemRegisterController.swift */; };
 		CDB1EB7129AE7242004D474A /* DetailRegisterController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CDB1EB7029AE7242004D474A /* DetailRegisterController.swift */; };
+		CDC4ADAE29B632F40039C4B6 /* IQKeyboardManagerSwift in Frameworks */ = {isa = PBXBuildFile; productRef = CDC4ADAD29B632F40039C4B6 /* IQKeyboardManagerSwift */; };
+		CDC4ADB029B63A510039C4B6 /* CustomTextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = CDC4ADAF29B63A510039C4B6 /* CustomTextField.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -96,6 +98,7 @@
 		CDB1EB6C29AE597D004D474A /* CategoryHeaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CategoryHeaderView.swift; sourceTree = "<group>"; };
 		CDB1EB6E29AE5E28004D474A /* ItemRegisterController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ItemRegisterController.swift; sourceTree = "<group>"; };
 		CDB1EB7029AE7242004D474A /* DetailRegisterController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailRegisterController.swift; sourceTree = "<group>"; };
+		CDC4ADAF29B63A510039C4B6 /* CustomTextField.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomTextField.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -112,6 +115,7 @@
 				CD0B50F229B3381300DF49D7 /* FirebaseFirestoreSwift in Frameworks */,
 				CDB1EB5929ADFC50004D474A /* SnapKit in Frameworks */,
 				CD0B50EE29B3381300DF49D7 /* FirebaseFirestore in Frameworks */,
+				CDC4ADAE29B632F40039C4B6 /* IQKeyboardManagerSwift in Frameworks */,
 				CD0B50EA29B3381300DF49D7 /* FirebaseAuth in Frameworks */,
 				CD0B50EC29B3381300DF49D7 /* FirebaseDatabase in Frameworks */,
 				CD1445AB29AF82AB00EFBE65 /* SkyFloatingLabelTextField in Frameworks */,
@@ -289,6 +293,7 @@
 				CDB1EB6A29AE5292004D474A /* RegisterIconCell.swift */,
 				CDB1EB6C29AE597D004D474A /* CategoryHeaderView.swift */,
 				CD0B510829B4C7CD00DF49D7 /* ColorCell.swift */,
+				CDC4ADAF29B63A510039C4B6 /* CustomTextField.swift */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -322,6 +327,7 @@
 				CD0B50EF29B3381300DF49D7 /* FirebaseFirestoreCombine-Community */,
 				CD0B50F129B3381300DF49D7 /* FirebaseFirestoreSwift */,
 				CD0B50F329B3381300DF49D7 /* FirebaseStorage */,
+				CDC4ADAD29B632F40039C4B6 /* IQKeyboardManagerSwift */,
 			);
 			productName = MyFridge;
 			productReference = CDB1EB3529ADF4ED004D474A /* MyFridge.app */;
@@ -359,6 +365,7 @@
 				CD1445B729AFB92A00EFBE65 /* XCRemoteSwiftPackageReference "Alamofire" */,
 				CD1445BA29AFBE5600EFBE65 /* XCRemoteSwiftPackageReference "FloatingPanel" */,
 				CD0B50E829B3381300DF49D7 /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */,
+				CDC4ADAC29B632F40039C4B6 /* XCRemoteSwiftPackageReference "IQKeyboardManager" */,
 			);
 			productRefGroup = CDB1EB3629ADF4ED004D474A /* Products */;
 			projectDirPath = "";
@@ -395,6 +402,7 @@
 				CD0B510729B4BDF800DF49D7 /* ColorExtension.swift in Sources */,
 				CDB1EB6D29AE597D004D474A /* CategoryHeaderView.swift in Sources */,
 				CD1445B329AFAE5F00EFBE65 /* AIManager.swift in Sources */,
+				CDC4ADB029B63A510039C4B6 /* CustomTextField.swift in Sources */,
 				CD0B50F929B3633F00DF49D7 /* DetailController.swift in Sources */,
 				CD0B510929B4C7CD00DF49D7 /* ColorCell.swift in Sources */,
 				CDB1EB6329AE410D004D474A /* FridgeItemModel.swift in Sources */,
@@ -687,6 +695,15 @@
 				minimumVersion = 7.0.0;
 			};
 		};
+		CDC4ADAC29B632F40039C4B6 /* XCRemoteSwiftPackageReference "IQKeyboardManager" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/hackiftekhar/IQKeyboardManager.git";
+			requirement = {
+				kind = versionRange;
+				maximumVersion = 6.5.0;
+				minimumVersion = 6.5.0;
+			};
+		};
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
@@ -749,6 +766,11 @@
 			isa = XCSwiftPackageProductDependency;
 			package = CDB1EB5A29ADFC5F004D474A /* XCRemoteSwiftPackageReference "Kingfisher" */;
 			productName = Kingfisher;
+		};
+		CDC4ADAD29B632F40039C4B6 /* IQKeyboardManagerSwift */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = CDC4ADAC29B632F40039C4B6 /* XCRemoteSwiftPackageReference "IQKeyboardManager" */;
+			productName = IQKeyboardManagerSwift;
 		};
 /* End XCSwiftPackageProductDependency section */
 	};

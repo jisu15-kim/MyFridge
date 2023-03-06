@@ -17,10 +17,17 @@ extension UIColor {
     static let appMainSub = UIColor.rgb(red: 111, green: 191, blue: 191)
     static let appMainWhite = UIColor.rgb(red: 240, green: 242, blue: 242)
     static let appMainGray = UIColor.rgb(red: 57, green: 62, blue: 89)
+    static let appMainDarkGray = UIColor.rgb(red: 57, green: 102, blue: 130)
     static let appMainBlack = UIColor.rgb(red: 1, green: 3, blue: 38)
     
     static let appBackground = dynamicColor(lightColor: appMainWhite, darkColor: appMainBlack)
     static let appTint = dynamicColor(lightColor: appMainTint, darkColor: appMainSub)
+    
+    static let mainGrayBackground = dynamicColor(lightColor: .systemGray5, darkColor: .black)
+    static let mainForeGround = dynamicColor(lightColor: .black, darkColor: .white)
+    static let mainReverseLabel = dynamicColor(lightColor: .white, darkColor: .systemGray6)
+    
+    static let mainAccent = dynamicColor(lightColor: .appMainGray, darkColor: .appMainDarkGray)
 }
 
 extension UIColor {

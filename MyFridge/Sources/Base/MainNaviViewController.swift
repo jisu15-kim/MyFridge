@@ -14,9 +14,10 @@ class MainNaviViewController: UINavigationController {
         
         let appearance = UINavigationBarAppearance()
         appearance.configureWithOpaqueBackground()
-        appearance.backgroundColor = .systemBackground
+        appearance.backgroundColor = .mainGrayBackground
         self.navigationBar.standardAppearance = appearance;
         self.navigationBar.scrollEdgeAppearance = self.navigationBar.standardAppearance
+        navigationBar.tintColor = .mainAccent
         setupBarButtons()
     }
     
@@ -26,8 +27,6 @@ class MainNaviViewController: UINavigationController {
         backButton.addTarget(self, action: #selector(handleBackTapped), for: .touchUpInside)
         let leftBackButton = UIBarButtonItem(customView: backButton)
         self.navigationItem.leftBarButtonItem = leftBackButton
-        navigationItem.rightBarButtonItem?.tintColor = .appMainGray
-        navigationItem.leftBarButtonItem?.tintColor = .appMainGray
     }
     
     @objc private func handleBackTapped() {

@@ -26,7 +26,7 @@ class RegisterIconCell: UICollectionViewCell {
     
     private let imageView: UIImageView = {
         let iv = UIImageView()
-        iv.backgroundColor = .systemBackground
+        iv.backgroundColor = .clear
         iv.contentMode = .scaleAspectFit
         return iv
     }()
@@ -35,6 +35,8 @@ class RegisterIconCell: UICollectionViewCell {
         let label = UILabel()
         label.font = .boldSystemFont(ofSize: 14)
         label.textAlignment = .center
+        label.adjustsFontSizeToFitWidth = true
+        label.minimumScaleFactor = 0.5
         return label
     }()
     

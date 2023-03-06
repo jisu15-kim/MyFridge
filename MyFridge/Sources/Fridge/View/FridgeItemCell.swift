@@ -23,7 +23,7 @@ class FridgeItemCell: UICollectionViewCell {
         let label = UILabel()
         label.font = .boldSystemFont(ofSize: 20)
         label.textAlignment = .left
-        label.textColor = .systemBackground
+        label.textColor = .mainForeGround
         label.sizeToFit()
         return label
     }()
@@ -40,7 +40,7 @@ class FridgeItemCell: UICollectionViewCell {
         imageView.snp.makeConstraints {
             $0.edges.equalToSuperview().inset(8)
         }
-        view.layer.borderColor = UIColor.white.cgColor
+        view.layer.borderColor = UIColor.mainAccent.cgColor
         view.layer.borderWidth = 3
         return view
     }()
@@ -50,7 +50,7 @@ class FridgeItemCell: UICollectionViewCell {
         label.text = "유통기한"
         label.textAlignment = .center
         label.font = .systemFont(ofSize: 13)
-        label.textColor = .systemBackground
+        label.textColor = .label
         return label
     }()
     
@@ -58,7 +58,7 @@ class FridgeItemCell: UICollectionViewCell {
         let label = UILabel()
         label.textAlignment = .center
         label.font = .systemFont(ofSize: 17, weight: .bold)
-        label.textColor = .systemBackground
+        label.textColor = .label
         return label
     }()
     
@@ -66,7 +66,7 @@ class FridgeItemCell: UICollectionViewCell {
         let label = UILabel()
         label.textAlignment = .left
         label.font = .systemFont(ofSize: 12)
-        label.textColor = .systemBackground
+        label.textColor = .label
         label.numberOfLines = 2
         return label
     }()
@@ -129,6 +129,8 @@ class FridgeItemCell: UICollectionViewCell {
             $0.top.equalTo(itemTitleLabel.snp.bottom).inset(-10)
             $0.trailing.equalTo(expireLabel.snp.leading).inset(-2)
         }
+        
+        self.setViewShadow(backView: self)
     }
     
     func configure() {
@@ -138,7 +140,7 @@ class FridgeItemCell: UICollectionViewCell {
         expireDateLabel.text = viewModel.expireDDay
         categoryLabel.text = viewModel.category
         memoLabel.text = viewModel.memoShortText
-        backgroundColor = .appMainGray
+        backgroundColor = .mainReverseLabel
         iconContainerView.backgroundColor = viewModel.item.color.color
     }
 }

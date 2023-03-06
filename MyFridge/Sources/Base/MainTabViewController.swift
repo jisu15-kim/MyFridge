@@ -52,21 +52,30 @@ class MainTabViewController: UITabBarController {
         
         let appearance = UINavigationBarAppearance()
         appearance.configureWithOpaqueBackground()
-        appearance.backgroundColor = .systemBackground
+        appearance.backgroundColor = .mainGrayBackground
         nav.navigationBar.standardAppearance = appearance;
         nav.navigationBar.scrollEdgeAppearance = nav.navigationBar.standardAppearance
         
+        nav.navigationBar.tintColor = .mainAccent
         return nav
     }
     
     func uiTabBarSetting() {
         if #available(iOS 15.0, *){
-            let appearance = UITabBarAppearance()
-            appearance.configureWithOpaqueBackground()
-            appearance.backgroundColor = .systemBackground
-            tabBar.standardAppearance = appearance
-            tabBar.scrollEdgeAppearance = appearance
-            tabBar.tintColor = .label
+//            let appearance = UITabBarAppearance()
+//            appearance.configureWithDefaultBackground()
+//            appearance.backgroundColor = .mainGrayBackground
+//            tabBar.standardAppearance = appearance
+//            tabBar.scrollEdgeAppearance = appearance
+//            tabBar.tintColor = .mainAccent
+//            tabBar.isTranslucent = true
+            tabBar.backgroundColor = .mainGrayBackground
+            tabBar.barStyle = .default
+            tabBar.layer.masksToBounds = false
+            tabBar.layer.shadowColor = UIColor.mainForeGround.cgColor
+            tabBar.layer.shadowOpacity = 0.2
+            tabBar.layer.shadowOffset = CGSize(width: 0, height: 0)
+            tabBar.layer.shadowRadius = 6
         }
     }
 }

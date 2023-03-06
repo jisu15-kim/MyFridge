@@ -54,6 +54,9 @@ class ColorCell: UICollectionViewCell {
         selectRoundView.layer.cornerRadius = 17.5
         selectRoundView.clipsToBounds = true
         selectRoundView.layer.borderWidth = 4
+        
+        self.setViewShadow(backView: self)
+//        self.clipsToBounds = false
     }
     
     private func configure() {
@@ -65,7 +68,7 @@ class ColorCell: UICollectionViewCell {
     private func configureSetColor(isSelected: Bool) {
         guard let color = color else { return }
         if isSelected == true {
-            selectRoundView.layer.borderColor = UIColor.appMainTint.cgColor
+            selectRoundView.layer.borderColor = UIColor.mainAccent.cgColor
         } else {
             selectRoundView.layer.borderColor = color.color.cgColor
         }

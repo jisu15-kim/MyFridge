@@ -47,14 +47,14 @@ class DetailController: UIViewController {
         let label = UILabel()
         label.font = .systemFont(ofSize: 15)
         label.textAlignment = .center
-        label.backgroundColor = .systemGray6
+        label.backgroundColor = .mainReverseLabel
         label.layer.cornerRadius = 15
         label.clipsToBounds = true
         return label
     }()
     
-    lazy var registDateContainer = DateViewContainer(title: "등록일자", date: viewModel.registedDate, background: .systemGray6)
-    lazy var expireContainer = DateViewContainer(title: "유통기한", date: viewModel.expireDate, background: .systemGray6)
+    lazy var registDateContainer = DateViewContainer(title: "등록일자", date: viewModel.registedDate, background: .mainReverseLabel)
+    lazy var expireContainer = DateViewContainer(title: "유통기한", date: viewModel.expireDate, background: .mainReverseLabel)
     
     let memoTitle: UILabel = {
         let label = UILabel()
@@ -96,6 +96,7 @@ class DetailController: UIViewController {
         let tap = UITapGestureRecognizer(target: self, action: #selector(handleAIViewTapped1))
         view.isUserInteractionEnabled = true
         view.addGestureRecognizer(tap)
+        view.backgroundColor = .mainReverseLabel
         return view
     }()
     
@@ -104,6 +105,7 @@ class DetailController: UIViewController {
         let tap = UITapGestureRecognizer(target: self, action: #selector(handleAIViewTapped2))
         view.isUserInteractionEnabled = true
         view.addGestureRecognizer(tap)
+        view.backgroundColor = .mainReverseLabel
         return view
     }()
     
@@ -201,7 +203,7 @@ class DetailController: UIViewController {
     }
     
     private func setupUI() {
-        view.backgroundColor = .systemBackground
+        view.backgroundColor = .mainGrayBackground
         
         view.addSubview(iconContainerView)
         iconContainerView.snp.makeConstraints {
