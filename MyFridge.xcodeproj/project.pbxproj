@@ -7,6 +7,9 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		CD0831EA29B75FBA00DC7974 /* ChatBubbleCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = CD0831E929B75FBA00DC7974 /* ChatBubbleCell.swift */; };
+		CD0831EC29B761BD00DC7974 /* ChatBubbleCellViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = CD0831EB29B761BD00DC7974 /* ChatBubbleCellViewModel.swift */; };
+		CD0831EF29B7637700DC7974 /* AIChatModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = CD0831EE29B7637700DC7974 /* AIChatModel.swift */; };
 		CD0B50CF29B0815600DF49D7 /* AIChatViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CD0B50CE29B0815600DF49D7 /* AIChatViewController.swift */; };
 		CD0B50D129B081BD00DF49D7 /* AIChatViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = CD0B50D029B081BD00DF49D7 /* AIChatViewModel.swift */; };
 		CD0B50D329B32B2400DF49D7 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = CD0B50D229B32B2400DF49D7 /* GoogleService-Info.plist */; };
@@ -60,6 +63,9 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		CD0831E929B75FBA00DC7974 /* ChatBubbleCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChatBubbleCell.swift; sourceTree = "<group>"; };
+		CD0831EB29B761BD00DC7974 /* ChatBubbleCellViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChatBubbleCellViewModel.swift; sourceTree = "<group>"; };
+		CD0831EE29B7637700DC7974 /* AIChatModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AIChatModel.swift; sourceTree = "<group>"; };
 		CD0B50CE29B0815600DF49D7 /* AIChatViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AIChatViewController.swift; sourceTree = "<group>"; };
 		CD0B50D029B081BD00DF49D7 /* AIChatViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AIChatViewModel.swift; sourceTree = "<group>"; };
 		CD0B50D229B32B2400DF49D7 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
@@ -125,11 +131,38 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
-		CD0B50CC29B07C5100DF49D7 /* Chat */ = {
+		CD0831E729B75E6600DC7974 /* ViewModel */ = {
+			isa = PBXGroup;
+			children = (
+				CD0B50D029B081BD00DF49D7 /* AIChatViewModel.swift */,
+			);
+			path = ViewModel;
+			sourceTree = "<group>";
+		};
+		CD0831E829B75E6900DC7974 /* View */ = {
 			isa = PBXGroup;
 			children = (
 				CD0B50CE29B0815600DF49D7 /* AIChatViewController.swift */,
-				CD0B50D029B081BD00DF49D7 /* AIChatViewModel.swift */,
+				CD0831E929B75FBA00DC7974 /* ChatBubbleCell.swift */,
+				CD0831EB29B761BD00DC7974 /* ChatBubbleCellViewModel.swift */,
+			);
+			path = View;
+			sourceTree = "<group>";
+		};
+		CD0831ED29B7636D00DC7974 /* Model */ = {
+			isa = PBXGroup;
+			children = (
+				CD0831EE29B7637700DC7974 /* AIChatModel.swift */,
+			);
+			path = Model;
+			sourceTree = "<group>";
+		};
+		CD0B50CC29B07C5100DF49D7 /* Chat */ = {
+			isa = PBXGroup;
+			children = (
+				CD0831ED29B7636D00DC7974 /* Model */,
+				CD0831E829B75E6900DC7974 /* View */,
+				CD0831E729B75E6600DC7974 /* ViewModel */,
 				CD0B510429B4ADD700DF49D7 /* OpenAIChatResponse.swift */,
 			);
 			path = Chat;
@@ -414,7 +447,9 @@
 				CD0B50DF29B32CC900DF49D7 /* RegistrationController.swift in Sources */,
 				CDB1EB5029ADF68C004D474A /* FridgeController.swift in Sources */,
 				CDB1EB6929AE50CE004D474A /* MainNaviViewController.swift in Sources */,
+				CD0831EC29B761BD00DC7974 /* ChatBubbleCellViewModel.swift in Sources */,
 				CD0B50DE29B32CC900DF49D7 /* LoginController.swift in Sources */,
+				CD0831EA29B75FBA00DC7974 /* ChatBubbleCell.swift in Sources */,
 				CDB1EB6F29AE5E28004D474A /* ItemRegisterController.swift in Sources */,
 				CD1445BF29AFC12A00EFBE65 /* Extension.swift in Sources */,
 				CD0B50D129B081BD00DF49D7 /* AIChatViewModel.swift in Sources */,
@@ -426,6 +461,7 @@
 				CD0B50F629B35B3800DF49D7 /* FridgeItemViewModel.swift in Sources */,
 				CDB1EB6B29AE5292004D474A /* RegisterIconCell.swift in Sources */,
 				CD0B50CF29B0815600DF49D7 /* AIChatViewController.swift in Sources */,
+				CD0831EF29B7637700DC7974 /* AIChatModel.swift in Sources */,
 				CDB1EB6729AE4D96004D474A /* CategoryRegisterController.swift in Sources */,
 				CD0B50FD29B38A1E00DF49D7 /* AIActionView.swift in Sources */,
 			);

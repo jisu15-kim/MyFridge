@@ -67,8 +67,8 @@ class MainTabViewController: UITabBarController {
 //            appearance.backgroundColor = .mainGrayBackground
 //            tabBar.standardAppearance = appearance
 //            tabBar.scrollEdgeAppearance = appearance
-//            tabBar.tintColor = .mainAccent
 //            tabBar.isTranslucent = true
+            tabBar.tintColor = .mainAccent
             tabBar.backgroundColor = .mainGrayBackground
             tabBar.barStyle = .default
             tabBar.layer.masksToBounds = false
@@ -76,6 +76,7 @@ class MainTabViewController: UITabBarController {
             tabBar.layer.shadowOpacity = 0.2
             tabBar.layer.shadowOffset = CGSize(width: 0, height: 0)
             tabBar.layer.shadowRadius = 6
+            tabBar.isTranslucent = true
         }
     }
 }
