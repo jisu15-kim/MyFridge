@@ -10,6 +10,7 @@
 		CD0831EA29B75FBA00DC7974 /* ChatBubbleCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = CD0831E929B75FBA00DC7974 /* ChatBubbleCell.swift */; };
 		CD0831EC29B761BD00DC7974 /* ChatBubbleCellViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = CD0831EB29B761BD00DC7974 /* ChatBubbleCellViewModel.swift */; };
 		CD0831EF29B7637700DC7974 /* AIChatModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = CD0831EE29B7637700DC7974 /* AIChatModel.swift */; };
+		CD0831F129B7768700DC7974 /* ChatHeader.swift in Sources */ = {isa = PBXBuildFile; fileRef = CD0831F029B7768700DC7974 /* ChatHeader.swift */; };
 		CD0B50CF29B0815600DF49D7 /* AIChatViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CD0B50CE29B0815600DF49D7 /* AIChatViewController.swift */; };
 		CD0B50D129B081BD00DF49D7 /* AIChatViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = CD0B50D029B081BD00DF49D7 /* AIChatViewModel.swift */; };
 		CD0B50D329B32B2400DF49D7 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = CD0B50D229B32B2400DF49D7 /* GoogleService-Info.plist */; };
@@ -66,6 +67,7 @@
 		CD0831E929B75FBA00DC7974 /* ChatBubbleCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChatBubbleCell.swift; sourceTree = "<group>"; };
 		CD0831EB29B761BD00DC7974 /* ChatBubbleCellViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChatBubbleCellViewModel.swift; sourceTree = "<group>"; };
 		CD0831EE29B7637700DC7974 /* AIChatModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AIChatModel.swift; sourceTree = "<group>"; };
+		CD0831F029B7768700DC7974 /* ChatHeader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChatHeader.swift; sourceTree = "<group>"; };
 		CD0B50CE29B0815600DF49D7 /* AIChatViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AIChatViewController.swift; sourceTree = "<group>"; };
 		CD0B50D029B081BD00DF49D7 /* AIChatViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AIChatViewModel.swift; sourceTree = "<group>"; };
 		CD0B50D229B32B2400DF49D7 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
@@ -134,6 +136,7 @@
 		CD0831E729B75E6600DC7974 /* ViewModel */ = {
 			isa = PBXGroup;
 			children = (
+				CD0831EB29B761BD00DC7974 /* ChatBubbleCellViewModel.swift */,
 				CD0B50D029B081BD00DF49D7 /* AIChatViewModel.swift */,
 			);
 			path = ViewModel;
@@ -144,7 +147,7 @@
 			children = (
 				CD0B50CE29B0815600DF49D7 /* AIChatViewController.swift */,
 				CD0831E929B75FBA00DC7974 /* ChatBubbleCell.swift */,
-				CD0831EB29B761BD00DC7974 /* ChatBubbleCellViewModel.swift */,
+				CD0831F029B7768700DC7974 /* ChatHeader.swift */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -152,6 +155,7 @@
 		CD0831ED29B7636D00DC7974 /* Model */ = {
 			isa = PBXGroup;
 			children = (
+				CD0B510429B4ADD700DF49D7 /* OpenAIChatResponse.swift */,
 				CD0831EE29B7637700DC7974 /* AIChatModel.swift */,
 			);
 			path = Model;
@@ -163,7 +167,6 @@
 				CD0831ED29B7636D00DC7974 /* Model */,
 				CD0831E829B75E6900DC7974 /* View */,
 				CD0831E729B75E6600DC7974 /* ViewModel */,
-				CD0B510429B4ADD700DF49D7 /* OpenAIChatResponse.swift */,
 			);
 			path = Chat;
 			sourceTree = "<group>";
@@ -441,6 +444,7 @@
 				CDB1EB6329AE410D004D474A /* FridgeItemModel.swift in Sources */,
 				CDB1EB5E29ADFCE2004D474A /* FridgeItemCell.swift in Sources */,
 				CDB1EB3929ADF4ED004D474A /* AppDelegate.swift in Sources */,
+				CD0831F129B7768700DC7974 /* ChatHeader.swift in Sources */,
 				CD0B50E729B333D100DF49D7 /* Network.swift in Sources */,
 				CD0B510529B4ADD700DF49D7 /* OpenAIChatResponse.swift in Sources */,
 				CD0B510B29B4CAE600DF49D7 /* UserColorPreset.swift in Sources */,

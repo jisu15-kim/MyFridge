@@ -22,14 +22,14 @@ class ChatBubbleCellViewModel {
     }
     
     //MARK: - Helper
-    func getCellSize(font: UIFont) -> CGSize {
+    func getCellSize() -> CGSize {
         let measurementLabel = UILabel(frame: .zero)
         measurementLabel.text = content
-        measurementLabel.font = font
+        measurementLabel.font = .systemFont(ofSize: 14)
         measurementLabel.numberOfLines = 0
         measurementLabel.lineBreakMode = .byWordWrapping
         measurementLabel.translatesAutoresizingMaskIntoConstraints = false
-        measurementLabel.widthAnchor.constraint(lessThanOrEqualToConstant: maxViewWidth).isActive = true
+        measurementLabel.widthAnchor.constraint(equalToConstant: 240).isActive = true
         let measurementLabelSize = measurementLabel.systemLayoutSizeFitting(UIView.layoutFittingCompressedSize)
         let width = measurementLabelSize.width + CGFloat(30)
         let height = measurementLabelSize.height + CGFloat(20)

@@ -17,9 +17,34 @@ class ChatBubbleCell: UICollectionViewCell {
         }
     }
     
-    let bubbleView: UIView = {
+    let iconView: UIImageView = {
+        let iv = UIImageView()
+        return iv
+    }()
+    
+    lazy var iconContainerView: UIView = {
+
+        let view = UIView()
+        view.addSubview(iconView)
+        iconView.snp.makeConstraints {
+            $0.edges.equalToSuperview().inset(7)
+        }
+        view.backgroundColor = .white
+        return view
+    }()
+
+    var containerView = UIView()
+    
+    lazy var bubbleView: UIView = {
         let view = UIView()
         view.backgroundColor = .systemIndigo
+        view.addSubview(contentLabel)
+        view.layer.cornerRadius = 15
+        view.clipsToBounds = true
+        contentLabel.snp.makeConstraints {
+            $0.leading.trailing.equalToSuperview().inset(15)
+            $0.centerY.equalToSuperview()
+        }
         return view
     }()
     
@@ -41,40 +66,64 @@ class ChatBubbleCell: UICollectionViewCell {
         fatalError("init(coder:) has not been implemented")
     }
     
+    override func prepareForReuse() {
+        viewModel = nil
+        iconView.image = UIImage()
+        iconContainerView.backgroundColor = .clear
+        containerView = UIView(frame: .zero)
+    }
+    
+    
     //MARK: - Helper
     func setupUI() {
         backgroundColor = .clear
-        
-        addSubview(bubbleView)
-        bubbleView.layer.cornerRadius = 15
-        bubbleView.clipsToBounds = true
-        bubbleView.addSubview(contentLabel)
-        bubbleView.snp.makeConstraints {
-            $0.height.equalToSuperview()
-        }
-        contentLabel.snp.makeConstraints {
-            $0.leading.trailing.equalToSuperview().inset(15)
-            $0.centerY.equalToSuperview()
-        }
+
     }
     
     func configure() {
         guard let viewModel = viewModel else { return }
         setLayoutByChatType(viewModel: viewModel)
+        iconView.image = UIImage(named: "SmartFridge")
+        iconContainerView.backgroundColor = .white
         bubbleView.backgroundColor = viewModel.type.backgroundColor
         contentLabel.text = viewModel.content
-        let flexibleWidth = viewModel.getCellSize(font: contentLabel.font).width
+        let flexibleWidth = viewModel.getCellSize().width
         bubbleView.widthAnchor.constraint(equalToConstant: flexibleWidth).isActive = true
     }
     
     private func setLayoutByChatType(viewModel: ChatBubbleCellViewModel) {
         switch viewModel.data.chatType {
+            
+        // 내 말풍선
         case .my:
-            contentLabel.textAlignment = .right
-            bubbleView.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -25).isActive = true
-        case .ai:
-            contentLabel.textAlignment = .left
-            bubbleView.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 25).isActive = true
+            addSubview(bubbleView)
+            bubbleView.snp.makeConstraints {
+                $0.top.bottom.equalToSuperview()
+                $0.trailing.equalToSuperview().inset(25)
+            }
+        
+        // AI의 말풍선
+        case .ai, .processing:
+            // 컨테이터
+            containerView.addSubview(iconContainerView) // ai 아이콘
+            iconContainerView.snp.makeConstraints {
+                $0.top.leading.equalToSuperview()
+                $0.width.height.equalTo(40)
+                iconContainerView.layer.cornerRadius = 20
+                iconContainerView.clipsToBounds = true
+            }
+            
+            containerView.addSubview(bubbleView)
+            bubbleView.snp.makeConstraints {
+                $0.leading.equalTo(iconContainerView.snp.trailing).inset(-5)
+                $0.top.bottom.trailing.equalToSuperview()
+            }
+            
+            addSubview(containerView)
+            containerView.snp.makeConstraints {
+                $0.top.bottom.equalToSuperview()
+                $0.leading.equalToSuperview().inset(25)
+            }
         }
     }
 }

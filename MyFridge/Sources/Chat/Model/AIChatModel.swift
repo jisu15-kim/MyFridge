@@ -11,17 +11,18 @@ struct AIChatModel {
     enum ChatType: CaseIterable {
         case my
         case ai
+        case processing
         
         var backgroundColor: UIColor {
             switch self {
             case .my:
                 return .yellow.withAlphaComponent(0.5)
-            case .ai:
+            case .ai, .processing:
                 return .white
             }
         }
     }
     
-    let content: String
+    var content: String
     let chatType: ChatType
 }

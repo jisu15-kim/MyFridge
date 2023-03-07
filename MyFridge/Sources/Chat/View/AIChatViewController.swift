@@ -7,23 +7,21 @@
 
 import UIKit
 import SnapKit
+import Combine
 
 private let reuseIdentifier = "ChatBubbleCell"
+private let headerIdentifier = "ChatHeader"
 
 class AIChatViewController: UIViewController {
     
     //MARK: - Properties
-    let dummyChats: [AIChatModel] = [
-        AIChatModel(content: "DummyDatㅇㄹㄴaOhyesㄷㅎㄹㅁㅇㅍㅎㄹㄴㅇㅎㅁㄷㄱㅎㅇㄹ허ㅏㅜㄹㅁㄹ어ㅣㅍㅁ어", chatType: .ai),
-        AIChatModel(content: "Dummyㅇㅇ", chatType: .ai),
-        AIChatModel(content: "Dummy", chatType: .my),
-        AIChatModel(content: "Dum", chatType: .ai),
-        AIChatModel(content: "Dummyㄱㄷㄱㄴㄹㅇㄴ", chatType: .my)
-    ]
     let viewModel: AIChatViewModel
+    let keyword: String
+    var subscription = Set<AnyCancellable>()
     
     let collectionView: UICollectionView = {
         let layout = UICollectionViewFlowLayout()
+        layout.minimumInteritemSpacing = 10
         layout.scrollDirection = .vertical
         layout.sectionInset = UIEdgeInsets(top: 30, left: 0, bottom: 30, right: 0)
         let cv = UICollectionView(frame: .zero, collectionViewLayout: layout)
@@ -34,6 +32,7 @@ class AIChatViewController: UIViewController {
     //MARK: - Lifecycle
     init(viewModel: AIChatViewModel) {
         self.viewModel = viewModel
+        self.keyword = viewModel.makeKeyword()
         super.init(nibName: nil, bundle: nil)
     }
     
@@ -45,11 +44,35 @@ class AIChatViewController: UIViewController {
         super.viewDidLoad()
         
         setupUI()
+        bind()
+        tryRequest()
         setupCollectionView()
+    }
+    //MARK: - Bind
+    private func bind() {
+        viewModel.chats
+            .receive(on: RunLoop.main)
+            .sink { [weak self] _ in
+                self?.collectionView.reloadData()
+            }.store(in: &subscription)
+        
+        viewModel.isAIProcessing
+            .receive(on: RunLoop.main)
+            .sink { [weak self] isProcessing in
+                self?.bindProcessingCell(isProcessing: isProcessing)
+            }.store(in: &subscription)
+    }
+    
+    //MARK: - API
+    private func tryRequest() {
+        viewModel.isAIProcessing.send(true)
+        viewModel.askToAI(keyword: keyword) { [weak self] response in
+            self?.viewModel.isAIProcessing.send(false)
+        }
     }
     
     //MARK: - Helper
-    func setupUI() {
+    private func setupUI() {
         view.addSubview(collectionView)
         collectionView.snp.makeConstraints {
             $0.edges.equalToSuperview()
@@ -58,30 +81,53 @@ class AIChatViewController: UIViewController {
     
     private func setupCollectionView() {
         collectionView.register(ChatBubbleCell.self, forCellWithReuseIdentifier: reuseIdentifier)
+        collectionView.register(ChatHeader.self, forSupplementaryViewOfKind: UICollectionView.elementKindSectionHeader, withReuseIdentifier: headerIdentifier)
         collectionView.delegate = self
         collectionView.dataSource = self
+    }
+    
+    private func bindProcessingCell(isProcessing: Bool) {
+        viewModel.bindAndReturnAIProcessingString(value: isProcessing)
     }
 }
 
 //MARK: - CollectionViewDataSource / Delegate
 extension AIChatViewController: UICollectionViewDataSource, UICollectionViewDelegate {
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return dummyChats.count
+        return viewModel.getChatsCount()
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         
         guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: reuseIdentifier, for: indexPath) as? ChatBubbleCell else { return UICollectionViewCell() }
-        let cellViewModel = ChatBubbleCellViewModel(data: dummyChats[indexPath.row])
+        let cellViewModel = viewModel.getChatViewModel(indexPath: indexPath)
         cell.viewModel = cellViewModel
         return cell
     }
+    
+    func collectionView(_ collectionView: UICollectionView, viewForSupplementaryElementOfKind kind: String, at indexPath: IndexPath) -> UICollectionReusableView {
+        guard let header = collectionView.dequeueReusableSupplementaryView(ofKind: UICollectionView.elementKindSectionHeader, withReuseIdentifier: headerIdentifier, for: indexPath) as? ChatHeader else { return UICollectionReusableView() }
+        header.delegate = self
+        return header
+    }
 }
 
+//MARK: - UICollectionViewDelegateFlowLayout
 extension AIChatViewController: UICollectionViewDelegateFlowLayout {
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
-        let viewModel = ChatBubbleCellViewModel(data: dummyChats[indexPath.row])
-        let flexibleHeight = viewModel.getCellSize(font: .systemFont(ofSize: 14)).height
+        let viewModel = viewModel.getChatViewModel(indexPath: indexPath)
+        let flexibleHeight = viewModel.getCellSize().height
         return CGSize(width: collectionView.frame.width, height: flexibleHeight)
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, referenceSizeForHeaderInSection section: Int) -> CGSize {
+        return CGSize(width: collectionView.frame.width, height: 80)
+    }
+}
+
+//MARK: - AIChatDelegate
+extension AIChatViewController: AIChatDelegate {
+    func viewDismissTapped() {
+        self.dismiss(animated: true)
     }
 }
