@@ -9,7 +9,7 @@ import Foundation
 import Alamofire
 
 class AIManager {
-    let maxToken = 300
+    let maxToken = 100
     let davinci = "text-davinci-003"
     let chatAI = "gpt-3.5-turbo"
     
@@ -49,7 +49,8 @@ class AIManager {
                 switch response.result {
                 case .success(let result):
                     let message = result.choices.first?.message.content ?? "error"
-                    print("DEBUG - 사용된 토큰: \(result.usage.totalTokens)")
+//                    print("DEBUG - 사용된 토큰: \(result.usage.totalTokens)")
+                    print(message)
                     completion(message)
                 case .failure(let error):
                     print(error)

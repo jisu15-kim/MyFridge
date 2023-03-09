@@ -24,6 +24,8 @@ class FridgeItemCell: UICollectionViewCell {
         label.font = .boldSystemFont(ofSize: 20)
         label.textAlignment = .left
         label.textColor = .mainForeGround
+        label.adjustsFontSizeToFitWidth = true
+        label.minimumScaleFactor = 0.5
         label.sizeToFit()
         return label
     }()
@@ -92,13 +94,8 @@ class FridgeItemCell: UICollectionViewCell {
         
         addSubview(categoryLabel)
         categoryLabel.snp.makeConstraints {
-            $0.top.leading.equalToSuperview().inset(20)
-        }
-        
-        addSubview(itemTitleLabel)
-        itemTitleLabel.snp.makeConstraints {
-            $0.leading.equalTo(categoryLabel.snp.leading)
-            $0.top.equalTo(categoryLabel.snp.bottom).inset(-10)
+            $0.leading.equalToSuperview().inset(15)
+            $0.top.equalToSuperview().inset(20)
         }
         
         addSubview(iconContainerView)
@@ -107,6 +104,13 @@ class FridgeItemCell: UICollectionViewCell {
             $0.size.equalTo(60)
             iconContainerView.layer.cornerRadius = 30
             iconContainerView.clipsToBounds = true
+        }
+        
+        addSubview(itemTitleLabel)
+        itemTitleLabel.snp.makeConstraints {
+            $0.leading.equalTo(categoryLabel.snp.leading)
+            $0.top.equalTo(categoryLabel.snp.bottom).inset(-10)
+            $0.trailing.equalTo(iconContainerView.snp.leading).inset(-2)
         }
         
         addSubview(expireLabel)
@@ -139,6 +143,7 @@ class FridgeItemCell: UICollectionViewCell {
         imageView.image = viewModel.itemIcon
         expireDateLabel.text = viewModel.expireDDay
         categoryLabel.text = viewModel.category
+        categoryLabel.backgroundColor = viewModel.item.category.backgroundColor
         memoLabel.text = viewModel.memoShortText
         backgroundColor = .mainReverseLabel
         iconContainerView.backgroundColor = viewModel.item.color.color

@@ -37,7 +37,6 @@ class ChatBubbleCell: UICollectionViewCell {
     
     lazy var bubbleView: UIView = {
         let view = UIView()
-        view.backgroundColor = .systemIndigo
         view.addSubview(contentLabel)
         view.layer.cornerRadius = 15
         view.clipsToBounds = true
@@ -66,18 +65,9 @@ class ChatBubbleCell: UICollectionViewCell {
         fatalError("init(coder:) has not been implemented")
     }
     
-    override func prepareForReuse() {
-        viewModel = nil
-        iconView.image = UIImage()
-        iconContainerView.backgroundColor = .clear
-        containerView = UIView(frame: .zero)
-    }
-    
-    
     //MARK: - Helper
     func setupUI() {
         backgroundColor = .clear
-
     }
     
     func configure() {
@@ -86,6 +76,7 @@ class ChatBubbleCell: UICollectionViewCell {
         iconView.image = UIImage(named: "SmartFridge")
         iconContainerView.backgroundColor = .white
         bubbleView.backgroundColor = viewModel.type.backgroundColor
+        contentLabel.textColor = viewModel.type.textColor
         contentLabel.text = viewModel.content
         let flexibleWidth = viewModel.getCellSize().width
         bubbleView.widthAnchor.constraint(equalToConstant: flexibleWidth).isActive = true
@@ -99,7 +90,7 @@ class ChatBubbleCell: UICollectionViewCell {
             addSubview(bubbleView)
             bubbleView.snp.makeConstraints {
                 $0.top.bottom.equalToSuperview()
-                $0.trailing.equalToSuperview().inset(25)
+                $0.trailing.equalToSuperview().inset(10)
             }
         
         // AI의 말풍선
@@ -122,7 +113,7 @@ class ChatBubbleCell: UICollectionViewCell {
             addSubview(containerView)
             containerView.snp.makeConstraints {
                 $0.top.bottom.equalToSuperview()
-                $0.leading.equalToSuperview().inset(25)
+                $0.leading.equalToSuperview().inset(10)
             }
         }
     }

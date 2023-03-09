@@ -17,7 +17,7 @@ class ChatHeader: UICollectionReusableView {
     //MARK: - Properties
     var delegate: AIChatDelegate?
     
-    lazy var containerView: UIView = {
+    lazy var imageContainerView: UIView = {
         let view = UIView()
         view.addSubview(iconView)
         iconView.snp.makeConstraints {
@@ -76,13 +76,13 @@ class ChatHeader: UICollectionReusableView {
     func setupUI() {
         backgroundColor = .mainAccent
         
-        addSubview(containerView)
-        containerView.snp.makeConstraints {
+        addSubview(imageContainerView)
+        imageContainerView.snp.makeConstraints {
             $0.leading.equalToSuperview().inset(20)
-            $0.top.bottom.equalToSuperview().inset(10)
-            $0.width.equalTo(containerView.snp.height)
-            containerView.layer.cornerRadius = 30
-            containerView.clipsToBounds = true
+            $0.height.width.equalTo(60)
+            $0.bottom.equalToSuperview().inset(10)
+            imageContainerView.layer.cornerRadius = 30
+            imageContainerView.clipsToBounds = true
         }
         
         let labelStack = UIStackView(arrangedSubviews: [nameLabel, statusLabel])
@@ -90,15 +90,15 @@ class ChatHeader: UICollectionReusableView {
         labelStack.spacing = 2
         addSubview(labelStack)
         labelStack.snp.makeConstraints {
-            $0.leading.equalTo(containerView.snp.trailing).inset(-20)
-            $0.centerY.equalToSuperview()
+            $0.leading.equalTo(imageContainerView.snp.trailing).inset(-20)
+            $0.centerY.equalTo(imageContainerView)
         }
         
         addSubview(dismissButton)
         dismissButton.snp.makeConstraints {
             $0.trailing.equalToSuperview().inset(20)
             $0.height.equalTo(40)
-            $0.centerY.equalToSuperview()
+            $0.centerY.equalTo(imageContainerView)
         }
     }
 }

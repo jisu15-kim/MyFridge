@@ -6,6 +6,7 @@
 //
 
 import UIKit
+import Combine
 
 class ChatBubbleCellViewModel {
     //MARK: - Properties
@@ -14,22 +15,32 @@ class ChatBubbleCellViewModel {
     let content: String
     let maxViewWidth: CGFloat = CGFloat(240)
     
+    var processingTimer: Timer?
+    let processingDots: CurrentValueSubject<String, Never>
+    
     //MARK: - Lifecycle
     init(data: AIChatModel) {
         self.data = data
         self.type = data.chatType
         self.content = data.content
+        self.processingDots = CurrentValueSubject("● ")
     }
     
     //MARK: - Helper
-    func getCellSize() -> CGSize {
+    func getCellSize(text: String? = nil) -> CGSize {
+        var offsetText = ""
+        if let text = text {
+            offsetText = text
+        } else {
+            offsetText = self.content
+        }
         let measurementLabel = UILabel(frame: .zero)
-        measurementLabel.text = content
+        measurementLabel.text = offsetText
         measurementLabel.font = .systemFont(ofSize: 14)
         measurementLabel.numberOfLines = 0
         measurementLabel.lineBreakMode = .byWordWrapping
         measurementLabel.translatesAutoresizingMaskIntoConstraints = false
-        measurementLabel.widthAnchor.constraint(equalToConstant: 240).isActive = true
+        measurementLabel.widthAnchor.constraint(lessThanOrEqualToConstant: 240).isActive = true
         let measurementLabelSize = measurementLabel.systemLayoutSizeFitting(UIView.layoutFittingCompressedSize)
         let width = measurementLabelSize.width + CGFloat(30)
         let height = measurementLabelSize.height + CGFloat(20)

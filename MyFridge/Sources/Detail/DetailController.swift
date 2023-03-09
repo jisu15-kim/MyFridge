@@ -172,6 +172,7 @@ class DetailController: UIViewController {
         let selected = viewModel.item.itemType
         let viewModel = AIChatViewModel(storageType: keepType, selectedItem: selected, askType: .keep)
         let vc = AIChatViewController(viewModel: viewModel)
+        vc.modalPresentationStyle = .fullScreen
         present(vc, animated: true)
     }
     
@@ -181,6 +182,7 @@ class DetailController: UIViewController {
         let selected = viewModel.item.itemType
         let viewModel = AIChatViewModel(storageType: keepType, selectedItem: selected, askType: .recipe)
         let vc = AIChatViewController(viewModel: viewModel)
+        vc.modalPresentationStyle = .fullScreen
         present(vc, animated: true)
     }
     
@@ -214,7 +216,7 @@ class DetailController: UIViewController {
             iconContainerView.clipsToBounds = true
         }
         
-        let capsuleStack = UIStackView(arrangedSubviews: [categoryLabel, keepTypeLabel])
+        let capsuleStack = UIStackView(arrangedSubviews: [categoryLabel, keepTypeLabel, UIView()])
         capsuleStack.spacing = 5
         let stack = UIStackView(arrangedSubviews: [capsuleStack, itemTitleLabel])
         stack.axis = .vertical
@@ -283,8 +285,7 @@ class DetailController: UIViewController {
             $0.leading.trailing.equalToSuperview().inset(16)
             $0.top.equalTo(AIActionTitle.snp.bottom).inset(-10)
             $0.height.equalTo(100)
-        }
-        
+        }   
     }
     
     private func configure() {
@@ -293,6 +294,7 @@ class DetailController: UIViewController {
         expireInfoLabel.attributedText = viewModel.expireInfoText
         memoLabel.attributedText = viewModel.memoText
         iconContainerView.backgroundColor = viewModel.item.color.color
+        categoryLabel.backgroundColor = viewModel.item.category.backgroundColor
     }
     
 }

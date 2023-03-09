@@ -5,7 +5,7 @@
 //  Created by 김지수 on 2023/02/28.
 //
 
-import Foundation
+import UIKit
 
 struct FridgeItemConfig {
     var itemName: String
@@ -77,6 +77,21 @@ enum Category: String, CaseIterable, Codable {
             return 3
         case .milk:
             return 4
+        }
+    }
+    
+    var backgroundColor: UIColor {
+        switch self {
+        case .green:
+            return UIColor.rgb(red: 0, green: 30, blue: 128)
+        case .fruit:
+            return UIColor.rgb(red: 34, green: 139, blue: 34)
+        case .fish:
+            return UIColor.rgb(red: 128, green: 0, blue: 0)
+        case .meat:
+            return UIColor.rgb(red: 139, green: 0, blue: 139)
+        case .milk:
+            return UIColor.rgb(red: 64, green: 64, blue: 64)
         }
     }
 }

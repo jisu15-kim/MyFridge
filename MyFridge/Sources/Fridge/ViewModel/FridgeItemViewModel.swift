@@ -25,7 +25,9 @@ class FridgeItemViewModel {
     }
     
     var expireDDay: String {
-        return "D-\(item.expireDay)"
+        let date = expireDate
+        let gap = daysBetweenDates(date) ?? 0
+        return "D-\(gap)"
     }
     
     var expireDate: Date {

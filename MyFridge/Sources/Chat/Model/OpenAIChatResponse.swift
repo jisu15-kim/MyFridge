@@ -9,10 +9,10 @@ import Foundation
 
 // MARK: - OpenAIChatResponse
 struct OpenAIChatResponse: Codable {
-    let id, object: String
-    let created: Int
-    let model: String
-    let usage: Usage
+    let id, object: String?
+    let created: Int?
+    let model: String?
+    let usage: Usage?
     let choices: [Choice]
 }
 
@@ -31,12 +31,12 @@ struct Choice: Codable {
 
 // MARK: - Message
 struct Message: Codable {
-    let role, content: String
+    let role, content: String?
 }
 
 // MARK: - Usage
 struct Usage: Codable {
-    let promptTokens, completionTokens, totalTokens: Int
+    let promptTokens, completionTokens, totalTokens: Int?
 
     enum CodingKeys: String, CodingKey {
         case promptTokens = "prompt_tokens"

@@ -16,9 +16,18 @@ struct AIChatModel {
         var backgroundColor: UIColor {
             switch self {
             case .my:
-                return .yellow.withAlphaComponent(0.5)
+                return .mainAccent
             case .ai, .processing:
+                return .mainReverseLabel
+            }
+        }
+        
+        var textColor: UIColor {
+            switch self {
+            case .my:
                 return .white
+            case .ai, .processing:
+                return .label
             }
         }
     }
