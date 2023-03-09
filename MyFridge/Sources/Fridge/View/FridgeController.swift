@@ -10,6 +10,7 @@ import Combine
 import SnapKit
 
 private let itemCellIdentifier = "FridgeItemCell"
+private let headerIdentifier = "FridgeItemHeader"
 
 protocol AuthDelegate: AnyObject {
     func logUserOut()
@@ -29,7 +30,7 @@ class FridgeController: UIViewController {
         let layout = UICollectionViewFlowLayout()
         layout.minimumLineSpacing = 10
         layout.minimumInteritemSpacing = 10
-        layout.sectionInset = UIEdgeInsets(top: 5, left: 10, bottom: 5, right: 10)
+        layout.sectionInset = UIEdgeInsets(top: 5, left: 10, bottom: 20, right: 10)
         let cv = UICollectionView(frame: .zero, collectionViewLayout: layout)
         return cv
     }()
@@ -117,6 +118,7 @@ class FridgeController: UIViewController {
     func setupCollectionView() {
         collectionView.backgroundColor = .mainGrayBackground
         collectionView.register(FridgeItemCell.self, forCellWithReuseIdentifier: itemCellIdentifier)
+        collectionView.register(FridgeItemHeader.self, forSupplementaryViewOfKind: UICollectionView.elementKindSectionHeader, withReuseIdentifier: headerIdentifier)
         collectionView.dataSource = self
         collectionView.delegate = self
     }
@@ -125,19 +127,49 @@ class FridgeController: UIViewController {
 //MARK: - UICollectionView Delegate / DataSource
 extension FridgeController: UICollectionViewDelegate, UICollectionViewDataSource {
     func numberOfSections(in collectionView: UICollectionView) -> Int {
-        return 1
+        
+        return KeepType.allCases.count
     }
     
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return viewModel.items.value.count
+        let item = viewModel.items.value
+        
+        switch section {
+        case 0:
+            let fridgeItem = item.filter({ $0.keepType == .fridge })
+            return fridgeItem.count
+        case 1:
+            let freezerItem = item.filter({ $0.keepType == .freezer })
+            return freezerItem.count
+        default:
+            return 0
+        }
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: itemCellIdentifier, for: indexPath) as? FridgeItemCell else { return UICollectionViewCell() }
-        let item = viewModel.items.value[indexPath.row]
-        let cellViewModel = FridgeItemViewModel(item: item)
-        cell.cellViewModel = cellViewModel
-        return cell
+        let item = viewModel.items.value
+        
+        switch indexPath.section {
+        case 0:
+            let fridgeItem = item.filter({ $0.keepType == .fridge })[indexPath.row]
+            let cellViewModel = FridgeItemViewModel(item: fridgeItem)
+            cell.cellViewModel = cellViewModel
+            return cell
+        case 1:
+            let freezerItem = item.filter({ $0.keepType == .freezer })[indexPath.row]
+            let cellViewModel = FridgeItemViewModel(item: freezerItem)
+            cell.cellViewModel = cellViewModel
+            return cell
+        default:
+            return UICollectionViewCell()
+        }
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, viewForSupplementaryElementOfKind kind: String, at indexPath: IndexPath) -> UICollectionReusableView {
+        guard let header = collectionView.dequeueReusableSupplementaryView(ofKind: UICollectionView.elementKindSectionHeader, withReuseIdentifier: headerIdentifier, for: indexPath) as? FridgeItemHeader else { return UICollectionReusableView() }
+        header.keepType = KeepType.allCases[indexPath.section]
+        return header
     }
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
@@ -157,4 +189,9 @@ extension FridgeController: UICollectionViewDelegateFlowLayout {
         
         return CGSize(width: cellWidth, height: 120)
     }
+    
+    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, referenceSizeForHeaderInSection section: Int) -> CGSize {
+        return CGSize(width: collectionView.frame.width, height: 45)
+    }
+    
 }

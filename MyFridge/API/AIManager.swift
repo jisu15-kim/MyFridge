@@ -9,9 +9,10 @@ import Foundation
 import Alamofire
 
 class AIManager {
-    let maxToken = 100
-    let davinci = "text-davinci-003"
-    let chatAI = "gpt-3.5-turbo"
+    let maxToken: Int = 100
+    let davinci: String = "text-davinci-003"
+    let chatAI: String = "gpt-3.5-turbo"
+    let errorMessage: String = "데이터 통신 오류가 발생했습니다. 다시 시도해주세요🙏"
     
     func askRecommandStoreWay(keyword: String, completion: @escaping (String) -> Void) {
         let baseUrl = Secret.baseUrl
@@ -38,22 +39,27 @@ class AIManager {
             }
     }
     
-    func askChatAIApi(keyword: String, completion: @escaping (String) -> Void) {
+    func askChatAIApi(keyword: String, completion: @escaping (Bool, String) -> Void) {
         let baseUrl = Secret.baseUrl + "chat/completions"
         let message = Message(role: "user", content: keyword)
         
         let body = ChatAIPostBody(model: "gpt-3.5-turbo", messages: [message], max_tokens: maxToken)
         let headers: HTTPHeaders = ["Authorization": "Bearer \(Secret.token)", "content-Type": "application/json"]
         AF.request(baseUrl, method: .post, parameters: body, encoder: .json, headers: headers)
-            .responseDecodable(of: OpenAIChatResponse.self) { response in
+            .responseDecodable(of: OpenAIChatResponse.self) { [weak self] response in
                 switch response.result {
                 case .success(let result):
-                    let message = result.choices.first?.message.content ?? "error"
-//                    print("DEBUG - 사용된 토큰: \(result.usage.totalTokens)")
+                    var message = result.choices.first?.message.content ?? "error"
+                    if message.hasPrefix("\n\n") {
+                        message.removeFirst(2)
+                    }
                     print(message)
-                    completion(message)
+                    completion(true, message)
                 case .failure(let error):
                     print(error)
+                    print(error.errorDescription as Any)
+                    guard let self = self else { return }
+                    completion(false, self.errorMessage)
                     return
                 }
             }

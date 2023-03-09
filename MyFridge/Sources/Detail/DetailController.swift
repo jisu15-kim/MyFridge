@@ -285,7 +285,7 @@ class DetailController: UIViewController {
             $0.leading.trailing.equalToSuperview().inset(16)
             $0.top.equalTo(AIActionTitle.snp.bottom).inset(-10)
             $0.height.equalTo(100)
-        }   
+        }
     }
     
     private func configure() {

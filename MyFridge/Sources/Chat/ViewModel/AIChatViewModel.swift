@@ -71,7 +71,7 @@ class AIChatViewModel {
     // AI API 통신 함수
     func askToAI(keyword: String, completion: @escaping (Bool) -> Void) {
         isAIProcessing.send(true)
-        AIManager().askChatAIApi(keyword: keyword) { [weak self] data in
+        AIManager().askChatAIApi(keyword: keyword) { [weak self] (isSuccess, data) in
             self?.chats.value.append(AIChatModel(content: data, chatType: .ai))
             self?.isAIProcessing.send(false)
         }

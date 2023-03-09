@@ -43,7 +43,7 @@ struct ItemTypeModel {
     var type: Category
 }
 
-enum KeepType: String, Codable {
+enum KeepType: String, CaseIterable, Codable {
     case fridge = "냉장"
     case freezer = "냉동"
 }
