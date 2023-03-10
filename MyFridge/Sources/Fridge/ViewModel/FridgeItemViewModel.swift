@@ -24,10 +24,14 @@ class FridgeItemViewModel {
         return UIImage(named: item.itemType.rawValue)
     }
     
+    var expireDayGapInt: Int {
+        let expireDate = expireDate
+        let dateGapInt = daysBetweenDates(expireDate) ?? 0
+        return dateGapInt
+    }
+    
     var expireDDay: String {
-        let date = expireDate
-        let gap = daysBetweenDates(date) ?? 0
-        return "D-\(gap)"
+        return "D-\(expireDayGapInt)"
     }
     
     var expireDate: Date {
@@ -70,7 +74,34 @@ class FridgeItemViewModel {
         self.item = item
     }
     
+    //MARK: - Noti
+    func registerUserNotis(notiConfigs: [ItemNotiConfig]) {
+        notiConfigs.enumerated().forEach {
+            let calendar = Calendar.current
+            let after10Sec = Date().addingTimeInterval(10)
+            let dateComponents = calendar.dateComponents([.year, .month, .day, .hour, .minute, .second], from: $1.date)
+//            NotificationManager().setItemNotification(withItemViewModel: self, notiConfig: $1, index: $0, dateComponents: dateComponents)
+            print("DEBUG - dateComponents: \(dateComponents)")
+            NotificationManager().setSampleNotification(withItemViewModel: self, notiConfig: $1, index: $0, dateComponents: dateComponents)
+        }
+    }
+    
     //MARK: - Helper
+    
+    
+    func deletePreviousUserNotification() {
+        var uids: [String] = []
+        item.userNotiData.forEach {
+            uids.append($0.uid)
+        }
+        NotificationManager().deleteItemNotifications(uids: uids)
+    }
+    
+    func getNotificationDate(from expireDate: Date, offset: Int) -> Date {
+        return Calendar.current.date(byAdding: .day, value: -offset, to: expireDate)!
+    }
+
+    
     func calculateExpireDate(_ days: Int, to date: Date) -> Date? {
         var dateComponents = DateComponents()
         dateComponents.day = days

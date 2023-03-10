@@ -14,10 +14,12 @@ struct FridgeItemConfig {
     var color: UserColorPreset
     var keepType: KeepType
     var itemType: ItemType
+    var userNoti: [ItemNotiConfig]
 }
 
 struct FridgeItemModel: Codable {
     var docID: String?
+    var userNotiData: [ItemNotiConfig]
     var itemName: String
     var expireDay: Int
     var memo: String?
@@ -35,8 +37,15 @@ struct FridgeItemModel: Codable {
         self.itemType = config.itemType
         self.category = Category.allCases[itemType.id]
         self.keepType = config.keepType
+        self.userNotiData = config.userNoti
         self.timestamp = Date()
     }
+}
+
+struct ItemNotiConfig: Codable {
+    var date: Date
+    var dayOffset: Int
+    var uid: String
 }
 
 struct ItemTypeModel {

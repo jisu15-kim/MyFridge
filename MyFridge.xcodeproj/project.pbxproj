@@ -42,6 +42,8 @@
 		CD1445BC29AFBE5600EFBE65 /* FloatingPanel in Frameworks */ = {isa = PBXBuildFile; productRef = CD1445BB29AFBE5600EFBE65 /* FloatingPanel */; };
 		CD1445BF29AFC12A00EFBE65 /* Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = CD1445BE29AFC12A00EFBE65 /* Extension.swift */; };
 		CD7D00D129BA10EC00514656 /* FridgeItemHeader.swift in Sources */ = {isa = PBXBuildFile; fileRef = CD7D00D029BA10EC00514656 /* FridgeItemHeader.swift */; };
+		CD7D00D429BA37D700514656 /* NotificationManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = CD7D00D329BA37D700514656 /* NotificationManager.swift */; };
+		CD7D00D729BAC53000514656 /* DateManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = CD7D00D629BAC53000514656 /* DateManager.swift */; };
 		CDB1EB3929ADF4ED004D474A /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = CDB1EB3829ADF4ED004D474A /* AppDelegate.swift */; };
 		CDB1EB3B29ADF4ED004D474A /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = CDB1EB3A29ADF4ED004D474A /* SceneDelegate.swift */; };
 		CDB1EB4229ADF4EE004D474A /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = CDB1EB4129ADF4EE004D474A /* Assets.xcassets */; };
@@ -90,6 +92,8 @@
 		CD1445B529AFAE7000EFBE65 /* Secret.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Secret.swift; sourceTree = "<group>"; };
 		CD1445BE29AFC12A00EFBE65 /* Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Extension.swift; sourceTree = "<group>"; };
 		CD7D00D029BA10EC00514656 /* FridgeItemHeader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FridgeItemHeader.swift; sourceTree = "<group>"; };
+		CD7D00D329BA37D700514656 /* NotificationManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationManager.swift; sourceTree = "<group>"; };
+		CD7D00D629BAC53000514656 /* DateManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DateManager.swift; sourceTree = "<group>"; };
 		CDB1EB3529ADF4ED004D474A /* MyFridge.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = MyFridge.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		CDB1EB3829ADF4ED004D474A /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		CDB1EB3A29ADF4ED004D474A /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -208,6 +212,7 @@
 				CD1445BE29AFC12A00EFBE65 /* Extension.swift */,
 				CD0B510629B4BDF800DF49D7 /* ColorExtension.swift */,
 				CD0B510A29B4CAE600DF49D7 /* UserColorPreset.swift */,
+				CD7D00D629BAC53000514656 /* DateManager.swift */,
 			);
 			path = Util;
 			sourceTree = "<group>";
@@ -227,6 +232,24 @@
 			children = (
 				CDB1EB5D29ADFCE2004D474A /* FridgeItemCell.swift */,
 				CD7D00D029BA10EC00514656 /* FridgeItemHeader.swift */,
+			);
+			path = Cell;
+			sourceTree = "<group>";
+		};
+		CD7D00D229BA37B900514656 /* Noti */ = {
+			isa = PBXGroup;
+			children = (
+				CD7D00D329BA37D700514656 /* NotificationManager.swift */,
+			);
+			path = Noti;
+			sourceTree = "<group>";
+		};
+		CD7D00D529BA397700514656 /* Cell */ = {
+			isa = PBXGroup;
+			children = (
+				CDB1EB6C29AE597D004D474A /* CategoryHeaderView.swift */,
+				CD0B510829B4C7CD00DF49D7 /* ColorCell.swift */,
+				CDB1EB6A29AE5292004D474A /* RegisterIconCell.swift */,
 			);
 			path = Cell;
 			sourceTree = "<group>";
@@ -253,6 +276,7 @@
 				CD1445BD29AFC12200EFBE65 /* Util */,
 				CD1445C029AFC15400EFBE65 /* API */,
 				CD1445B429AFAE6A00EFBE65 /* Secret */,
+				CD7D00D229BA37B900514656 /* Noti */,
 				CDB1EB4C29ADF623004D474A /* Sources */,
 				CDB1EB3829ADF4ED004D474A /* AppDelegate.swift */,
 				CDB1EB3A29ADF4ED004D474A /* SceneDelegate.swift */,
@@ -334,12 +358,10 @@
 		CDB1EB6529AE4D8E004D474A /* View */ = {
 			isa = PBXGroup;
 			children = (
+				CD7D00D529BA397700514656 /* Cell */,
 				CDB1EB6629AE4D96004D474A /* CategoryRegisterController.swift */,
 				CDB1EB6E29AE5E28004D474A /* ItemRegisterController.swift */,
 				CDB1EB7029AE7242004D474A /* DetailRegisterController.swift */,
-				CDB1EB6A29AE5292004D474A /* RegisterIconCell.swift */,
-				CDB1EB6C29AE597D004D474A /* CategoryHeaderView.swift */,
-				CD0B510829B4C7CD00DF49D7 /* ColorCell.swift */,
 				CDC4ADAF29B63A510039C4B6 /* CustomTextField.swift */,
 			);
 			path = View;
@@ -449,6 +471,7 @@
 				CD0B510729B4BDF800DF49D7 /* ColorExtension.swift in Sources */,
 				CD7D00D129BA10EC00514656 /* FridgeItemHeader.swift in Sources */,
 				CDB1EB6D29AE597D004D474A /* CategoryHeaderView.swift in Sources */,
+				CD7D00D729BAC53000514656 /* DateManager.swift in Sources */,
 				CD1445B329AFAE5F00EFBE65 /* AIManager.swift in Sources */,
 				CDC4ADB029B63A510039C4B6 /* CustomTextField.swift in Sources */,
 				CD0B50F929B3633F00DF49D7 /* DetailController.swift in Sources */,
@@ -468,6 +491,7 @@
 				CD0831EA29B75FBA00DC7974 /* ChatBubbleCell.swift in Sources */,
 				CDB1EB6F29AE5E28004D474A /* ItemRegisterController.swift in Sources */,
 				CD1445BF29AFC12A00EFBE65 /* Extension.swift in Sources */,
+				CD7D00D429BA37D700514656 /* NotificationManager.swift in Sources */,
 				CD0B50D129B081BD00DF49D7 /* AIChatViewModel.swift in Sources */,
 				CDB1EB3B29ADF4ED004D474A /* SceneDelegate.swift in Sources */,
 				CDB1EB5229ADF6A1004D474A /* FridgeViewModel.swift in Sources */,

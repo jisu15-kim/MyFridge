@@ -21,6 +21,10 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         IQKeyboardManager.shared.enableAutoToolbar = false
         IQKeyboardManager.shared.shouldResignOnTouchOutside = true
         
+        UNUserNotificationCenter.current().requestAuthorization(options: [.alert, .badge, .sound]) { (isAllowed, error) in
+            
+        }
+        
         return true
     }
 

@@ -90,6 +90,11 @@ class FridgeController: UIViewController {
         present(nav, animated: true)
     }
     
+    @objc func profileViewTapped() {
+        NotificationManager().getAllNotifications()
+//        NotificationManager().deletaAllNotifications()
+    }
+    
     //MARK: - Helper
     func setupUI() {
         view.backgroundColor = .mainGrayBackground
@@ -113,6 +118,14 @@ class FridgeController: UIViewController {
     func setupNav() {
         navigationItem.title = "우리집 냉장고"
         navigationController?.interactivePopGestureRecognizer?.delegate = nil
+        
+        let userProfileView = UIImageView(image: UIImage(systemName: "star"))
+        userProfileView.backgroundColor = .systemIndigo
+        userProfileView.isUserInteractionEnabled = true
+        let tap = UITapGestureRecognizer(target: self, action: #selector(profileViewTapped))
+        userProfileView.addGestureRecognizer(tap)
+        let rightBtn = UIBarButtonItem(customView: userProfileView)
+        navigationItem.rightBarButtonItem = rightBtn
     }
     
     func setupCollectionView() {

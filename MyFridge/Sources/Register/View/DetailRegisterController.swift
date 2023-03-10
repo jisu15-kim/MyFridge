@@ -212,26 +212,46 @@ class DetailRegisterController: UIViewController {
     
     @objc func handleDoneAction() {
         
+        let dateManager = DateManager()
+        
         guard let name = nameTextField.text else { return }
         guard let expireDayString = expireTextField.text else { return }
         guard let expireDay = Int(expireDayString) else { return }
         guard let memo = memoTextField.text else { return }
         guard let selectedColor = selectedColor.value else { return }
-        print("DEBUT - SelectedColor: \(selectedColor)")
-        let itemConfig = FridgeItemConfig(itemName: name, expireDay: expireDay, memo: memo, color: selectedColor, keepType: keepType, itemType: selectedItem)
+        
+        var offsetDate: Date = Date()
+        if let viewModel = viewModel {
+            offsetDate = viewModel.registedDate
+        }
+        
+        // 노티 정보
+        let notiConfigs = dateManager.getUserNotiUid(expireDay: expireDay, offsetDate: offsetDate)
+        
+        let itemConfig = FridgeItemConfig(itemName: name, expireDay: expireDay, memo: memo, color: selectedColor, keepType: keepType, itemType: selectedItem, userNoti: notiConfigs)
         let item = FridgeItemModel(config: itemConfig)
         
         switch actionType {
         case .register:
             Network().itemCreateUpdate(item: item, type: actionType) { [weak self] isSuccess in
                 if isSuccess == true {
+                    // 등록한 아이템으로 새로운 뷰 모델
+                    let newViewModel = FridgeItemViewModel(item: item)
+                    // 노티 등록 코드
+                    newViewModel.registerUserNotis(notiConfigs: notiConfigs)
                     self?.navigationController?.dismiss(animated: true)
                 }
             }
         case .modify:
             Network().itemCreateUpdate(item: item, type: actionType, itemID: viewModel?.itemID) { [weak self] isSuccess in
                 if isSuccess == true {
-                    guard let viewModel = self?.viewModel else { return }
+                    // 기존에 등록된 노티는 삭제하는 코드
+                    guard let viewModel = self?.viewModel else { return } // 기존 아이템의 뷰 모델
+                    viewModel.deletePreviousUserNotification()
+                    // 등록한 아이템으로 새로운 뷰 모델
+                    let newViewModel = FridgeItemViewModel(item: item)
+                    // 새로운 노티 등록
+                    newViewModel.registerUserNotis(notiConfigs: notiConfigs)
                     self?.delegate?.actionDone(itemID: viewModel.itemID)
                     self?.navigationController?.popViewController(animated: true)
                 }
