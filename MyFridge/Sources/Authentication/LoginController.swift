@@ -8,15 +8,24 @@
 import UIKit
 import SnapKit
 import Firebase
+import KakaoSDKUser
+import KakaoSDKAuth
 
 class LoginController: UIViewController {
     
     //MARK: - Properties
+    private let backgroundImageView: UIImageView = {
+        let iv = UIImageView()
+        iv.image = UIImage(named: "backgroundImage")
+        iv.contentMode = .scaleAspectFill
+        return iv
+    }()
+    
     private let logoImageView: UIImageView = {
         let iv = UIImageView()
         iv.contentMode = .scaleAspectFit
         iv.clipsToBounds = true
-        iv.image = #imageLiteral(resourceName: "Watermelon")
+        //        iv.image = #imageLiteral(resourceName: "Watermelon")
         return iv
     }()
     
@@ -43,6 +52,13 @@ class LoginController: UIViewController {
         return tf
     }()
     
+    lazy var kakaoLoginButton: UIButton = {
+        let button = UIButton()
+        button.setTitle("카카오 로그인", for: .normal)
+        button.addTarget(self, action: #selector(handleKakaoLoginTapped), for: .touchUpInside)
+        return button
+    }()
+    
     private let loginButton: UIButton = {
         let button = UIButton(type: .system)
         button.backgroundColor = .white
@@ -52,7 +68,7 @@ class LoginController: UIViewController {
         button.layer.cornerRadius = 5
         button.titleLabel?.font = .systemFont(ofSize: 20)
         button.addTarget(nil, action: #selector(handleLogin), for: .touchUpInside)
-        return button 
+        return button
     }()
     
     private let dontHaveAccountButton: UIButton = {
@@ -69,28 +85,24 @@ class LoginController: UIViewController {
     }
     
     //MARK: - Selectores
-    @objc func handleLogin() {
-        guard let email = emailTextField.text else { return }
-        guard let password = passwordTextField.text else { return }
-        
-        // 로그인 시도
-        AuthService.shared.logUserIn(withEmail: email, password: password) { (result, error) in
-            if let error = error {
-                print("DEBUG: ERROR - \(error)")
-                return
+    @objc func handleKakaoLoginTapped() {
+        print("로그인 시도합니다")
+        KakaoLoginManager().tryKakaoLogin { user in
+            FirebaseLoginManager().tryFirebaseAuth(withUser: user) { [weak self] isSuccess in
+                if isSuccess == true {
+                    self?.loginSuccessAndTransition()
+                } else {
+                    print("로그인 실패")
+                }
             }
-            
-            // 로그인 성공
-            // UIApplication의 Window / 루트뷰를 찾아서, Auth 인증 함수 호출, 이후 Dismiss
-            let scenes = UIApplication.shared.connectedScenes
-            let windowScenes = scenes.first as? UIWindowScene
-            guard let window = windowScenes?.windows.first(where: { $0.isKeyWindow }) else { return }
-            
-            guard let tab = window.rootViewController as? MainTabViewController else { return }
-            tab.authenticateUserAndConfigureUI()
-            
-            self.dismiss(animated: true)
         }
+    }
+    
+    @objc func handleLogin() {
+//        guard let email = emailTextField.text else { return }
+//        guard let password = passwordTextField.text else { return }
+//
+//        tryFirebaseLogin(withEmail: email, password: password)
     }
     
     @objc func handleShowSignUp() {
@@ -101,7 +113,11 @@ class LoginController: UIViewController {
     //MARK: - Helpers
     
     func configureUI() {
-        view.backgroundColor = .systemIndigo
+        view.addSubview(backgroundImageView)
+        backgroundImageView.snp.makeConstraints {
+            $0.edges.equalToSuperview()
+        }
+        
         navigationController?.navigationBar.barStyle = .black // Statusbar의 글씨 생상
         navigationController?.navigationBar.isHidden = true
         
@@ -111,8 +127,15 @@ class LoginController: UIViewController {
             $0.width.height.equalTo(150)
         }
         
+        view.addSubview(dontHaveAccountButton)
+        dontHaveAccountButton.snp.makeConstraints {
+            $0.leading.trailing.equalToSuperview().inset(40)
+            $0.bottom.equalTo(view.safeAreaLayoutGuide)
+        }
+        
         let stack = UIStackView(arrangedSubviews: [emailContainerView,
                                                    passwordContainerView,
+                                                   kakaoLoginButton,
                                                    loginButton])
         stack.axis = .vertical
         stack.spacing = 20
@@ -120,14 +143,21 @@ class LoginController: UIViewController {
         
         view.addSubview(stack)
         stack.snp.makeConstraints {
-            $0.top.equalTo(logoImageView.snp.bottom)
+            $0.bottom.equalTo(dontHaveAccountButton.snp.top).inset(-100)
             $0.leading.trailing.equalToSuperview().inset(28)
         }
+    }
+    
+    func loginSuccessAndTransition() {
+        // 로그인 성공
+        // UIApplication의 Window / 루트뷰를 찾아서, Auth 인증 함수 호출, 이후 Dismiss
+        let scenes = UIApplication.shared.connectedScenes
+        let windowScenes = scenes.first as? UIWindowScene
+        guard let window = windowScenes?.windows.first(where: { $0.isKeyWindow }) else { return }
         
-        view.addSubview(dontHaveAccountButton)
-        dontHaveAccountButton.snp.makeConstraints {
-            $0.leading.trailing.equalToSuperview().inset(40)
-            $0.bottom.equalTo(view.safeAreaLayoutGuide)
-        }
+        guard let tab = window.rootViewController as? MainTabViewController else { return }
+        tab.authenticateUserAndConfigureUI()
+        
+        self.dismiss(animated: true)
     }
 }

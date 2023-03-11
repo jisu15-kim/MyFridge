@@ -7,6 +7,11 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		CD019A5529BCD9D800001556 /* KakaoSDKAuth in Frameworks */ = {isa = PBXBuildFile; productRef = CD019A5429BCD9D800001556 /* KakaoSDKAuth */; };
+		CD019A5729BCD9D800001556 /* KakaoSDKUser in Frameworks */ = {isa = PBXBuildFile; productRef = CD019A5629BCD9D800001556 /* KakaoSDKUser */; };
+		CD019A5929BCEB1B00001556 /* KakaoLoginManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = CD019A5829BCEB1B00001556 /* KakaoLoginManager.swift */; };
+		CD019A5B29BCF13600001556 /* FirebaseLoginManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = CD019A5A29BCF13600001556 /* FirebaseLoginManager.swift */; };
+		CD019A5E29BCF39000001556 /* UserModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = CD019A5D29BCF39000001556 /* UserModel.swift */; };
 		CD0831EA29B75FBA00DC7974 /* ChatBubbleCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = CD0831E929B75FBA00DC7974 /* ChatBubbleCell.swift */; };
 		CD0831EC29B761BD00DC7974 /* ChatBubbleCellViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = CD0831EB29B761BD00DC7974 /* ChatBubbleCellViewModel.swift */; };
 		CD0831EF29B7637700DC7974 /* AIChatModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = CD0831EE29B7637700DC7974 /* AIChatModel.swift */; };
@@ -67,6 +72,9 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		CD019A5829BCEB1B00001556 /* KakaoLoginManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KakaoLoginManager.swift; sourceTree = "<group>"; };
+		CD019A5A29BCF13600001556 /* FirebaseLoginManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FirebaseLoginManager.swift; sourceTree = "<group>"; };
+		CD019A5D29BCF39000001556 /* UserModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserModel.swift; sourceTree = "<group>"; };
 		CD0831E929B75FBA00DC7974 /* ChatBubbleCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChatBubbleCell.swift; sourceTree = "<group>"; };
 		CD0831EB29B761BD00DC7974 /* ChatBubbleCellViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChatBubbleCellViewModel.swift; sourceTree = "<group>"; };
 		CD0831EE29B7637700DC7974 /* AIChatModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AIChatModel.swift; sourceTree = "<group>"; };
@@ -127,6 +135,8 @@
 				CD1445BC29AFBE5600EFBE65 /* FloatingPanel in Frameworks */,
 				CD0B50F429B3381300DF49D7 /* FirebaseStorage in Frameworks */,
 				CD0B50F229B3381300DF49D7 /* FirebaseFirestoreSwift in Frameworks */,
+				CD019A5529BCD9D800001556 /* KakaoSDKAuth in Frameworks */,
+				CD019A5729BCD9D800001556 /* KakaoSDKUser in Frameworks */,
 				CDB1EB5929ADFC50004D474A /* SnapKit in Frameworks */,
 				CD0B50EE29B3381300DF49D7 /* FirebaseFirestore in Frameworks */,
 				CDC4ADAE29B632F40039C4B6 /* IQKeyboardManagerSwift in Frameworks */,
@@ -139,6 +149,15 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		CD019A5C29BCF15F00001556 /* Manager */ = {
+			isa = PBXGroup;
+			children = (
+				CD019A5829BCEB1B00001556 /* KakaoLoginManager.swift */,
+				CD019A5A29BCF13600001556 /* FirebaseLoginManager.swift */,
+			);
+			path = Manager;
+			sourceTree = "<group>";
+		};
 		CD0831E729B75E6600DC7974 /* ViewModel */ = {
 			isa = PBXGroup;
 			children = (
@@ -180,9 +199,11 @@
 		CD0B50DB29B32C5100DF49D7 /* Authentication */ = {
 			isa = PBXGroup;
 			children = (
-				CD0B50E029B32CFC00DF49D7 /* AuthViewHelper.swift */,
+				CD019A5C29BCF15F00001556 /* Manager */,
 				CD0B50DC29B32CC900DF49D7 /* LoginController.swift */,
+				CD0B50E029B32CFC00DF49D7 /* AuthViewHelper.swift */,
 				CD0B50DD29B32CC900DF49D7 /* RegistrationController.swift */,
+				CD019A5D29BCF39000001556 /* UserModel.swift */,
 			);
 			path = Authentication;
 			sourceTree = "<group>";
@@ -292,10 +313,10 @@
 			isa = PBXGroup;
 			children = (
 				CDB1EB5329ADF6CF004D474A /* Base */,
+				CD0B50DB29B32C5100DF49D7 /* Authentication */,
 				CDB1EB5429ADF6DA004D474A /* Fridge */,
 				CD0B50F729B3631A00DF49D7 /* Detail */,
 				CDB1EB6429AE4D52004D474A /* Register */,
-				CD0B50DB29B32C5100DF49D7 /* Authentication */,
 				CD0B50CC29B07C5100DF49D7 /* Chat */,
 			);
 			path = Sources;
@@ -397,6 +418,8 @@
 				CD0B50F129B3381300DF49D7 /* FirebaseFirestoreSwift */,
 				CD0B50F329B3381300DF49D7 /* FirebaseStorage */,
 				CDC4ADAD29B632F40039C4B6 /* IQKeyboardManagerSwift */,
+				CD019A5429BCD9D800001556 /* KakaoSDKAuth */,
+				CD019A5629BCD9D800001556 /* KakaoSDKUser */,
 			);
 			productName = MyFridge;
 			productReference = CDB1EB3529ADF4ED004D474A /* MyFridge.app */;
@@ -435,6 +458,7 @@
 				CD1445BA29AFBE5600EFBE65 /* XCRemoteSwiftPackageReference "FloatingPanel" */,
 				CD0B50E829B3381300DF49D7 /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */,
 				CDC4ADAC29B632F40039C4B6 /* XCRemoteSwiftPackageReference "IQKeyboardManager" */,
+				CD019A5329BCD9D800001556 /* XCRemoteSwiftPackageReference "kakao-ios-sdk" */,
 			);
 			productRefGroup = CDB1EB3629ADF4ED004D474A /* Products */;
 			projectDirPath = "";
@@ -465,6 +489,7 @@
 			files = (
 				CDB1EB5629ADF731004D474A /* MainTabViewController.swift in Sources */,
 				CD0B50E329B32D8400DF49D7 /* AuthService.swift in Sources */,
+				CD019A5B29BCF13600001556 /* FirebaseLoginManager.swift in Sources */,
 				CDB1EB7129AE7242004D474A /* DetailRegisterController.swift in Sources */,
 				CD0B50E129B32CFC00DF49D7 /* AuthViewHelper.swift in Sources */,
 				CD0B50E529B32E2500DF49D7 /* Constraints.swift in Sources */,
@@ -472,6 +497,7 @@
 				CD7D00D129BA10EC00514656 /* FridgeItemHeader.swift in Sources */,
 				CDB1EB6D29AE597D004D474A /* CategoryHeaderView.swift in Sources */,
 				CD7D00D729BAC53000514656 /* DateManager.swift in Sources */,
+				CD019A5E29BCF39000001556 /* UserModel.swift in Sources */,
 				CD1445B329AFAE5F00EFBE65 /* AIManager.swift in Sources */,
 				CDC4ADB029B63A510039C4B6 /* CustomTextField.swift in Sources */,
 				CD0B50F929B3633F00DF49D7 /* DetailController.swift in Sources */,
@@ -500,6 +526,7 @@
 				CD1445B629AFAE7000EFBE65 /* Secret.swift in Sources */,
 				CD0B50F629B35B3800DF49D7 /* FridgeItemViewModel.swift in Sources */,
 				CDB1EB6B29AE5292004D474A /* RegisterIconCell.swift in Sources */,
+				CD019A5929BCEB1B00001556 /* KakaoLoginManager.swift in Sources */,
 				CD0B50CF29B0815600DF49D7 /* AIChatViewController.swift in Sources */,
 				CD0831EF29B7637700DC7974 /* AIChatModel.swift in Sources */,
 				CDB1EB6729AE4D96004D474A /* CategoryRegisterController.swift in Sources */,
@@ -713,6 +740,14 @@
 /* End XCConfigurationList section */
 
 /* Begin XCRemoteSwiftPackageReference section */
+		CD019A5329BCD9D800001556 /* XCRemoteSwiftPackageReference "kakao-ios-sdk" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/kakao/kakao-ios-sdk";
+			requirement = {
+				branch = master;
+				kind = branch;
+			};
+		};
 		CD0B50E829B3381300DF49D7 /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/firebase/firebase-ios-sdk";
@@ -781,6 +816,16 @@
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
+		CD019A5429BCD9D800001556 /* KakaoSDKAuth */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = CD019A5329BCD9D800001556 /* XCRemoteSwiftPackageReference "kakao-ios-sdk" */;
+			productName = KakaoSDKAuth;
+		};
+		CD019A5629BCD9D800001556 /* KakaoSDKUser */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = CD019A5329BCD9D800001556 /* XCRemoteSwiftPackageReference "kakao-ios-sdk" */;
+			productName = KakaoSDKUser;
+		};
 		CD0B50E929B3381300DF49D7 /* FirebaseAuth */ = {
 			isa = XCSwiftPackageProductDependency;
 			package = CD0B50E829B3381300DF49D7 /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */;
