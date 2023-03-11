@@ -79,10 +79,10 @@ class FridgeItemViewModel {
         notiConfigs.enumerated().forEach {
             let calendar = Calendar.current
             let after10Sec = Date().addingTimeInterval(10)
-            let dateComponents = calendar.dateComponents([.year, .month, .day, .hour, .minute, .second], from: $1.date)
-//            NotificationManager().setItemNotification(withItemViewModel: self, notiConfig: $1, index: $0, dateComponents: dateComponents)
+            let dateComponents = calendar.dateComponents([.year, .month, .day, .hour, .minute, .second], from: after10Sec)
+            NotificationManager().setItemNotification(withItemViewModel: self, notiConfig: $1, index: $0, dateComponents: dateComponents)
             print("DEBUG - dateComponents: \(dateComponents)")
-            NotificationManager().setSampleNotification(withItemViewModel: self, notiConfig: $1, index: $0, dateComponents: dateComponents)
+//            NotificationManager().setSampleNotification(withItemViewModel: self, notiConfig: $1, index: $0, dateComponents: dateComponents)
         }
     }
     

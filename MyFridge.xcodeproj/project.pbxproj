@@ -313,9 +313,9 @@
 		CDB1EB4E29ADF669004D474A /* View */ = {
 			isa = PBXGroup;
 			children = (
-				CD7D00CF29BA10DB00514656 /* Cell */,
 				CDB1EB4F29ADF68C004D474A /* FridgeController.swift */,
 				CDB1EB5F29AE2FF9004D474A /* CategoryCapsuleView.swift */,
+				CD7D00CF29BA10DB00514656 /* Cell */,
 			);
 			path = View;
 			sourceTree = "<group>";

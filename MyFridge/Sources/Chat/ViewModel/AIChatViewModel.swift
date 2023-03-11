@@ -72,8 +72,14 @@ class AIChatViewModel {
     func askToAI(keyword: String, completion: @escaping (Bool) -> Void) {
         isAIProcessing.send(true)
         AIManager().askChatAIApi(keyword: keyword) { [weak self] (isSuccess, data) in
-            self?.chats.value.append(AIChatModel(content: data, chatType: .ai))
-            self?.isAIProcessing.send(false)
+            if isSuccess == true {
+                self?.chats.value.append(AIChatModel(content: data, chatType: .ai))
+                self?.isAIProcessing.send(false)
+            } else {
+                print("에러처리")
+                self?.chats.value.append(AIChatModel(content: "데이터를 로드하지 못했어요🙏 다시 시도해주세요!", chatType: .ai))
+                self?.isAIProcessing.send(false)
+            }
         }
     }
     

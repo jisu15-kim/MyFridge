@@ -147,6 +147,11 @@ class DetailController: UIViewController {
         let delete = UIAlertAction(title: "삭제하기", style: .destructive) { [weak self] _ in
             self?.viewModel.deleteItem { isSucess in
                 if isSucess == true {
+                    var uids: [String] = []
+                    self?.viewModel.item.userNotiData.forEach({
+                        uids.append($0.uid)
+                    })
+                    NotificationManager().deleteItemNotifications(uids: uids)
                     self?.navigationController?.popViewController(animated: true)
                 } else {
                     print("ERROR: 삭제 실패 alert")
@@ -234,7 +239,7 @@ class DetailController: UIViewController {
             $0.leading.trailing.equalToSuperview().inset(16)
             $0.height.equalTo(1)
             $0.top.equalTo(iconContainerView.snp.bottom).inset(-20)
-            lineView.backgroundColor = .systemGray5
+            lineView.backgroundColor = .lightGray
         }
         
         view.addSubview(expireInfoLabel)

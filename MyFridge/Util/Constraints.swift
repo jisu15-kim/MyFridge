@@ -10,3 +10,4 @@ import FirebaseFirestore
 
 //let STORAGE_REF = Storage.storage().reference()
 let DOC_USERS = Firestore.firestore().collection("users")
+let DOC_ITEMINFOS = Firestore.firestore().collection("item-infos")

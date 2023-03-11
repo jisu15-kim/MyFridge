@@ -98,4 +98,42 @@ class Network {
             }
         }
     }
+    
+    // 각 아이템별 유통기한 업로드 코드
+    func updateItemInfoData() {
+        
+        ItemType.allCases.forEach {
+            let itemInfoModel = ItemInfoModel(itemName: $0.rawValue, expireFridgeDay: $0.expireFridgeDay, expireFreeerDay: $0.expireFreezerDay)
+            guard let data = itemInfoModel.asDictionary else {
+                print("ItemType Info 디코딩 실패")
+                return
+            }
+            DOC_ITEMINFOS.document($0.rawValue).setData(data) { error in
+                if let error = error {
+                    print(error)
+                } else {
+                    print("itemInfo 업데이트 성공")
+                }
+            }
+        }
+    }
+    
+    func fetchItemInfo(itemType: ItemType, completion: @escaping (ItemInfoModel) -> Void) {
+        DOC_ITEMINFOS.document(itemType.rawValue).getDocument { (snapshot, error) in
+            if let error = error {
+                print(error)
+            } else {
+                guard let document = snapshot else { return }
+                let decoder = JSONDecoder()
+                do {
+                    guard let data = document.data() else { return }
+                    let jsonData = try JSONSerialization.data(withJSONObject: data)
+                    let item = try decoder.decode(ItemInfoModel.self, from: jsonData)
+                    completion(item)
+                } catch let error {
+                    print("ERROR - \(error.localizedDescription)")
+                }
+            }
+        }
+    }
 }

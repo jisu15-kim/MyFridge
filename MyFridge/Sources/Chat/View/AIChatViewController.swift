@@ -21,19 +21,13 @@ class AIChatViewController: UIViewController {
     
     let collectionView: UICollectionView = {
         let layout = UICollectionViewFlowLayout()
-        layout.minimumInteritemSpacing = 10
+        layout.minimumInteritemSpacing = 20
         layout.scrollDirection = .vertical
         layout.sectionInset = UIEdgeInsets(top: 50, left: 0, bottom: 30, right: 0)
         let cv = UICollectionView(frame: .zero, collectionViewLayout: layout)
         cv.backgroundColor = .mainGrayBackground
         return cv
     }()
-    
-    var header: ChatHeader? {
-        didSet {
-            print("헤더 세팅 됨")
-        }
-    }
     
     lazy var processingView: UIView = {
         let view = UIView()
@@ -112,42 +106,22 @@ class AIChatViewController: UIViewController {
     private func bindProcessingView(isProcessing: Bool) {
         // 코드 수정이 필요한 부분 ..
         if isProcessing == true {
-            DispatchQueue.global().asyncAfter(deadline: .now() + 0.1) { [weak self] in
+            DispatchQueue.global().asyncAfter(deadline: .now() + 0.2) { [weak self] in
                 DispatchQueue.main.async {
-                    guard let self = self,
-                          let header = self.header else { return }
-                    
+                    guard let self = self else { return }
+                    let window = UIApplication.shared.windows.filter { $0.isKeyWindow }.first
+                    let statusBarHeight = window?.windowScene?.statusBarManager?.statusBarFrame.height ?? 0
                     self.view.addSubview(self.processingView)
                     self.processingView.isHidden = false
                     self.processingView.snp.makeConstraints {
                         $0.leading.trailing.equalToSuperview()
-                        $0.top.equalTo(header.snp.bottom)
+                        $0.top.equalTo(self.view.snp.top).inset(statusBarHeight + 80)
                         $0.height.equalTo(20)
-                    }
-                    
-                    UIView.animate(withDuration: 0.3) {
-                        self.processingView.snp.makeConstraints {
-                            $0.leading.trailing.equalToSuperview()
-                            $0.top.equalTo(header.snp.bottom)
-                            $0.height.equalTo(20)
-                        }
-                        self.view.layoutIfNeeded()
                     }
                 }
             }
         } else {
-            guard let header = self.header else { return }
-            self.processingView.snp.makeConstraints {
-                $0.leading.trailing.equalToSuperview()
-                $0.top.equalTo(header.snp.bottom)
-                $0.bottom.equalTo(header.snp.bottom)
-            }
-            
-            UIView.animate(withDuration: 0.3) { [weak self] in
-                self?.processingView.layoutIfNeeded()
-            } completion: { [weak self] _ in
-                self?.processingView.removeFromSuperview()
-            }
+            self.processingView.isHidden = true
         }
     }
 }
@@ -169,7 +143,6 @@ extension AIChatViewController: UICollectionViewDataSource, UICollectionViewDele
     func collectionView(_ collectionView: UICollectionView, viewForSupplementaryElementOfKind kind: String, at indexPath: IndexPath) -> UICollectionReusableView {
         guard let header = collectionView.dequeueReusableSupplementaryView(ofKind: UICollectionView.elementKindSectionHeader, withReuseIdentifier: headerIdentifier, for: indexPath) as? ChatHeader else { return UICollectionReusableView() }
         header.delegate = self
-        self.header = header
         return header
     }
 }

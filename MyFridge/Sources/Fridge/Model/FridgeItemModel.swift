@@ -139,7 +139,7 @@ enum ItemType: String, CaseIterable, Codable {
     
     var itemName: String {
         switch self {
-        // 채소
+            // 채소
         case .Asparagus:
             return "아스파라거스"
         case .Eggplant:
@@ -157,7 +157,7 @@ enum ItemType: String, CaseIterable, Codable {
         case .Carrot:
             return "당근"
         case .Pepper:
-            return "고추"
+            return "피망"
         case .Garlic:
             return "마늘"
         case .Chili:
@@ -173,7 +173,7 @@ enum ItemType: String, CaseIterable, Codable {
         case .Spinach:
             return "시금치"
             
-        // 사과
+            // 과일
         case .Apple:
             return "사과"
         case .Orange:
@@ -198,7 +198,129 @@ enum ItemType: String, CaseIterable, Codable {
             return "포도"
         }
     }
-    
+            
+    var expireFridgeDay: Int {
+        switch self {
+        // 채소
+        case .Asparagus:
+            return 2
+        case .Eggplant:
+            return 4
+        case .Brocoli:
+            return 7
+        case .Cabbage:
+            return 7
+        case .Pumpkin:
+            return 7
+        case .Lettuce:
+            return 5
+        case .Corn:
+            return 2
+        case .Carrot:
+            return 21
+        case .Pepper:
+            return 14
+        case .Garlic:
+            return 120
+        case .Chili:
+            return 14
+        case .Cucumber:
+            return 7
+        case .Onion:
+            return 28
+        case .Potato:
+            return 28
+        case .Tomato:
+            return 5
+        case .Spinach:
+            return 3
+        // 과일
+        case .Apple:
+            return 30
+        case .Orange:
+            return 14
+        case .Banana:
+            return 5
+        case .Melon:
+            return 5
+        case .Watermelon:
+            return 7
+        case .Strawberry:
+            return 3
+        case .Pineapple:
+            return 5
+        case .Avocado:
+            return 5
+        case .Kiwi:
+            return 14
+        case .Mango:
+            return 7
+        case .Grape:
+            return 5
+        }
+    }
+
+    var expireFreezerDay: Int {
+        switch self {
+            // 채소
+        case .Asparagus:
+            return 365
+        case .Eggplant:
+            return 300
+        case .Brocoli:
+            return 365
+        case .Cabbage:
+            return 365
+        case .Pumpkin:
+            return 300
+        case .Lettuce:
+            return -1 // 냉동 보관 불가능
+        case .Corn:
+            return 365
+        case .Carrot:
+            return 365
+        case .Pepper:
+            return 365
+        case .Garlic:
+            return 365
+        case .Chili:
+            return 365
+        case .Cucumber:
+            return 300
+        case .Onion:
+            return 365
+        case .Potato:
+            return 365
+        case .Tomato:
+            return 365
+        case .Spinach:
+            return 365
+            // 과일
+        case .Apple:
+            return 365
+        case .Orange:
+            return 365
+        case .Banana:
+            return -1 // 냉동 보관 불가능
+        case .Melon:
+            return 300
+        case .Watermelon:
+            return 300
+        case .Strawberry:
+            return -1 // 냉동 보관 불가능
+        case .Pineapple:
+            return 365
+        case .Avocado:
+            return 365
+        case .Kiwi:
+            return 8
+        case .Mango:
+            return 365
+        case .Grape:
+            return 365
+        }
+    }
+        
     var id: Int {
         switch self {
         case .Asparagus, .Eggplant, .Brocoli, .Cabbage, .Pumpkin, .Lettuce, .Corn, .Pepper, .Garlic, .Chili, .Cucumber, .Onion, .Tomato, .Spinach, .Carrot, .Potato:
@@ -248,4 +370,10 @@ enum FruitItemType: String, CaseIterable {
             return "포도"
         }
     }
+}
+
+struct ItemInfoModel: Codable {
+    var itemName: String
+    var expireFridgeDay: Int
+    var expireFreeerDay: Int
 }

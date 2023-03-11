@@ -55,6 +55,7 @@ class AIManager {
                     }
                     print(message)
                     completion(true, message)
+                    return
                 case .failure(let error):
                     print(error)
                     print(error.errorDescription as Any)

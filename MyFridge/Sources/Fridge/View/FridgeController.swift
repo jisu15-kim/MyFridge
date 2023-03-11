@@ -80,10 +80,6 @@ class FridgeController: UIViewController {
     
     //MARK: - Selector
     @objc func handleAddButtonTapped() {
-//        임시 로그아웃기능
-//        AuthService.shared.logUserOut { [weak self] in
-//            self?.authDelegate?.logUserOut()
-//        }
         let vc = CategoryRegisterController()
         let nav = MainNaviViewController(rootViewController: vc)
         nav.modalPresentationStyle = .fullScreen
@@ -91,7 +87,12 @@ class FridgeController: UIViewController {
     }
     
     @objc func profileViewTapped() {
-        NotificationManager().getAllNotifications()
+//        임시 로그아웃기능
+//        Network().updateItemInfoData()
+        AuthService.shared.logUserOut { [weak self] in
+            self?.authDelegate?.logUserOut()
+        }
+//        NotificationManager().getAllNotifications()
 //        NotificationManager().deletaAllNotifications()
     }
     

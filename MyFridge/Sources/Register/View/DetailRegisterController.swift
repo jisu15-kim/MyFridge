@@ -37,6 +37,12 @@ class DetailRegisterController: UIViewController {
         }
     }
     
+    private var itemInfo: ItemInfoModel? {
+        didSet {
+            configureItemInfo()
+        }
+    }
+    
     private var subscription = Set<AnyCancellable>()
     private var selectedColor: CurrentValueSubject<UserColorPreset?, Never>
     
@@ -181,6 +187,7 @@ class DetailRegisterController: UIViewController {
         self.setupCollectionView()
         self.bind()
         self.configureSelectedColor()
+        self.fetchExpireDayData()
     }
     
     //MARK: - Bind
@@ -195,6 +202,14 @@ class DetailRegisterController: UIViewController {
                 self.colorCollectionView.layoutIfNeeded()
                 self.colorCollectionView.selectItem(at: indexPath, animated: true, scrollPosition: .centeredHorizontally)
             }.store(in: &subscription)
+    }
+    //MARK: - API
+    private func fetchExpireDayData() {
+        if actionType == .register {
+            Network().fetchItemInfo(itemType: selectedItem) { [weak self] info in
+                self?.itemInfo = info
+            }
+        }
     }
     
     //MARK: - Selector
@@ -432,6 +447,18 @@ class DetailRegisterController: UIViewController {
     
     private func configureType() {
         aiActionButton.setTitle("AI에게 \(selectedItem.itemName) \(keepType.rawValue) 보관방법 물어보기", for: .normal)
+        configureItemInfo()
+    }
+    
+    private func configureItemInfo() {
+        guard let itemInfo = itemInfo else { return }
+        if keepType == .fridge {
+            expireTextField.text = "\(itemInfo.expireFridgeDay)"
+            updateExpireDate(offsetDay: itemInfo.expireFridgeDay)
+        } else {
+            expireTextField.text = "\(itemInfo.expireFreeerDay)"
+            updateExpireDate(offsetDay: itemInfo.expireFreeerDay)
+        }
     }
     
     private func makeTitleLabel(withTitle title: String) -> UILabel {
@@ -511,7 +538,6 @@ class DetailRegisterController: UIViewController {
             let futureDate = Calendar.current.date(byAdding: .day, value: days, to: offsetDate)
             return futureDate
         }
-        
     }
     
     // 구한 날짜 String으로
