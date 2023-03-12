@@ -12,6 +12,10 @@
 		CD019A5929BCEB1B00001556 /* KakaoLoginManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = CD019A5829BCEB1B00001556 /* KakaoLoginManager.swift */; };
 		CD019A5B29BCF13600001556 /* FirebaseLoginManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = CD019A5A29BCF13600001556 /* FirebaseLoginManager.swift */; };
 		CD019A5E29BCF39000001556 /* UserModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = CD019A5D29BCF39000001556 /* UserModel.swift */; };
+		CD019A6129BD003100001556 /* GoogleSignIn in Frameworks */ = {isa = PBXBuildFile; productRef = CD019A6029BD003100001556 /* GoogleSignIn */; };
+		CD019A6329BD003100001556 /* GoogleSignInSwift in Frameworks */ = {isa = PBXBuildFile; productRef = CD019A6229BD003100001556 /* GoogleSignInSwift */; };
+		CD019A6529BD073A00001556 /* GoogleLoginManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = CD019A6429BD073A00001556 /* GoogleLoginManager.swift */; };
+		CD019A6829BDC20C00001556 /* naveridlogin-ios-sp in Frameworks */ = {isa = PBXBuildFile; productRef = CD019A6729BDC20C00001556 /* naveridlogin-ios-sp */; };
 		CD0831EA29B75FBA00DC7974 /* ChatBubbleCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = CD0831E929B75FBA00DC7974 /* ChatBubbleCell.swift */; };
 		CD0831EC29B761BD00DC7974 /* ChatBubbleCellViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = CD0831EB29B761BD00DC7974 /* ChatBubbleCellViewModel.swift */; };
 		CD0831EF29B7637700DC7974 /* AIChatModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = CD0831EE29B7637700DC7974 /* AIChatModel.swift */; };
@@ -46,6 +50,7 @@
 		CD1445B929AFB92A00EFBE65 /* Alamofire in Frameworks */ = {isa = PBXBuildFile; productRef = CD1445B829AFB92A00EFBE65 /* Alamofire */; };
 		CD1445BC29AFBE5600EFBE65 /* FloatingPanel in Frameworks */ = {isa = PBXBuildFile; productRef = CD1445BB29AFBE5600EFBE65 /* FloatingPanel */; };
 		CD1445BF29AFC12A00EFBE65 /* Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = CD1445BE29AFC12A00EFBE65 /* Extension.swift */; };
+		CD55324429BDC7D400F1B657 /* NaverLoginManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = CD55324329BDC7D400F1B657 /* NaverLoginManager.swift */; };
 		CD7D00D129BA10EC00514656 /* FridgeItemHeader.swift in Sources */ = {isa = PBXBuildFile; fileRef = CD7D00D029BA10EC00514656 /* FridgeItemHeader.swift */; };
 		CD7D00D429BA37D700514656 /* NotificationManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = CD7D00D329BA37D700514656 /* NotificationManager.swift */; };
 		CD7D00D729BAC53000514656 /* DateManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = CD7D00D629BAC53000514656 /* DateManager.swift */; };
@@ -75,6 +80,7 @@
 		CD019A5829BCEB1B00001556 /* KakaoLoginManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KakaoLoginManager.swift; sourceTree = "<group>"; };
 		CD019A5A29BCF13600001556 /* FirebaseLoginManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FirebaseLoginManager.swift; sourceTree = "<group>"; };
 		CD019A5D29BCF39000001556 /* UserModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserModel.swift; sourceTree = "<group>"; };
+		CD019A6429BD073A00001556 /* GoogleLoginManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GoogleLoginManager.swift; sourceTree = "<group>"; };
 		CD0831E929B75FBA00DC7974 /* ChatBubbleCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChatBubbleCell.swift; sourceTree = "<group>"; };
 		CD0831EB29B761BD00DC7974 /* ChatBubbleCellViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChatBubbleCellViewModel.swift; sourceTree = "<group>"; };
 		CD0831EE29B7637700DC7974 /* AIChatModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AIChatModel.swift; sourceTree = "<group>"; };
@@ -99,6 +105,7 @@
 		CD1445B229AFAE5F00EFBE65 /* AIManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AIManager.swift; sourceTree = "<group>"; };
 		CD1445B529AFAE7000EFBE65 /* Secret.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Secret.swift; sourceTree = "<group>"; };
 		CD1445BE29AFC12A00EFBE65 /* Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Extension.swift; sourceTree = "<group>"; };
+		CD55324329BDC7D400F1B657 /* NaverLoginManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NaverLoginManager.swift; sourceTree = "<group>"; };
 		CD7D00D029BA10EC00514656 /* FridgeItemHeader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FridgeItemHeader.swift; sourceTree = "<group>"; };
 		CD7D00D329BA37D700514656 /* NotificationManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationManager.swift; sourceTree = "<group>"; };
 		CD7D00D629BAC53000514656 /* DateManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DateManager.swift; sourceTree = "<group>"; };
@@ -129,6 +136,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				CDB1EB5C29ADFC5F004D474A /* Kingfisher in Frameworks */,
+				CD019A6129BD003100001556 /* GoogleSignIn in Frameworks */,
 				CD1445AE29AFA3E500EFBE65 /* BetterSegmentedControl in Frameworks */,
 				CD1445B929AFB92A00EFBE65 /* Alamofire in Frameworks */,
 				CD0B50F029B3381300DF49D7 /* FirebaseFirestoreCombine-Community in Frameworks */,
@@ -136,11 +144,13 @@
 				CD0B50F429B3381300DF49D7 /* FirebaseStorage in Frameworks */,
 				CD0B50F229B3381300DF49D7 /* FirebaseFirestoreSwift in Frameworks */,
 				CD019A5529BCD9D800001556 /* KakaoSDKAuth in Frameworks */,
+				CD019A6329BD003100001556 /* GoogleSignInSwift in Frameworks */,
 				CD019A5729BCD9D800001556 /* KakaoSDKUser in Frameworks */,
 				CDB1EB5929ADFC50004D474A /* SnapKit in Frameworks */,
 				CD0B50EE29B3381300DF49D7 /* FirebaseFirestore in Frameworks */,
 				CDC4ADAE29B632F40039C4B6 /* IQKeyboardManagerSwift in Frameworks */,
 				CD0B50EA29B3381300DF49D7 /* FirebaseAuth in Frameworks */,
+				CD019A6829BDC20C00001556 /* naveridlogin-ios-sp in Frameworks */,
 				CD0B50EC29B3381300DF49D7 /* FirebaseDatabase in Frameworks */,
 				CD1445AB29AF82AB00EFBE65 /* SkyFloatingLabelTextField in Frameworks */,
 			);
@@ -154,6 +164,8 @@
 			children = (
 				CD019A5829BCEB1B00001556 /* KakaoLoginManager.swift */,
 				CD019A5A29BCF13600001556 /* FirebaseLoginManager.swift */,
+				CD019A6429BD073A00001556 /* GoogleLoginManager.swift */,
+				CD55324329BDC7D400F1B657 /* NaverLoginManager.swift */,
 			);
 			path = Manager;
 			sourceTree = "<group>";
@@ -420,6 +432,9 @@
 				CDC4ADAD29B632F40039C4B6 /* IQKeyboardManagerSwift */,
 				CD019A5429BCD9D800001556 /* KakaoSDKAuth */,
 				CD019A5629BCD9D800001556 /* KakaoSDKUser */,
+				CD019A6029BD003100001556 /* GoogleSignIn */,
+				CD019A6229BD003100001556 /* GoogleSignInSwift */,
+				CD019A6729BDC20C00001556 /* naveridlogin-ios-sp */,
 			);
 			productName = MyFridge;
 			productReference = CDB1EB3529ADF4ED004D474A /* MyFridge.app */;
@@ -459,6 +474,8 @@
 				CD0B50E829B3381300DF49D7 /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */,
 				CDC4ADAC29B632F40039C4B6 /* XCRemoteSwiftPackageReference "IQKeyboardManager" */,
 				CD019A5329BCD9D800001556 /* XCRemoteSwiftPackageReference "kakao-ios-sdk" */,
+				CD019A5F29BD003100001556 /* XCRemoteSwiftPackageReference "GoogleSignIn-iOS" */,
+				CD019A6629BDC20C00001556 /* XCRemoteSwiftPackageReference "naveridlogin-ios-sp" */,
 			);
 			productRefGroup = CDB1EB3629ADF4ED004D474A /* Products */;
 			projectDirPath = "";
@@ -495,6 +512,7 @@
 				CD0B50E529B32E2500DF49D7 /* Constraints.swift in Sources */,
 				CD0B510729B4BDF800DF49D7 /* ColorExtension.swift in Sources */,
 				CD7D00D129BA10EC00514656 /* FridgeItemHeader.swift in Sources */,
+				CD55324429BDC7D400F1B657 /* NaverLoginManager.swift in Sources */,
 				CDB1EB6D29AE597D004D474A /* CategoryHeaderView.swift in Sources */,
 				CD7D00D729BAC53000514656 /* DateManager.swift in Sources */,
 				CD019A5E29BCF39000001556 /* UserModel.swift in Sources */,
@@ -516,6 +534,7 @@
 				CD0B50DE29B32CC900DF49D7 /* LoginController.swift in Sources */,
 				CD0831EA29B75FBA00DC7974 /* ChatBubbleCell.swift in Sources */,
 				CDB1EB6F29AE5E28004D474A /* ItemRegisterController.swift in Sources */,
+				CD019A6529BD073A00001556 /* GoogleLoginManager.swift in Sources */,
 				CD1445BF29AFC12A00EFBE65 /* Extension.swift in Sources */,
 				CD7D00D429BA37D700514656 /* NotificationManager.swift in Sources */,
 				CD0B50D129B081BD00DF49D7 /* AIChatViewModel.swift in Sources */,
@@ -748,6 +767,22 @@
 				kind = branch;
 			};
 		};
+		CD019A5F29BD003100001556 /* XCRemoteSwiftPackageReference "GoogleSignIn-iOS" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/google/GoogleSignIn-iOS";
+			requirement = {
+				branch = main;
+				kind = branch;
+			};
+		};
+		CD019A6629BDC20C00001556 /* XCRemoteSwiftPackageReference "naveridlogin-ios-sp" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/kyungkoo/naveridlogin-ios-sp.git";
+			requirement = {
+				branch = main;
+				kind = branch;
+			};
+		};
 		CD0B50E829B3381300DF49D7 /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/firebase/firebase-ios-sdk";
@@ -825,6 +860,21 @@
 			isa = XCSwiftPackageProductDependency;
 			package = CD019A5329BCD9D800001556 /* XCRemoteSwiftPackageReference "kakao-ios-sdk" */;
 			productName = KakaoSDKUser;
+		};
+		CD019A6029BD003100001556 /* GoogleSignIn */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = CD019A5F29BD003100001556 /* XCRemoteSwiftPackageReference "GoogleSignIn-iOS" */;
+			productName = GoogleSignIn;
+		};
+		CD019A6229BD003100001556 /* GoogleSignInSwift */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = CD019A5F29BD003100001556 /* XCRemoteSwiftPackageReference "GoogleSignIn-iOS" */;
+			productName = GoogleSignInSwift;
+		};
+		CD019A6729BDC20C00001556 /* naveridlogin-ios-sp */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = CD019A6629BDC20C00001556 /* XCRemoteSwiftPackageReference "naveridlogin-ios-sp" */;
+			productName = "naveridlogin-ios-sp";
 		};
 		CD0B50E929B3381300DF49D7 /* FirebaseAuth */ = {
 			isa = XCSwiftPackageProductDependency;

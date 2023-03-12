@@ -27,7 +27,7 @@ class KakaoLoginManager {
             }
         }
         else {
-            UserApi.shared.loginWithKakaoAccount { [weak self] (oauthToken, error) in
+            UserApi.shared.loginWithKakaoAccount { (oauthToken, error) in
                 if let error = error {
                     print(error)
                 }
@@ -36,7 +36,7 @@ class KakaoLoginManager {
 
                     //do something
 //                    let _ = oauthToken
-                    self?.fetchUser(completion: completion)
+                    self.fetchUser(completion: completion)
                 }
             }
         }
@@ -54,7 +54,7 @@ class KakaoLoginManager {
                       let userName = kakaoAcount.profile?.nickname,
                       let id = user.id else { return }
                 
-                let userModel = UserModel(email: email, password: "\(id)", profileImage: profile, userName: userName)
+                let userModel = UserModel(email: email, password: "\(id)", profileImage: profile, userName: userName, loginCase: .kakao)
                 completion(userModel)
             }
         })

@@ -68,7 +68,7 @@ enum Category: String, CaseIterable, Codable {
         switch self {
         case .green: return "야채"
         case .fruit: return "과일"
-        case .fish: return "생선"
+        case .fish: return "해물"
         case .meat: return "육류"
         case .milk: return "유제품"
         }
@@ -80,9 +80,9 @@ enum Category: String, CaseIterable, Codable {
             return 0
         case .fruit:
             return 1
-        case .fish:
-            return 2
         case .meat:
+            return 2
+        case .fish:
             return 3
         case .milk:
             return 4
@@ -136,6 +136,29 @@ enum ItemType: String, CaseIterable, Codable {
     case Kiwi
     case Mango
     case Grape
+    
+    // 육류
+    case chicken
+    case pork
+    case duck
+    case beef
+    case lamb
+    case sausage
+    case bacon
+    
+    // 해물
+    case fishes
+    case squid
+    case crab
+    case lobster
+    case shrimp
+    case octopus
+    
+    // 유제품
+    case milkDrink
+    case cheese
+    case butter
+    case yogurt
     
     var itemName: String {
         switch self {
@@ -196,12 +219,46 @@ enum ItemType: String, CaseIterable, Codable {
             return "망고"
         case .Grape:
             return "포도"
+        case .chicken:
+            return "닭고기"
+        case .pork:
+            return "돼지고기"
+        case .duck:
+            return "오리고기"
+        case .beef:
+            return "소고기"
+        case .lamb:
+            return "양고기"
+        case .sausage:
+            return "소시지"
+        case .bacon:
+            return "베이컨"
+        case .fishes:
+            return "생선"
+        case .squid:
+            return "오징어"
+        case .crab:
+            return "게"
+        case .lobster:
+            return "랍스터"
+        case .shrimp:
+            return "새우"
+        case .octopus:
+            return "문어"
+        case .milkDrink:
+            return "우유"
+        case .cheese:
+            return "치즈"
+        case .butter:
+            return "버터"
+        case .yogurt:
+            return "요거트"
         }
     }
-            
+    
     var expireFridgeDay: Int {
         switch self {
-        // 채소
+            // 채소
         case .Asparagus:
             return 2
         case .Eggplant:
@@ -234,7 +291,7 @@ enum ItemType: String, CaseIterable, Codable {
             return 5
         case .Spinach:
             return 3
-        // 과일
+            // 과일
         case .Apple:
             return 30
         case .Orange:
@@ -257,9 +314,26 @@ enum ItemType: String, CaseIterable, Codable {
             return 7
         case .Grape:
             return 5
+        case .chicken: return 2
+        case .pork: return 5
+        case .duck: return 3
+        case .beef: return 5
+        case .lamb: return 5
+        case .sausage: return 14
+        case .bacon: return 14
+        case .fishes: return 2
+        case .squid: return 2
+        case .crab: return 2
+        case .lobster: return 2
+        case .shrimp: return 2
+        case .octopus: return 2
+        case .milkDrink: return 7
+        case .cheese: return 28
+        case .butter: return 90
+        case .yogurt: return 14
         }
     }
-
+    
     var expireFreezerDay: Int {
         switch self {
             // 채소
@@ -318,15 +392,39 @@ enum ItemType: String, CaseIterable, Codable {
             return 365
         case .Grape:
             return 365
+            
+        case .chicken: return 180
+        case .pork: return 180
+        case .duck: return 180
+        case .beef: return 365
+        case .lamb: return 180
+        case .sausage: return 60
+        case .bacon: return 60
+        case .fishes: return 180
+        case .squid: return 90
+        case .crab: return 365
+        case .lobster: return 365
+        case .shrimp: return 365
+        case .octopus: return 90
+        case .milkDrink: return 180
+        case .cheese: return 240
+        case .butter: return 365
+        case .yogurt: return 60
         }
     }
-        
+    
     var id: Int {
         switch self {
         case .Asparagus, .Eggplant, .Brocoli, .Cabbage, .Pumpkin, .Lettuce, .Corn, .Pepper, .Garlic, .Chili, .Cucumber, .Onion, .Tomato, .Spinach, .Carrot, .Potato:
             return 0
         case .Apple, .Orange, .Banana, .Melon, .Watermelon, .Strawberry, .Pineapple, .Avocado, .Kiwi, .Mango, .Grape:
             return 1
+        case .chicken, .pork, .duck, .beef, .lamb, .sausage, .bacon:
+            return 2
+        case .fishes, .squid, .crab, .lobster, .shrimp, .octopus:
+            return 3
+        case .milkDrink, .cheese, .butter, .yogurt:
+            return 4
         }
     }
 }

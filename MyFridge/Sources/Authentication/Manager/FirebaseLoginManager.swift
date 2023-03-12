@@ -11,6 +11,8 @@ import Firebase
 class FirebaseLoginManager {
     
     func tryFirebaseAuth(withUser user: UserModel, completion: @escaping (_ isSuccess: Bool) -> Void) {
+        print(#function)
+        print("로그인 시도")
         // 로그인 시도
         self.tryFirebaseLogin(withUser: user) { isSuccess in
             if isSuccess == true {
@@ -34,7 +36,9 @@ class FirebaseLoginManager {
     }
     
     private func tryFirebaseLogin(withUser user: UserModel, completion: @escaping (Bool) -> Void) {
-        Auth.auth().signIn(withEmail: user.email, password: user.password) { (result, error) in
+        print(#function)
+        guard let password = user.password else { return }
+        Auth.auth().signIn(withEmail: user.email, password: password) { (result, error) in
             if let error = error {
                 print("Error is \(error.localizedDescription)")
                 completion(false)
@@ -46,25 +50,36 @@ class FirebaseLoginManager {
     }
     
     private func tryFirebaseRegister(withUser user: UserModel, completion: @escaping (Bool) -> Void) {
-        Auth.auth().createUser(withEmail: user.email, password: user.password) { (result, error) in
+        print(#function)
+        guard let password = user.password else { return }
+        Auth.auth().createUser(withEmail: user.email, password: password) { (result, error) in
             if let error = error {
                 print("DEBUG - Error is \(error.localizedDescription)")
             } else {
                 guard let uid = result?.user.uid else { return }
-                
-                let values = ["email": user.email,
-                              "profileUrl": "\(user.profileImage)",
-                              "userName": user.userName]
-                
-                // User UID로 DB에 업데이트
-                DOC_USERS.document(uid).setData(values) { error in
-                    if let error = error {
-                        print("DEBUG: Error is \(error.localizedDescription)")
-                        completion(false)
-                    } else {
-                        completion(true)
-                    }
-                }
+                self.updateUserFirestore(uid: uid, user: user, completion: completion)
+            }
+        }
+    }
+    
+    func updateUserFirestore(uid: String, user: UserModel, completion: @escaping (Bool) -> Void) {
+        print(#function)
+        guard let data = user.asDictionary else {
+            print("디코딩 실패")
+            return
+        }
+//        let values = ["email": user.email,
+//                      "profileUrl": "\(user.profileImage)",
+//                      "userName": user.userName,
+//                      "loginCase": user.loginCase] as [String : Any]
+        
+        // User UID로 DB에 업데이트
+        DOC_USERS.document(uid).setData(data) { error in
+            if let error = error {
+                print("DEBUG: Error is \(error.localizedDescription)")
+                completion(false)
+            } else {
+                completion(true)
             }
         }
     }

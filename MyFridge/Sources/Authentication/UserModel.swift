@@ -8,8 +8,16 @@
 import Foundation
 
 struct UserModel: Codable {
+    enum LoginCase: Codable {
+        case google
+        case naver
+        case kakao
+        case apple
+    }
+    
     var email: String
-    var password: String
+    var password: String?
     var profileImage: URL
     var userName: String
+    var loginCase: LoginCase
 }

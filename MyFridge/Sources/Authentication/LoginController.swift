@@ -8,12 +8,16 @@
 import UIKit
 import SnapKit
 import Firebase
+import GoogleSignIn
+import NaverThirdPartyLogin
 import KakaoSDKUser
 import KakaoSDKAuth
 
 class LoginController: UIViewController {
     
     //MARK: - Properties
+    let naverManager = NaverLoginManager()
+    
     private let backgroundImageView: UIImageView = {
         let iv = UIImageView()
         iv.image = UIImage(named: "backgroundImage")
@@ -52,11 +56,28 @@ class LoginController: UIViewController {
         return tf
     }()
     
-    lazy var kakaoLoginButton: UIButton = {
-        let button = UIButton()
-        button.setTitle("카카오 로그인", for: .normal)
-        button.addTarget(self, action: #selector(handleKakaoLoginTapped), for: .touchUpInside)
+    lazy var kakaoLoginButton: UIImageView = {
+        let iv = UIImageView()
+        iv.image = UIImage(named: "kakao_login")
+        iv.isUserInteractionEnabled = true
+        let tap = UITapGestureRecognizer(target: self, action: #selector(handleKakaoLoginTapped))
+        iv.addGestureRecognizer(tap)
+        return iv
+    }()
+    
+    lazy var googleLoginButton: GIDSignInButton = {
+        let button = GIDSignInButton()
+        button.addTarget(self, action: #selector(handleGoogleLoginTapped), for: .touchUpInside)
         return button
+    }()
+    
+    lazy var naverLoginButton: UIImageView = {
+        let iv = UIImageView()
+        iv.image = UIImage(named: "naver_login")
+        iv.isUserInteractionEnabled = true
+        let tap = UITapGestureRecognizer(target: self, action: #selector(handleNaverLoginTapped))
+        iv.addGestureRecognizer(tap)
+        return iv
     }()
     
     private let loginButton: UIButton = {
@@ -82,6 +103,7 @@ class LoginController: UIViewController {
         super.viewDidLoad()
         
         configureUI()
+        naverManager.delegate = self
     }
     
     //MARK: - Selectores
@@ -98,11 +120,27 @@ class LoginController: UIViewController {
         }
     }
     
+    @objc func handleGoogleLoginTapped() {
+        naverManager.tryLogout()
+//        GoogleLoginManager().tryGoogleLogin(viewController: self) { isSuccess in
+//            if isSuccess == true {
+//                self.loginSuccessAndTransition()
+//            }
+//        }
+    }
+    
+    @objc func handleNaverLoginTapped() {
+        print("네이버 로그인 시도")
+        naverManager.tryNaverLogin { user in
+            print(user)
+        }
+    }
+    
     @objc func handleLogin() {
-//        guard let email = emailTextField.text else { return }
-//        guard let password = passwordTextField.text else { return }
-//
-//        tryFirebaseLogin(withEmail: email, password: password)
+        //        guard let email = emailTextField.text else { return }
+        //        guard let password = passwordTextField.text else { return }
+        //
+        //        tryFirebaseLogin(withEmail: email, password: password)
     }
     
     @objc func handleShowSignUp() {
@@ -136,6 +174,8 @@ class LoginController: UIViewController {
         let stack = UIStackView(arrangedSubviews: [emailContainerView,
                                                    passwordContainerView,
                                                    kakaoLoginButton,
+                                                   naverLoginButton,
+                                                   googleLoginButton,
                                                    loginButton])
         stack.axis = .vertical
         stack.spacing = 20
@@ -159,5 +199,11 @@ class LoginController: UIViewController {
         tab.authenticateUserAndConfigureUI()
         
         self.dismiss(animated: true)
+    }
+}
+
+extension LoginController: NaverLoginManagerDelegate {
+    func loginSuccessed() {
+        loginSuccessAndTransition()
     }
 }
