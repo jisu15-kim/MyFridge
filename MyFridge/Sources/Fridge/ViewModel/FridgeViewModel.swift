@@ -7,17 +7,26 @@
 
 import UIKit
 import Combine
+import Firebase
 
 class FridgeViewModel {
     //MARK: - Properties
     var items: CurrentValueSubject<[FridgeItemModel], Never>
+    var user: CurrentValueSubject<UserModel?, Never>
     
     //MARK: - LifeCycle
     init() {
         items = CurrentValueSubject([])
+        user = CurrentValueSubject(nil)
+        fetchUser()
     }
     
     //MARK: - API
+    func fetchUser() {
+        Network().fetchUser { [weak self] user in
+            self?.user.send(user)
+        }
+    }
     
     // 아이템 불러오기
     func fetchItems() {

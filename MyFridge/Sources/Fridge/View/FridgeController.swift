@@ -8,6 +8,7 @@
 import UIKit
 import Combine
 import SnapKit
+import Kingfisher
 
 private let itemCellIdentifier = "FridgeItemCell"
 private let headerIdentifier = "FridgeItemHeader"
@@ -44,6 +45,19 @@ class FridgeController: UIViewController {
         return button
     }()
     
+    lazy var userProfileView: UIImageView = {
+        let iv = UIImageView()
+        iv.image = defaultProfileImage
+        iv.backgroundColor = .appMainBlack
+        iv.isUserInteractionEnabled = true
+        let tap = UITapGestureRecognizer(target: self, action: #selector(profileViewTapped))
+        iv.addGestureRecognizer(tap)
+        iv.contentMode = .scaleAspectFill
+        iv.translatesAutoresizingMaskIntoConstraints = false
+        return iv
+    }()
+    let defaultProfileImage = UIImage(named: "defaultProfile")
+    
     let emptyView = EmptyFridgeView()
     
     //MARK: - Lifecycle
@@ -79,6 +93,12 @@ class FridgeController: UIViewController {
             .sink { [weak self] _ in
                 self?.collectionView.reloadData()
                 self?.configureEmptyView()
+            }.store(in: &subscription)
+        viewModel.user
+            .receive(on: RunLoop.main)
+            .sink { [weak self] user in
+                let url = user?.profileImage
+                self?.userProfileView.kf.setImage(with: url, placeholder: self?.defaultProfileImage)
             }.store(in: &subscription)
     }
     
@@ -131,12 +151,12 @@ class FridgeController: UIViewController {
         navigationItem.title = "우리집 냉장고"
         navigationController?.interactivePopGestureRecognizer?.delegate = nil
         
-        let userProfileView = UIImageView(image: UIImage(systemName: "star"))
-        userProfileView.backgroundColor = .systemIndigo
-        userProfileView.isUserInteractionEnabled = true
-        let tap = UITapGestureRecognizer(target: self, action: #selector(profileViewTapped))
-        userProfileView.addGestureRecognizer(tap)
         let rightBtn = UIBarButtonItem(customView: userProfileView)
+        userProfileView.snp.makeConstraints {
+            $0.width.height.equalTo(40)
+            userProfileView.layer.cornerRadius = 20
+            userProfileView.clipsToBounds = true
+        }
         navigationItem.rightBarButtonItem = rightBtn
     }
     
