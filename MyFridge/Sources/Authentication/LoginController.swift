@@ -25,78 +25,13 @@ class LoginController: UIViewController {
         return iv
     }()
     
-    private let logoImageView: UIImageView = {
-        let iv = UIImageView()
-        iv.contentMode = .scaleAspectFit
-        iv.clipsToBounds = true
-        //        iv.image = #imageLiteral(resourceName: "Watermelon")
-        return iv
-    }()
+    lazy var kakaoLoginButton = makeLoginButtons(type: .kakao)
     
-    private lazy var emailContainerView: UIView = {
-        let image = #imageLiteral(resourceName: "Watermelon")
-        let view = AuthViewHelper().inputContainerView(withImage: image, textField: emailTextField)
-        return view
-    }()
+    lazy var googleLoginButton = makeLoginButtons(type: .google)
     
-    private lazy var passwordContainerView: UIView = {
-        let image = #imageLiteral(resourceName: "Watermelon")
-        let view = AuthViewHelper().inputContainerView(withImage: image, textField: passwordTextField)
-        return view
-    }()
+    lazy var naverLoginButton = makeLoginButtons(type: .naver)
     
-    private let emailTextField: UITextField = {
-        let tf = AuthViewHelper().textFields(withPlaceholder: "Email")
-        return tf
-    }()
-    
-    private let passwordTextField: UITextField = {
-        let tf = AuthViewHelper().textFields(withPlaceholder: "Password")
-        tf.isSecureTextEntry = true
-        return tf
-    }()
-    
-    lazy var kakaoLoginButton: UIImageView = {
-        let iv = UIImageView()
-        iv.image = UIImage(named: "kakao_login")
-        iv.isUserInteractionEnabled = true
-        let tap = UITapGestureRecognizer(target: self, action: #selector(handleKakaoLoginTapped))
-        iv.addGestureRecognizer(tap)
-        return iv
-    }()
-    
-    lazy var googleLoginButton: GIDSignInButton = {
-        let button = GIDSignInButton()
-        button.addTarget(self, action: #selector(handleGoogleLoginTapped), for: .touchUpInside)
-        return button
-    }()
-    
-    lazy var naverLoginButton: UIImageView = {
-        let iv = UIImageView()
-        iv.image = UIImage(named: "naver_login")
-        iv.isUserInteractionEnabled = true
-        let tap = UITapGestureRecognizer(target: self, action: #selector(handleNaverLoginTapped))
-        iv.addGestureRecognizer(tap)
-        return iv
-    }()
-    
-    private let loginButton: UIButton = {
-        let button = UIButton(type: .system)
-        button.backgroundColor = .white
-        button.setTitle("Log In", for: .normal)
-        button.setTitleColor(.systemIndigo, for: .normal)
-        button.heightAnchor.constraint(equalToConstant: 50).isActive = true
-        button.layer.cornerRadius = 5
-        button.titleLabel?.font = .systemFont(ofSize: 20)
-        button.addTarget(nil, action: #selector(handleLogin), for: .touchUpInside)
-        return button
-    }()
-    
-    private let dontHaveAccountButton: UIButton = {
-        let button = AuthViewHelper().attributedButton("Don't have an account? ", "Sign Up")
-        button.addTarget(nil, action: #selector(handleShowSignUp), for: .touchUpInside)
-        return button
-    }()
+    lazy var appleLoginButton = makeLoginButtons(type: .apple)
     
     //MARK: - Lifecycle
     override func viewDidLoad() {
@@ -121,12 +56,11 @@ class LoginController: UIViewController {
     }
     
     @objc func handleGoogleLoginTapped() {
-        naverManager.tryLogout()
-//        GoogleLoginManager().tryGoogleLogin(viewController: self) { isSuccess in
-//            if isSuccess == true {
-//                self.loginSuccessAndTransition()
-//            }
-//        }
+        GoogleLoginManager().tryGoogleLogin(viewController: self) { isSuccess in
+            if isSuccess == true {
+                self.loginSuccessAndTransition()
+            }
+        }
     }
     
     @objc func handleNaverLoginTapped() {
@@ -136,11 +70,8 @@ class LoginController: UIViewController {
         }
     }
     
-    @objc func handleLogin() {
-        //        guard let email = emailTextField.text else { return }
-        //        guard let password = passwordTextField.text else { return }
-        //
-        //        tryFirebaseLogin(withEmail: email, password: password)
+    @objc func handleAppleLoginTapped() {
+        naverManager.tryLogout()
     }
     
     @objc func handleShowSignUp() {
@@ -159,32 +90,19 @@ class LoginController: UIViewController {
         navigationController?.navigationBar.barStyle = .black // Statusbar의 글씨 생상
         navigationController?.navigationBar.isHidden = true
         
-        view.addSubview(logoImageView)
-        logoImageView.snp.makeConstraints {
-            $0.centerX.top.equalTo(view.safeAreaLayoutGuide)
-            $0.width.height.equalTo(150)
-        }
-        
-        view.addSubview(dontHaveAccountButton)
-        dontHaveAccountButton.snp.makeConstraints {
-            $0.leading.trailing.equalToSuperview().inset(40)
-            $0.bottom.equalTo(view.safeAreaLayoutGuide)
-        }
-        
-        let stack = UIStackView(arrangedSubviews: [emailContainerView,
-                                                   passwordContainerView,
-                                                   kakaoLoginButton,
+        let stack = UIStackView(arrangedSubviews: [kakaoLoginButton,
                                                    naverLoginButton,
                                                    googleLoginButton,
-                                                   loginButton])
+                                                   appleLoginButton
+                                                  ])
         stack.axis = .vertical
         stack.spacing = 20
         stack.distribution = .fillEqually
         
         view.addSubview(stack)
         stack.snp.makeConstraints {
-            $0.bottom.equalTo(dontHaveAccountButton.snp.top).inset(-100)
-            $0.leading.trailing.equalToSuperview().inset(28)
+            $0.bottom.equalToSuperview().inset(250)
+            $0.leading.trailing.equalToSuperview().inset(65)
         }
     }
     
@@ -199,6 +117,26 @@ class LoginController: UIViewController {
         tab.authenticateUserAndConfigureUI()
         
         self.dismiss(animated: true)
+    }
+    
+    private func makeLoginButtons(type: SocialLoginType) -> SocialLoginView {
+        let view = SocialLoginView(withSocialLoginType: type, viewHeight: 50)
+        view.isUserInteractionEnabled = true
+        switch type {
+        case .kakao:
+            let tap = UITapGestureRecognizer(target: self, action: #selector(handleKakaoLoginTapped))
+            view.addGestureRecognizer(tap)
+        case .apple:
+            let tap = UITapGestureRecognizer(target: self, action: #selector(handleAppleLoginTapped))
+            view.addGestureRecognizer(tap)
+        case .google:
+            let tap = UITapGestureRecognizer(target: self, action: #selector(handleGoogleLoginTapped))
+            view.addGestureRecognizer(tap)
+        case .naver:
+            let tap = UITapGestureRecognizer(target: self, action: #selector(handleNaverLoginTapped))
+            view.addGestureRecognizer(tap)
+        }
+        return view
     }
 }
 

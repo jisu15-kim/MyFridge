@@ -74,6 +74,9 @@
 		CDB1EB7129AE7242004D474A /* DetailRegisterController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CDB1EB7029AE7242004D474A /* DetailRegisterController.swift */; };
 		CDC4ADAE29B632F40039C4B6 /* IQKeyboardManagerSwift in Frameworks */ = {isa = PBXBuildFile; productRef = CDC4ADAD29B632F40039C4B6 /* IQKeyboardManagerSwift */; };
 		CDC4ADB029B63A510039C4B6 /* CustomTextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = CDC4ADAF29B63A510039C4B6 /* CustomTextField.swift */; };
+		CDDFE7A929C4C73B00874149 /* SocialLoginView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CDDFE7A829C4C73B00874149 /* SocialLoginView.swift */; };
+		CDDFE7AB29C4C7B100874149 /* SocialLoginType.swift in Sources */ = {isa = PBXBuildFile; fileRef = CDDFE7AA29C4C7B100874149 /* SocialLoginType.swift */; };
+		CDDFE7AD29C4D3A600874149 /* EmptyFridgeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CDDFE7AC29C4D3A600874149 /* EmptyFridgeView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -128,6 +131,9 @@
 		CDB1EB6E29AE5E28004D474A /* ItemRegisterController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ItemRegisterController.swift; sourceTree = "<group>"; };
 		CDB1EB7029AE7242004D474A /* DetailRegisterController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailRegisterController.swift; sourceTree = "<group>"; };
 		CDC4ADAF29B63A510039C4B6 /* CustomTextField.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomTextField.swift; sourceTree = "<group>"; };
+		CDDFE7A829C4C73B00874149 /* SocialLoginView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SocialLoginView.swift; sourceTree = "<group>"; };
+		CDDFE7AA29C4C7B100874149 /* SocialLoginType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SocialLoginType.swift; sourceTree = "<group>"; };
+		CDDFE7AC29C4D3A600874149 /* EmptyFridgeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EmptyFridgeView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -216,6 +222,8 @@
 				CD0B50E029B32CFC00DF49D7 /* AuthViewHelper.swift */,
 				CD0B50DD29B32CC900DF49D7 /* RegistrationController.swift */,
 				CD019A5D29BCF39000001556 /* UserModel.swift */,
+				CDDFE7A829C4C73B00874149 /* SocialLoginView.swift */,
+				CDDFE7AA29C4C7B100874149 /* SocialLoginType.swift */,
 			);
 			path = Authentication;
 			sourceTree = "<group>";
@@ -349,6 +357,7 @@
 				CDB1EB4F29ADF68C004D474A /* FridgeController.swift */,
 				CDB1EB5F29AE2FF9004D474A /* CategoryCapsuleView.swift */,
 				CD7D00CF29BA10DB00514656 /* Cell */,
+				CDDFE7AC29C4D3A600874149 /* EmptyFridgeView.swift */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -520,6 +529,7 @@
 				CDC4ADB029B63A510039C4B6 /* CustomTextField.swift in Sources */,
 				CD0B50F929B3633F00DF49D7 /* DetailController.swift in Sources */,
 				CD0B510929B4C7CD00DF49D7 /* ColorCell.swift in Sources */,
+				CDDFE7A929C4C73B00874149 /* SocialLoginView.swift in Sources */,
 				CDB1EB6329AE410D004D474A /* FridgeItemModel.swift in Sources */,
 				CDB1EB5E29ADFCE2004D474A /* FridgeItemCell.swift in Sources */,
 				CDB1EB3929ADF4ED004D474A /* AppDelegate.swift in Sources */,
@@ -541,12 +551,14 @@
 				CDB1EB3B29ADF4ED004D474A /* SceneDelegate.swift in Sources */,
 				CDB1EB5229ADF6A1004D474A /* FridgeViewModel.swift in Sources */,
 				CDB1EB6029AE2FF9004D474A /* CategoryCapsuleView.swift in Sources */,
+				CDDFE7AB29C4C7B100874149 /* SocialLoginType.swift in Sources */,
 				CD0B50FB29B36DA500DF49D7 /* DateViewContainer.swift in Sources */,
 				CD1445B629AFAE7000EFBE65 /* Secret.swift in Sources */,
 				CD0B50F629B35B3800DF49D7 /* FridgeItemViewModel.swift in Sources */,
 				CDB1EB6B29AE5292004D474A /* RegisterIconCell.swift in Sources */,
 				CD019A5929BCEB1B00001556 /* KakaoLoginManager.swift in Sources */,
 				CD0B50CF29B0815600DF49D7 /* AIChatViewController.swift in Sources */,
+				CDDFE7AD29C4D3A600874149 /* EmptyFridgeView.swift in Sources */,
 				CD0831EF29B7637700DC7974 /* AIChatModel.swift in Sources */,
 				CDB1EB6729AE4D96004D474A /* CategoryRegisterController.swift in Sources */,
 				CD0B50FD29B38A1E00DF49D7 /* AIActionView.swift in Sources */,

@@ -44,6 +44,8 @@ class FridgeController: UIViewController {
         return button
     }()
     
+    let emptyView = EmptyFridgeView()
+    
     //MARK: - Lifecycle
     init() {
         viewModel = FridgeViewModel()
@@ -60,6 +62,7 @@ class FridgeController: UIViewController {
         setupNav()
         bind()
         setupCollectionView()
+        configureEmptyView()
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -75,6 +78,7 @@ class FridgeController: UIViewController {
             .receive(on: RunLoop.main)
             .sink { [weak self] _ in
                 self?.collectionView.reloadData()
+                self?.configureEmptyView()
             }.store(in: &subscription)
     }
     
@@ -113,6 +117,13 @@ class FridgeController: UIViewController {
             addButton.clipsToBounds = true
         }
         
+        view.addSubview(emptyView)
+        emptyView.snp.makeConstraints {
+            $0.center.equalToSuperview()
+            $0.width.height.equalTo(400)
+            emptyView.isHidden = true
+        }
+        
         viewModel.fetchItems()
     }
     
@@ -135,6 +146,14 @@ class FridgeController: UIViewController {
         collectionView.register(FridgeItemHeader.self, forSupplementaryViewOfKind: UICollectionView.elementKindSectionHeader, withReuseIdentifier: headerIdentifier)
         collectionView.dataSource = self
         collectionView.delegate = self
+    }
+    
+    private func configureEmptyView() {
+        if viewModel.items.value.isEmpty {
+            emptyView.isHidden = false
+        } else {
+            emptyView.isHidden = true
+        }
     }
 }
 
@@ -205,7 +224,11 @@ extension FridgeController: UICollectionViewDelegateFlowLayout {
     }
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, referenceSizeForHeaderInSection section: Int) -> CGSize {
-        return CGSize(width: collectionView.frame.width, height: 45)
+        if viewModel.items.value.isEmpty {
+            return CGSize.zero
+        } else {
+            return CGSize(width: collectionView.frame.width, height: 45)
+        }
     }
     
 }
