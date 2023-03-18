@@ -31,7 +31,7 @@ class AIChatViewModel {
         self.selectedItem = selectedItem
         self.askType = askType
         self.isAIProcessing = CurrentValueSubject(false)
-        let firstAIModel = AIChatModel(content: "안녕하세요✋ 무엇을 도와드릴까요?", chatType: .ai)
+        let firstAIModel = AIChatModel(content: "안녕하세요✋ 무엇을 도와드릴까요?", chatType: .greeting)
         self.chats = CurrentValueSubject([])
         chats.value.append(firstAIModel)
         setupKeyword()

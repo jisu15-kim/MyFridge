@@ -113,11 +113,12 @@ class FridgeController: UIViewController {
     @objc func profileViewTapped() {
 //        임시 로그아웃기능
 //        Network().updateItemInfoData()
+        NotificationManager().deleteAllNotifications()
         AuthService.shared.logUserOut { [weak self] in
             self?.authDelegate?.logUserOut()
         }
 //        NotificationManager().getAllNotifications()
-//        NotificationManager().deletaAllNotifications()
+
     }
     
     //MARK: - Helper

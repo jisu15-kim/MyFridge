@@ -31,7 +31,11 @@ class FridgeItemViewModel {
     }
     
     var expireDDay: String {
-        return "D-\(expireDayGapInt)"
+        if expireDayGapInt >= 0 {
+            return "D-\(expireDayGapInt)"
+        } else {
+            return "\(-expireDayGapInt)일 지남"
+        }
     }
     
     var expireDate: Date {
@@ -117,10 +121,39 @@ class FridgeItemViewModel {
     }
     
     func expireInfoAttributeText(withValue value: Int?) -> NSAttributedString {
-        let attributedTitle = NSMutableAttributedString(string: "유통기한이", attributes: [.font : UIFont.systemFont(ofSize: 15)])
-        attributedTitle.append(NSAttributedString(string: " ✅ \(value ?? 0)일", attributes: [.font : UIFont.boldSystemFont(ofSize: 15)]))
-        attributedTitle.append(NSAttributedString(string: " 남았어요", attributes: [.font : UIFont.systemFont(ofSize: 15)]))
-        return attributedTitle
+        if let value = value {
+            // 안전
+            if value > 3 {
+                let attributedTitle = NSMutableAttributedString(string: "유통기한이", attributes: [.font : UIFont.systemFont(ofSize: 15)])
+                attributedTitle.append(NSAttributedString(string: " ✅ \(value)일", attributes: [.font : UIFont.boldSystemFont(ofSize: 15)]))
+                attributedTitle.append(NSAttributedString(string: " 남았어요", attributes: [.font : UIFont.systemFont(ofSize: 15)]))
+                return attributedTitle
+            // 경고
+            } else if value > 0 {
+                let attributedTitle = NSMutableAttributedString(string: "유통기한이", attributes: [.font : UIFont.systemFont(ofSize: 15)])
+                attributedTitle.append(NSAttributedString(string: " ⚠️ \(value)일", attributes: [.font : UIFont.boldSystemFont(ofSize: 15)]))
+                attributedTitle.append(NSAttributedString(string: " 남았어요", attributes: [.font : UIFont.systemFont(ofSize: 15)]))
+                return attributedTitle
+            } else if value == 0 {
+                let attributedTitle = NSMutableAttributedString(string: "유통기한이", attributes: [.font : UIFont.systemFont(ofSize: 15)])
+                attributedTitle.append(NSAttributedString(string: " 🔥오늘", attributes: [.font : UIFont.boldSystemFont(ofSize: 15)]))
+                attributedTitle.append(NSAttributedString(string: " 까지에요‼️", attributes: [.font : UIFont.systemFont(ofSize: 15)]))
+                return attributedTitle
+            } else if value > -4 {
+                let attributedTitle = NSMutableAttributedString(string: "유통기한이", attributes: [.font : UIFont.systemFont(ofSize: 15)])
+                attributedTitle.append(NSAttributedString(string: " ⚠️ \(-value)일", attributes: [.font : UIFont.boldSystemFont(ofSize: 15)]))
+                attributedTitle.append(NSAttributedString(string: " 지났어요. 주의하세요", attributes: [.font : UIFont.systemFont(ofSize: 15)]))
+                return attributedTitle
+            } else {
+                let attributedTitle = NSMutableAttributedString(string: "유통기한이", attributes: [.font : UIFont.systemFont(ofSize: 15)])
+                attributedTitle.append(NSAttributedString(string: " 🚫 \(-value)일", attributes: [.font : UIFont.boldSystemFont(ofSize: 15)]))
+                attributedTitle.append(NSAttributedString(string: " 지났어요.", attributes: [.font : UIFont.systemFont(ofSize: 15)]))
+                return attributedTitle
+            }
+        } else {
+            let attributedTitle = NSMutableAttributedString(string: "데이터 오류", attributes: [.font : UIFont.systemFont(ofSize: 15)])
+            return attributedTitle
+        }
     }
     
     func memoLabelAttributeText(text: String, font: UIFont, color: UIColor) -> NSAttributedString {

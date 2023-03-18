@@ -43,7 +43,10 @@ class ChatBubbleCellViewModel {
         measurementLabel.widthAnchor.constraint(lessThanOrEqualToConstant: 240).isActive = true
         let measurementLabelSize = measurementLabel.systemLayoutSizeFitting(UIView.layoutFittingCompressedSize)
         let width = measurementLabelSize.width + CGFloat(30)
-        let height = measurementLabelSize.height + CGFloat(20)
+        var height = measurementLabelSize.height + CGFloat(20)
+        if type == .ai {
+            height += 45
+        }
         return CGSize(width: width, height: height)
     }
 }

@@ -11,13 +11,14 @@ struct AIChatModel {
     enum ChatType: CaseIterable {
         case my
         case ai
+        case greeting
         case processing
         
         var backgroundColor: UIColor {
             switch self {
             case .my:
                 return .mainAccent
-            case .ai, .processing:
+            case .ai, .processing, .greeting:
                 return .mainReverseLabel
             }
         }
@@ -26,7 +27,7 @@ struct AIChatModel {
             switch self {
             case .my:
                 return .white
-            case .ai, .processing:
+            case .ai, .processing, .greeting:
                 return .label
             }
         }

@@ -96,7 +96,7 @@ class LoginController: UIViewController {
                                                    appleLoginButton
                                                   ])
         stack.axis = .vertical
-        stack.spacing = 20
+        stack.spacing = 15
         stack.distribution = .fillEqually
         
         view.addSubview(stack)

@@ -77,6 +77,9 @@ class DetailController: UIViewController {
             $0.leading.trailing.equalToSuperview().inset(15)
             $0.centerY.equalToSuperview()
         }
+        view.isUserInteractionEnabled = true
+        let tap = UITapGestureRecognizer(target: self, action: #selector(handleMenuTapped))
+        view.addGestureRecognizer(tap)
         view.backgroundColor = .systemYellow.withAlphaComponent(0.2)
         view.layer.cornerRadius = 15
         view.clipsToBounds = true
@@ -92,7 +95,7 @@ class DetailController: UIViewController {
     }()
     
     lazy var aiActionView1: AIActionView = {
-        let view = AIActionView(image: #imageLiteral(resourceName: "fish"), title: "\(viewModel.item.itemType.itemName) 보관방법 알려줘")
+        let view = AIActionView(image: #imageLiteral(resourceName: "storage"), title: "\(viewModel.item.itemType.itemName) 보관방법 알려줘")
         let tap = UITapGestureRecognizer(target: self, action: #selector(handleAIViewTapped1))
         view.isUserInteractionEnabled = true
         view.addGestureRecognizer(tap)
@@ -101,7 +104,7 @@ class DetailController: UIViewController {
     }()
     
     lazy var aiActionView2: AIActionView = {
-        let view = AIActionView(image: #imageLiteral(resourceName: "fish"), title: "\(viewModel.item.itemType.itemName) 추천 레시피 알려줘")
+        let view = AIActionView(image: #imageLiteral(resourceName: "receipe"), title: "\(viewModel.item.itemType.itemName) 추천 레시피 알려줘")
         let tap = UITapGestureRecognizer(target: self, action: #selector(handleAIViewTapped2))
         view.isUserInteractionEnabled = true
         view.addGestureRecognizer(tap)
