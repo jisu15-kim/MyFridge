@@ -39,7 +39,9 @@ class FridgeController: UIViewController {
     
     private lazy var addButton: UIButton = {
         let button = UIButton(type: .system)
-        button.setTitle("추가하기", for: .normal)
+        let config = UIImage.SymbolConfiguration(pointSize: 30, weight: .regular, scale: .default)
+        button.setImage(UIImage(systemName: "plus", withConfiguration: config), for: .normal)
+        button.tintColor = .white
         button.backgroundColor = .mainAccent
         button.addTarget(self, action: #selector(handleAddButtonTapped), for: .touchUpInside)
         button.setTitleColor(.white, for: .normal)
@@ -129,10 +131,9 @@ class FridgeController: UIViewController {
         
         view.addSubview(addButton)
         addButton.snp.makeConstraints {
-            $0.leading.trailing.equalToSuperview().inset(10)
-            $0.bottom.equalTo(view.safeAreaLayoutGuide.snp.bottom).inset(5)
-            $0.height.equalTo(40)
-            addButton.layer.cornerRadius = 40 / 2
+            $0.trailing.bottom.equalTo(view.safeAreaLayoutGuide).inset(16)
+            $0.width.height.equalTo(60)
+            addButton.layer.cornerRadius = 30
             addButton.clipsToBounds = true
         }
         

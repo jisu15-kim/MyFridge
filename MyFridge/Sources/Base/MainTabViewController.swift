@@ -11,6 +11,7 @@ import Firebase
 class MainTabViewController: UITabBarController {
 
     //MARK: - Properties
+    var user: UserModel?
     
     //MARK: - Lifecycle
     override func viewDidLoad() {
@@ -33,6 +34,7 @@ class MainTabViewController: UITabBarController {
             Network().fetchUser { [weak self] user in
                 if user.termsConfirmed == true {
                     print("DEBUG: 로그인 되었습니다")
+                    self?.user = user
                     self?.configureViewController()
                     self?.uiTabBarSetting()
                 } else {
@@ -63,7 +65,11 @@ class MainTabViewController: UITabBarController {
         let explore = UIViewController()
         let nav2 = templateNavigationController("info.circle.fill", viewController: explore)
         
-        viewControllers = [nav1, nav2]
+        guard let user = user else { return }
+        let preference = MoreViewController(user: user)
+        let nav3 = templateNavigationController("ellipsis", viewController: preference)
+        
+        viewControllers = [nav1, nav2, nav3]
     }
     
     func templateNavigationController(_ image: String?, viewController:UIViewController) -> UINavigationController {
@@ -109,9 +115,11 @@ extension MainTabViewController: AuthDelegate {
     }
     
     func logUserOut(user: UserModel) {
-        NotificationManager().deleteAllNotifications()
-        AuthService.shared.logUserOut(user: user) { [weak self] in
-            self?.authenticateUserAndConfigureUI()
+        DispatchQueue.global().async {
+            NotificationManager().deleteAllNotifications()
+            AuthService.shared.logUserOut(user: user) { [weak self] in
+                self?.authenticateUserAndConfigureUI()
+            }
         }
     }
 }
