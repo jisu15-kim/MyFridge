@@ -9,9 +9,10 @@ import UIKit
 import Firebase
 
 class MainTabViewController: UITabBarController {
-
+    
     //MARK: - Properties
     var user: UserModel?
+    var uid: String?
     
     //MARK: - Lifecycle
     override func viewDidLoad() {
@@ -22,20 +23,13 @@ class MainTabViewController: UITabBarController {
     //MARK: - API
     func authenticateUserAndConfigureUI() {
         if let authUser = Auth.auth().currentUser {
-//            do {
-//                try Auth.auth().signOut()
-//            }
-//
-//            catch let error {
-//                print("DEBUG: 로그아웃에 실패했어요 \(error)")
-//            }
-            
-            
+            uid = authUser.uid
             Network().fetchUser { [weak self] user in
                 if user.termsConfirmed == true {
                     print("DEBUG: 로그인 되었습니다")
                     self?.user = user
                     self?.configureViewController()
+                    self?.selectedIndex = 0
                     self?.uiTabBarSetting()
                 } else {
                     // 동의 뷰로 이동하기
@@ -53,6 +47,12 @@ class MainTabViewController: UITabBarController {
                 nav.modalPresentationStyle = .fullScreen
                 self.present(nav, animated: true)
             }
+        }
+    }
+    
+    func fetchUser() {
+        Network().fetchUser { [weak self] user in
+            self?.user = user
         }
     }
     
@@ -90,12 +90,12 @@ class MainTabViewController: UITabBarController {
     
     func uiTabBarSetting() {
         if #available(iOS 15.0, *){
-//            let appearance = UITabBarAppearance()
-//            appearance.configureWithDefaultBackground()
-//            appearance.backgroundColor = .mainGrayBackground
-//            tabBar.standardAppearance = appearance
-//            tabBar.scrollEdgeAppearance = appearance
-//            tabBar.isTranslucent = true
+            //            let appearance = UITabBarAppearance()
+            //            appearance.configureWithDefaultBackground()
+            //            appearance.backgroundColor = .mainGrayBackground
+            //            tabBar.standardAppearance = appearance
+            //            tabBar.scrollEdgeAppearance = appearance
+            //            tabBar.isTranslucent = true
             tabBar.tintColor = .mainAccent
             tabBar.backgroundColor = .mainGrayBackground
             tabBar.barStyle = .default
@@ -107,6 +107,14 @@ class MainTabViewController: UITabBarController {
             tabBar.isTranslucent = true
         }
     }
+    
+    func logout() {
+        guard let user = user else { return }
+        NotificationManager().deleteAllNotifications()
+        AuthService.shared.logUserOut(user: user) { [weak self] in
+            self?.authenticateUserAndConfigureUI()
+        }
+    }
 }
 
 extension MainTabViewController: AuthDelegate {
@@ -115,11 +123,9 @@ extension MainTabViewController: AuthDelegate {
     }
     
     func logUserOut(user: UserModel) {
-        DispatchQueue.global().async {
-            NotificationManager().deleteAllNotifications()
-            AuthService.shared.logUserOut(user: user) { [weak self] in
-                self?.authenticateUserAndConfigureUI()
-            }
+        NotificationManager().deleteAllNotifications()
+        AuthService.shared.logUserOut(user: user) { [weak self] in
+            self?.authenticateUserAndConfigureUI()
         }
     }
 }

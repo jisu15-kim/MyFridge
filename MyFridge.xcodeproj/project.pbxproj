@@ -27,6 +27,8 @@
 		CD0968B229C82AD400DD8BE3 /* TopUserInfoView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CD0968B129C82AD400DD8BE3 /* TopUserInfoView.swift */; };
 		CD0968B429C82DA100DD8BE3 /* MoreViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = CD0968B329C82DA100DD8BE3 /* MoreViewModel.swift */; };
 		CD0968B629C8353900DD8BE3 /* MoreViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = CD0968B529C8353900DD8BE3 /* MoreViewCell.swift */; };
+		CD0968B829C84B3600DD8BE3 /* SettingController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CD0968B729C84B3600DD8BE3 /* SettingController.swift */; };
+		CD0968BA29C84F0C00DD8BE3 /* AppHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = CD0968B929C84F0C00DD8BE3 /* AppHelper.swift */; };
 		CD0B50CF29B0815600DF49D7 /* AIChatViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CD0B50CE29B0815600DF49D7 /* AIChatViewController.swift */; };
 		CD0B50D129B081BD00DF49D7 /* AIChatViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = CD0B50D029B081BD00DF49D7 /* AIChatViewModel.swift */; };
 		CD0B50D329B32B2400DF49D7 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = CD0B50D229B32B2400DF49D7 /* GoogleService-Info.plist */; };
@@ -100,6 +102,8 @@
 		CD0968B129C82AD400DD8BE3 /* TopUserInfoView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TopUserInfoView.swift; sourceTree = "<group>"; };
 		CD0968B329C82DA100DD8BE3 /* MoreViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MoreViewModel.swift; sourceTree = "<group>"; };
 		CD0968B529C8353900DD8BE3 /* MoreViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MoreViewCell.swift; sourceTree = "<group>"; };
+		CD0968B729C84B3600DD8BE3 /* SettingController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingController.swift; sourceTree = "<group>"; };
+		CD0968B929C84F0C00DD8BE3 /* AppHelper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppHelper.swift; sourceTree = "<group>"; };
 		CD0B50CE29B0815600DF49D7 /* AIChatViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AIChatViewController.swift; sourceTree = "<group>"; };
 		CD0B50D029B081BD00DF49D7 /* AIChatViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AIChatViewModel.swift; sourceTree = "<group>"; };
 		CD0B50D229B32B2400DF49D7 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
@@ -266,6 +270,7 @@
 				CD0968AD29C8299B00DD8BE3 /* MoreViewController.swift */,
 				CD0968B129C82AD400DD8BE3 /* TopUserInfoView.swift */,
 				CD0968B529C8353900DD8BE3 /* MoreViewCell.swift */,
+				CD0968B729C84B3600DD8BE3 /* SettingController.swift */,
 			);
 			name = View;
 			path = "퍋ㅈ";
@@ -325,6 +330,7 @@
 				CD0B510629B4BDF800DF49D7 /* ColorExtension.swift */,
 				CD0B510A29B4CAE600DF49D7 /* UserColorPreset.swift */,
 				CD7D00D629BAC53000514656 /* DateManager.swift */,
+				CD0968B929C84F0C00DD8BE3 /* AppHelper.swift */,
 			);
 			path = Util;
 			sourceTree = "<group>";
@@ -596,6 +602,7 @@
 				CD55324429BDC7D400F1B657 /* NaverLoginManager.swift in Sources */,
 				CDB1EB6D29AE597D004D474A /* CategoryHeaderView.swift in Sources */,
 				CD7D00D729BAC53000514656 /* DateManager.swift in Sources */,
+				CD0968BA29C84F0C00DD8BE3 /* AppHelper.swift in Sources */,
 				CD019A5E29BCF39000001556 /* UserModel.swift in Sources */,
 				CD1445B329AFAE5F00EFBE65 /* AIManager.swift in Sources */,
 				CD0968A529C72F7E00DD8BE3 /* UserConfirmController.swift in Sources */,
@@ -605,6 +612,7 @@
 				CD0B510929B4C7CD00DF49D7 /* ColorCell.swift in Sources */,
 				CDDFE7A929C4C73B00874149 /* SocialLoginView.swift in Sources */,
 				CDB1EB6329AE410D004D474A /* FridgeItemModel.swift in Sources */,
+				CD0968B829C84B3600DD8BE3 /* SettingController.swift in Sources */,
 				CDB1EB5E29ADFCE2004D474A /* FridgeItemCell.swift in Sources */,
 				CDB1EB3929ADF4ED004D474A /* AppDelegate.swift in Sources */,
 				CD0831F129B7768700DC7974 /* ChatHeader.swift in Sources */,

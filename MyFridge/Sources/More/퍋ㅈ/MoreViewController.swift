@@ -11,8 +11,6 @@ private let identifier = "MoreViewCell"
 
 class MoreViewController: UIViewController {
     //MARK: - Properties
-    let menuLists = ["공지사항", "이용약관", "개인정보처리방침", "개선/보완 문의", "설정"]
-    
     let viewModel: MoreViewModel
     lazy var topUserInfoView: TopUserInfoView = {
         let view = TopUserInfoView(user: viewModel.user)
@@ -81,13 +79,25 @@ extension MoreViewController: TouchUserInfoViewDelegate {
 
 extension MoreViewController: UICollectionViewDataSource, UICollectionViewDelegate {
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return 5
+        return MoreViewConfigureationType.allCases.count
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: identifier, for: indexPath) as? MoreViewCell else { return UICollectionViewCell() }
-        cell.menu = menuLists[indexPath.row]
+        cell.type = MoreViewConfigureationType.allCases[indexPath.row]
         return cell
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        let selectedType = MoreViewConfigureationType.allCases[indexPath.row]
+        
+        switch selectedType {
+        case .setting:
+            let vc = SettingController()
+            navigationController?.pushViewController(vc, animated: true)
+        default:
+            print("DEBUG - \(selectedType) 눌림")
+        }
     }
 }
 

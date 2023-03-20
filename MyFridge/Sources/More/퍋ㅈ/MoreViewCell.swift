@@ -10,7 +10,7 @@ import SnapKit
 
 class MoreViewCell: UICollectionViewCell {
     //MARK: - Properties
-    var menu: String? {
+    var type: MoreViewConfigureationType? {
         didSet {
             configure()
         }
@@ -55,7 +55,7 @@ class MoreViewCell: UICollectionViewCell {
     }
     
     private func configure() {
-        guard let menu = menu else { return }
-        titleLabel.text = menu
+        guard let type = type else { return }
+        titleLabel.text = type.rawValue
     }
 }

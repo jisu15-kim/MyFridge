@@ -74,4 +74,16 @@ struct AuthService {
             print("DEBUG: 로그아웃에 실패했어요 \(error)")
         }
     }
+    
+    func deleteAccout(completion: @escaping (Bool) -> Void) {
+        guard let user = Auth.auth().currentUser else { return }
+        user.delete(completion: { error in
+            if let error = error {
+                print(error.localizedDescription)
+                completion(false)
+            } else {
+                Network().deleteUserAllData(uid: user.uid, completion: completion)
+            }
+        })
+    }
 }

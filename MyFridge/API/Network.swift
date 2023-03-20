@@ -158,4 +158,31 @@ class Network {
             }
         }
     }
+    
+    func changeMarktetingConfirms(uid: String, user: UserModel, completion: @escaping (Bool) -> Void) {
+        guard let data = user.asDictionary else {
+            print("디코딩 실패")
+            completion(false)
+            return
+        }
+        DOC_USERS.document(uid).updateData(data) { error in
+            if let error = error {
+                print(error.localizedDescription)
+                completion(false)
+            } else {
+                completion(true)
+            }
+        }
+    }
+    
+    func deleteUserAllData(uid: String, completion: @escaping (Bool) -> Void) {
+        DOC_USERS.document(uid).delete { error in
+            if let error = error {
+                print(error.localizedDescription)
+                completion(false)
+            } else {
+                completion(true)
+            }
+        }
+    }
 }
