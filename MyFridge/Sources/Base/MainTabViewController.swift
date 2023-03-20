@@ -20,17 +20,37 @@ class MainTabViewController: UITabBarController {
     
     //MARK: - API
     func authenticateUserAndConfigureUI() {
-        if Auth.auth().currentUser == nil {
+        if let authUser = Auth.auth().currentUser {
+//            do {
+//                try Auth.auth().signOut()
+//            }
+//
+//            catch let error {
+//                print("DEBUG: 로그아웃에 실패했어요 \(error)")
+//            }
+            
+            
+            Network().fetchUser { [weak self] user in
+                if user.termsConfirmed == true {
+                    print("DEBUG: 로그인 되었습니다")
+                    self?.configureViewController()
+                    self?.uiTabBarSetting()
+                } else {
+                    // 동의 뷰로 이동하기
+                    let vc = UserConfirmController(user: user, uid: authUser.uid)
+                    vc.delegate = self
+                    guard let nav = self?.templateNavigationController(nil, viewController: vc) else { return }
+                    nav.modalPresentationStyle = .fullScreen
+                    self?.present(nav, animated: true)
+                }
+            }
+        } else {
             print("DEBUG: 로그인 상태가 아닙니다")
             DispatchQueue.main.async {
                 let nav = UINavigationController(rootViewController: LoginController())
                 nav.modalPresentationStyle = .fullScreen
                 self.present(nav, animated: true)
             }
-        } else {
-            print("DEBUG: 로그인 되었습니다")
-            configureViewController()
-            uiTabBarSetting()
         }
     }
     
@@ -46,9 +66,11 @@ class MainTabViewController: UITabBarController {
         viewControllers = [nav1, nav2]
     }
     
-    func templateNavigationController(_ image: String, viewController:UIViewController) -> UINavigationController {
+    func templateNavigationController(_ image: String?, viewController:UIViewController) -> UINavigationController {
         let nav = MainNaviViewController(rootViewController: viewController)
-        nav.tabBarItem.image = UIImage(systemName: image)
+        if let image = image {
+            nav.tabBarItem.image = UIImage(systemName: image)
+        }
         
         let appearance = UINavigationBarAppearance()
         appearance.configureWithOpaqueBackground()
@@ -82,7 +104,14 @@ class MainTabViewController: UITabBarController {
 }
 
 extension MainTabViewController: AuthDelegate {
-    func logUserOut() {
+    func didFinishedUpdateUserConfirm() {
         authenticateUserAndConfigureUI()
+    }
+    
+    func logUserOut(user: UserModel) {
+        NotificationManager().deleteAllNotifications()
+        AuthService.shared.logUserOut(user: user) { [weak self] in
+            self?.authenticateUserAndConfigureUI()
+        }
     }
 }

@@ -20,12 +20,13 @@
 		CD0831EC29B761BD00DC7974 /* ChatBubbleCellViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = CD0831EB29B761BD00DC7974 /* ChatBubbleCellViewModel.swift */; };
 		CD0831EF29B7637700DC7974 /* AIChatModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = CD0831EE29B7637700DC7974 /* AIChatModel.swift */; };
 		CD0831F129B7768700DC7974 /* ChatHeader.swift in Sources */ = {isa = PBXBuildFile; fileRef = CD0831F029B7768700DC7974 /* ChatHeader.swift */; };
+		CD0968A529C72F7E00DD8BE3 /* UserConfirmController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CD0968A429C72F7E00DD8BE3 /* UserConfirmController.swift */; };
+		CD0968A729C744A500DD8BE3 /* CustomConfirmView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CD0968A629C744A500DD8BE3 /* CustomConfirmView.swift */; };
+		CD0968AB29C77F1900DD8BE3 /* CustomAllConfirmView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CD0968AA29C77F1900DD8BE3 /* CustomAllConfirmView.swift */; };
 		CD0B50CF29B0815600DF49D7 /* AIChatViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CD0B50CE29B0815600DF49D7 /* AIChatViewController.swift */; };
 		CD0B50D129B081BD00DF49D7 /* AIChatViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = CD0B50D029B081BD00DF49D7 /* AIChatViewModel.swift */; };
 		CD0B50D329B32B2400DF49D7 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = CD0B50D229B32B2400DF49D7 /* GoogleService-Info.plist */; };
 		CD0B50DE29B32CC900DF49D7 /* LoginController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CD0B50DC29B32CC900DF49D7 /* LoginController.swift */; };
-		CD0B50DF29B32CC900DF49D7 /* RegistrationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CD0B50DD29B32CC900DF49D7 /* RegistrationController.swift */; };
-		CD0B50E129B32CFC00DF49D7 /* AuthViewHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = CD0B50E029B32CFC00DF49D7 /* AuthViewHelper.swift */; };
 		CD0B50E329B32D8400DF49D7 /* AuthService.swift in Sources */ = {isa = PBXBuildFile; fileRef = CD0B50E229B32D8400DF49D7 /* AuthService.swift */; };
 		CD0B50E529B32E2500DF49D7 /* Constraints.swift in Sources */ = {isa = PBXBuildFile; fileRef = CD0B50E429B32E2500DF49D7 /* Constraints.swift */; };
 		CD0B50E729B333D100DF49D7 /* Network.swift in Sources */ = {isa = PBXBuildFile; fileRef = CD0B50E629B333D100DF49D7 /* Network.swift */; };
@@ -88,12 +89,13 @@
 		CD0831EB29B761BD00DC7974 /* ChatBubbleCellViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChatBubbleCellViewModel.swift; sourceTree = "<group>"; };
 		CD0831EE29B7637700DC7974 /* AIChatModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AIChatModel.swift; sourceTree = "<group>"; };
 		CD0831F029B7768700DC7974 /* ChatHeader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChatHeader.swift; sourceTree = "<group>"; };
+		CD0968A429C72F7E00DD8BE3 /* UserConfirmController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserConfirmController.swift; sourceTree = "<group>"; };
+		CD0968A629C744A500DD8BE3 /* CustomConfirmView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomConfirmView.swift; sourceTree = "<group>"; };
+		CD0968AA29C77F1900DD8BE3 /* CustomAllConfirmView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomAllConfirmView.swift; sourceTree = "<group>"; };
 		CD0B50CE29B0815600DF49D7 /* AIChatViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AIChatViewController.swift; sourceTree = "<group>"; };
 		CD0B50D029B081BD00DF49D7 /* AIChatViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AIChatViewModel.swift; sourceTree = "<group>"; };
 		CD0B50D229B32B2400DF49D7 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		CD0B50DC29B32CC900DF49D7 /* LoginController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LoginController.swift; sourceTree = "<group>"; };
-		CD0B50DD29B32CC900DF49D7 /* RegistrationController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RegistrationController.swift; sourceTree = "<group>"; };
-		CD0B50E029B32CFC00DF49D7 /* AuthViewHelper.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AuthViewHelper.swift; sourceTree = "<group>"; };
 		CD0B50E229B32D8400DF49D7 /* AuthService.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AuthService.swift; sourceTree = "<group>"; };
 		CD0B50E429B32E2500DF49D7 /* Constraints.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Constraints.swift; sourceTree = "<group>"; };
 		CD0B50E629B333D100DF49D7 /* Network.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Network.swift; sourceTree = "<group>"; };
@@ -204,6 +206,43 @@
 			path = Model;
 			sourceTree = "<group>";
 		};
+		CD0968A229C72E0B00DD8BE3 /* Model */ = {
+			isa = PBXGroup;
+			children = (
+				CDDFE7AA29C4C7B100874149 /* SocialLoginType.swift */,
+				CD019A5D29BCF39000001556 /* UserModel.swift */,
+			);
+			path = Model;
+			sourceTree = "<group>";
+		};
+		CD0968A329C72E1400DD8BE3 /* View */ = {
+			isa = PBXGroup;
+			children = (
+				CD0968A929C77EE800DD8BE3 /* UserConfirm */,
+				CD0968A829C77E8400DD8BE3 /* Login */,
+			);
+			path = View;
+			sourceTree = "<group>";
+		};
+		CD0968A829C77E8400DD8BE3 /* Login */ = {
+			isa = PBXGroup;
+			children = (
+				CD0B50DC29B32CC900DF49D7 /* LoginController.swift */,
+				CDDFE7A829C4C73B00874149 /* SocialLoginView.swift */,
+			);
+			path = Login;
+			sourceTree = "<group>";
+		};
+		CD0968A929C77EE800DD8BE3 /* UserConfirm */ = {
+			isa = PBXGroup;
+			children = (
+				CD0968A429C72F7E00DD8BE3 /* UserConfirmController.swift */,
+				CD0968A629C744A500DD8BE3 /* CustomConfirmView.swift */,
+				CD0968AA29C77F1900DD8BE3 /* CustomAllConfirmView.swift */,
+			);
+			path = UserConfirm;
+			sourceTree = "<group>";
+		};
 		CD0B50CC29B07C5100DF49D7 /* Chat */ = {
 			isa = PBXGroup;
 			children = (
@@ -217,13 +256,9 @@
 		CD0B50DB29B32C5100DF49D7 /* Authentication */ = {
 			isa = PBXGroup;
 			children = (
+				CD0968A329C72E1400DD8BE3 /* View */,
+				CD0968A229C72E0B00DD8BE3 /* Model */,
 				CD019A5C29BCF15F00001556 /* Manager */,
-				CD0B50DC29B32CC900DF49D7 /* LoginController.swift */,
-				CD0B50E029B32CFC00DF49D7 /* AuthViewHelper.swift */,
-				CD0B50DD29B32CC900DF49D7 /* RegistrationController.swift */,
-				CD019A5D29BCF39000001556 /* UserModel.swift */,
-				CDDFE7A829C4C73B00874149 /* SocialLoginView.swift */,
-				CDDFE7AA29C4C7B100874149 /* SocialLoginType.swift */,
 			);
 			path = Authentication;
 			sourceTree = "<group>";
@@ -517,7 +552,6 @@
 				CD0B50E329B32D8400DF49D7 /* AuthService.swift in Sources */,
 				CD019A5B29BCF13600001556 /* FirebaseLoginManager.swift in Sources */,
 				CDB1EB7129AE7242004D474A /* DetailRegisterController.swift in Sources */,
-				CD0B50E129B32CFC00DF49D7 /* AuthViewHelper.swift in Sources */,
 				CD0B50E529B32E2500DF49D7 /* Constraints.swift in Sources */,
 				CD0B510729B4BDF800DF49D7 /* ColorExtension.swift in Sources */,
 				CD7D00D129BA10EC00514656 /* FridgeItemHeader.swift in Sources */,
@@ -526,6 +560,7 @@
 				CD7D00D729BAC53000514656 /* DateManager.swift in Sources */,
 				CD019A5E29BCF39000001556 /* UserModel.swift in Sources */,
 				CD1445B329AFAE5F00EFBE65 /* AIManager.swift in Sources */,
+				CD0968A529C72F7E00DD8BE3 /* UserConfirmController.swift in Sources */,
 				CDC4ADB029B63A510039C4B6 /* CustomTextField.swift in Sources */,
 				CD0B50F929B3633F00DF49D7 /* DetailController.swift in Sources */,
 				CD0B510929B4C7CD00DF49D7 /* ColorCell.swift in Sources */,
@@ -537,7 +572,7 @@
 				CD0B50E729B333D100DF49D7 /* Network.swift in Sources */,
 				CD0B510529B4ADD700DF49D7 /* OpenAIChatResponse.swift in Sources */,
 				CD0B510B29B4CAE600DF49D7 /* UserColorPreset.swift in Sources */,
-				CD0B50DF29B32CC900DF49D7 /* RegistrationController.swift in Sources */,
+				CD0968A729C744A500DD8BE3 /* CustomConfirmView.swift in Sources */,
 				CDB1EB5029ADF68C004D474A /* FridgeController.swift in Sources */,
 				CDB1EB6929AE50CE004D474A /* MainNaviViewController.swift in Sources */,
 				CD0831EC29B761BD00DC7974 /* ChatBubbleCellViewModel.swift in Sources */,
@@ -551,6 +586,7 @@
 				CDB1EB3B29ADF4ED004D474A /* SceneDelegate.swift in Sources */,
 				CDB1EB5229ADF6A1004D474A /* FridgeViewModel.swift in Sources */,
 				CDB1EB6029AE2FF9004D474A /* CategoryCapsuleView.swift in Sources */,
+				CD0968AB29C77F1900DD8BE3 /* CustomAllConfirmView.swift in Sources */,
 				CDDFE7AB29C4C7B100874149 /* SocialLoginType.swift in Sources */,
 				CD0B50FB29B36DA500DF49D7 /* DateViewContainer.swift in Sources */,
 				CD1445B629AFAE7000EFBE65 /* Secret.swift in Sources */,

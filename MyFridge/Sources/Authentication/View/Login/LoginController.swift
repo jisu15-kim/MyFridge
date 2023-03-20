@@ -21,16 +21,23 @@ class LoginController: UIViewController {
     private let backgroundImageView: UIImageView = {
         let iv = UIImageView()
         iv.image = UIImage(named: "backgroundImage")
+        iv.alpha = 0.6
         iv.contentMode = .scaleAspectFill
         return iv
     }()
     
+    private let titleLabel: UILabel = {
+        let label = UILabel()
+        label.text = "우리집 AI 냉장고"
+        label.textAlignment = .center
+        label.textColor = .white
+        label.font = .systemFont(ofSize: 40, weight: .black)
+        return label
+    }()
+    
     lazy var kakaoLoginButton = makeLoginButtons(type: .kakao)
-    
     lazy var googleLoginButton = makeLoginButtons(type: .google)
-    
     lazy var naverLoginButton = makeLoginButtons(type: .naver)
-    
     lazy var appleLoginButton = makeLoginButtons(type: .apple)
     
     //MARK: - Lifecycle
@@ -71,12 +78,7 @@ class LoginController: UIViewController {
     }
     
     @objc func handleAppleLoginTapped() {
-        naverManager.tryLogout()
-    }
-    
-    @objc func handleShowSignUp() {
-        let controller = RegistrationController()
-        navigationController?.pushViewController(controller, animated: true)
+        
     }
     
     //MARK: - Helpers
@@ -85,6 +87,12 @@ class LoginController: UIViewController {
         view.addSubview(backgroundImageView)
         backgroundImageView.snp.makeConstraints {
             $0.edges.equalToSuperview()
+        }
+        
+        view.addSubview(titleLabel)
+        titleLabel.snp.makeConstraints {
+            $0.top.equalToSuperview().inset(200)
+            $0.centerX.equalToSuperview()
         }
         
         navigationController?.navigationBar.barStyle = .black // Statusbar의 글씨 생상

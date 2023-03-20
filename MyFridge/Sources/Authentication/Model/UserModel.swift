@@ -20,4 +20,7 @@ struct UserModel: Codable {
     var profileImage: URL
     var userName: String
     var loginCase: LoginCase
+    
+    var termsConfirmed: Bool? // 필수 동의 항목 체크 되었는지?
+    var marketingConfirmed: Bool? // 마케팅 수신 동의 체크 되었는지?
 }

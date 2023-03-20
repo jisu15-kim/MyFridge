@@ -55,9 +55,20 @@ struct AuthService {
         }
     }
     
-    func logUserOut(completion: @escaping() -> Void) {
+    func logUserOut(user: UserModel, completion: @escaping() -> Void) {
         do {
             try Auth.auth().signOut()
+            
+            switch user.loginCase {
+            case .apple:
+                break
+            case .google:
+                GoogleLoginManager().tryGoogleLogout()
+            case .kakao:
+                KakaoLoginManager().kakaoLogout()
+            case .naver:
+                NaverLoginManager().tryLogout()
+            }
             completion()
         } catch let error {
             print("DEBUG: 로그아웃에 실패했어요 \(error)")

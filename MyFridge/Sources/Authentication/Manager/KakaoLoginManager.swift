@@ -59,4 +59,12 @@ class KakaoLoginManager {
             }
         })
     }
+    
+    func kakaoLogout() {
+        UserApi.shared.logout { error in
+            if let error = error {
+                print(error)
+            }
+        }
+    }
 }

@@ -14,7 +14,8 @@ private let itemCellIdentifier = "FridgeItemCell"
 private let headerIdentifier = "FridgeItemHeader"
 
 protocol AuthDelegate: AnyObject {
-    func logUserOut()
+    func logUserOut(user: UserModel)
+    func didFinishedUpdateUserConfirm()
 }
 
 class FridgeController: UIViewController {
@@ -113,12 +114,9 @@ class FridgeController: UIViewController {
     @objc func profileViewTapped() {
 //        임시 로그아웃기능
 //        Network().updateItemInfoData()
-        NotificationManager().deleteAllNotifications()
-        AuthService.shared.logUserOut { [weak self] in
-            self?.authDelegate?.logUserOut()
-        }
 //        NotificationManager().getAllNotifications()
-
+        guard let user = viewModel.user.value else { return }
+        authDelegate?.logUserOut(user: user)
     }
     
     //MARK: - Helper

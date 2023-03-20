@@ -34,10 +34,14 @@ class GoogleLoginManager {
                               let uid = result?.user.uid else { return }
                         
                         let userModel = UserModel(email: email, profileImage: profileImage, userName: userName, loginCase: .google)
-                        FirebaseLoginManager().updateUserFirestore(uid: uid, user: userModel, completion: completion)
+                        FirebaseLoginManager().googleAppleTryAuth(uid: uid, user: userModel, completion: completion)
                     }
                 }
             }
         }
+    }
+    
+    func tryGoogleLogout() {
+        GIDSignIn.sharedInstance.signOut()
     }
 }

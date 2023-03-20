@@ -80,8 +80,8 @@ class ChatBubbleCell: UICollectionViewCell {
     @objc func copyButtonTapped() {
         guard let vm = viewModel else { return }
         UIPasteboard.general.string = vm.content
-        copyButton.backgroundColor = .systemGray6
-        copyButton.setAttributedTitle(NSAttributedString(string: "복사 완료", attributes: [NSAttributedString.Key.foregroundColor: UIColor.black, NSAttributedString.Key.font: UIFont.boldSystemFont(ofSize: 14)]), for: .normal)
+        copyButton.backgroundColor = .mainGrayBackground
+        copyButton.setAttributedTitle(NSAttributedString(string: "복사 완료", attributes: [NSAttributedString.Key.foregroundColor: UIColor.mainForeGround, NSAttributedString.Key.font: UIFont.boldSystemFont(ofSize: 14)]), for: .normal)
     }
     
     //MARK: - Helper
