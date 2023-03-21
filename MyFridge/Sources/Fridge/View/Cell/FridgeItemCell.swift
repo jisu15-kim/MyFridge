@@ -89,6 +89,10 @@ class FridgeItemCell: UICollectionViewCell {
         fatalError("init(coder:) has not been implemented")
     }
     
+    override func prepareForReuse() {
+        configureIsSelected()
+    }
+    
     //MARK: - Helper
     private func setupUI() {
         
@@ -138,6 +142,15 @@ class FridgeItemCell: UICollectionViewCell {
         self.setViewShadow(backView: self)
     }
     
+    func configureIsSelected() {
+        guard let viewModel = cellViewModel else { return }
+        if viewModel.isSelected == true {
+            layer.borderWidth = 3
+        } else {
+            layer.borderWidth = 0
+        }
+    }
+    
     func configure() {
         guard let viewModel = cellViewModel else { return }
         itemTitleLabel.text = viewModel.itemName
@@ -148,5 +161,7 @@ class FridgeItemCell: UICollectionViewCell {
         memoLabel.text = viewModel.memoShortText
         backgroundColor = .mainReverseLabel
         iconContainerView.backgroundColor = viewModel.item.color.color
+        layer.borderColor = UIColor.mainAccent.cgColor
+        layer.borderWidth = 0
     }
 }

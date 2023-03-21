@@ -61,13 +61,13 @@ class MainTabViewController: UITabBarController {
     func configureViewController() {
         let fridge = FridgeController()
         fridge.authDelegate = self
-        let nav1 = templateNavigationController("refrigerator.fill", viewController: fridge)
+        let nav1 = templateNavigationController("archivebox.fill", viewController: fridge)
         
-        let dummy = DummyViewController()
+        let dummy = UIViewController()
         let nav2 = templateNavigationController("plus", viewController: dummy)
         
-        let explore = UIViewController()
-        let nav3 = templateNavigationController("info.circle.fill", viewController: explore)
+        let info = InformationController()
+        let nav3 = templateNavigationController("network", viewController: info)
         
         guard let user = user else { return }
         let preference = MoreViewController(user: user)

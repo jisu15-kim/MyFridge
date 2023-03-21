@@ -10,6 +10,8 @@ import UIKit
 class FridgeItemViewModel {
     
     //MARK: - Properties
+    var isSelected: Bool?
+    
     var item: FridgeItemModel
     
     var itemID: String {
