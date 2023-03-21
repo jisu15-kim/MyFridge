@@ -18,6 +18,7 @@ class MainTabViewController: UITabBarController {
     override func viewDidLoad() {
         super.viewDidLoad()
         authenticateUserAndConfigureUI()
+        delegate = self
     }
     
     //MARK: - API
@@ -62,14 +63,17 @@ class MainTabViewController: UITabBarController {
         fridge.authDelegate = self
         let nav1 = templateNavigationController("refrigerator.fill", viewController: fridge)
         
+        let dummy = DummyViewController()
+        let nav2 = templateNavigationController("plus", viewController: dummy)
+        
         let explore = UIViewController()
-        let nav2 = templateNavigationController("info.circle.fill", viewController: explore)
+        let nav3 = templateNavigationController("info.circle.fill", viewController: explore)
         
         guard let user = user else { return }
         let preference = MoreViewController(user: user)
-        let nav3 = templateNavigationController("ellipsis", viewController: preference)
+        let nav4 = templateNavigationController("ellipsis", viewController: preference)
         
-        viewControllers = [nav1, nav2, nav3]
+        viewControllers = [nav1, nav2, nav3, nav4]
     }
     
     func templateNavigationController(_ image: String?, viewController:UIViewController) -> UINavigationController {
@@ -126,6 +130,21 @@ extension MainTabViewController: AuthDelegate {
         NotificationManager().deleteAllNotifications()
         AuthService.shared.logUserOut(user: user) { [weak self] in
             self?.authenticateUserAndConfigureUI()
+        }
+    }
+}
+
+extension MainTabViewController: UITabBarControllerDelegate {
+    func tabBarController(_ tabBarController: UITabBarController, shouldSelect viewController: UIViewController) -> Bool {
+        if let index = tabBarController.viewControllers?.firstIndex(of: viewController), index == 1 {
+            
+            guard let navi = tabBarController.viewControllers?[0] as? MainNaviViewController else { return false }
+            navi.addButtonTapped()
+            return false
+        } else {
+            // 다른 탭바 아이템인 경우
+            // 뷰 전환을 진행함
+            return true
         }
     }
 }

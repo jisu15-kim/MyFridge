@@ -96,6 +96,7 @@ class FridgeItemCell: UICollectionViewCell {
         categoryLabel.snp.makeConstraints {
             $0.leading.equalToSuperview().inset(15)
             $0.top.equalToSuperview().inset(20)
+            $0.width.equalTo(43)
         }
         
         addSubview(iconContainerView)

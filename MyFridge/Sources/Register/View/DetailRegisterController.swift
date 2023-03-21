@@ -254,6 +254,7 @@ class DetailRegisterController: UIViewController {
                     let newViewModel = FridgeItemViewModel(item: item)
                     // 노티 등록 코드
                     newViewModel.registerUserNotis(notiConfigs: notiConfigs)
+                    AppHelper.getRootController()?.selectedIndex = 0
                     self?.navigationController?.dismiss(animated: true)
                 }
             }
@@ -268,6 +269,7 @@ class DetailRegisterController: UIViewController {
                     // 새로운 노티 등록
                     newViewModel.registerUserNotis(notiConfigs: notiConfigs)
                     self?.delegate?.actionDone(itemID: viewModel.itemID)
+                    AppHelper.getRootController()?.selectedIndex = 0
                     self?.navigationController?.popViewController(animated: true)
                 }
             }
@@ -556,6 +558,8 @@ extension DetailRegisterController: UITextFieldDelegate {
         let data = Int(text) ?? 0
         updateExpireDate(offsetDay: data)
     }
+    
+    
 }
 
 extension DetailRegisterController: UICollectionViewDataSource, UICollectionViewDelegate {

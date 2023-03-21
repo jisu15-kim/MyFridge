@@ -58,6 +58,7 @@
 		CD1445BC29AFBE5600EFBE65 /* FloatingPanel in Frameworks */ = {isa = PBXBuildFile; productRef = CD1445BB29AFBE5600EFBE65 /* FloatingPanel */; };
 		CD1445BF29AFC12A00EFBE65 /* Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = CD1445BE29AFC12A00EFBE65 /* Extension.swift */; };
 		CD55324429BDC7D400F1B657 /* NaverLoginManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = CD55324329BDC7D400F1B657 /* NaverLoginManager.swift */; };
+		CD7B29A529C9F7C000A266C0 /* DummyViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CD7B29A429C9F7C000A266C0 /* DummyViewController.swift */; };
 		CD7D00D129BA10EC00514656 /* FridgeItemHeader.swift in Sources */ = {isa = PBXBuildFile; fileRef = CD7D00D029BA10EC00514656 /* FridgeItemHeader.swift */; };
 		CD7D00D429BA37D700514656 /* NotificationManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = CD7D00D329BA37D700514656 /* NotificationManager.swift */; };
 		CD7D00D729BAC53000514656 /* DateManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = CD7D00D629BAC53000514656 /* DateManager.swift */; };
@@ -123,6 +124,7 @@
 		CD1445B529AFAE7000EFBE65 /* Secret.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Secret.swift; sourceTree = "<group>"; };
 		CD1445BE29AFC12A00EFBE65 /* Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Extension.swift; sourceTree = "<group>"; };
 		CD55324329BDC7D400F1B657 /* NaverLoginManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NaverLoginManager.swift; sourceTree = "<group>"; };
+		CD7B29A429C9F7C000A266C0 /* DummyViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DummyViewController.swift; sourceTree = "<group>"; };
 		CD7D00D029BA10EC00514656 /* FridgeItemHeader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FridgeItemHeader.swift; sourceTree = "<group>"; };
 		CD7D00D329BA37D700514656 /* NotificationManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationManager.swift; sourceTree = "<group>"; };
 		CD7D00D629BAC53000514656 /* DateManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DateManager.swift; sourceTree = "<group>"; };
@@ -345,6 +347,13 @@
 			path = API;
 			sourceTree = "<group>";
 		};
+		CD7B29A629CA071D00A266C0 /* AI */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = AI;
+			sourceTree = "<group>";
+		};
 		CD7D00CF29BA10DB00514656 /* Cell */ = {
 			isa = PBXGroup;
 			children = (
@@ -415,6 +424,7 @@
 				CD0B50F729B3631A00DF49D7 /* Detail */,
 				CDB1EB6429AE4D52004D474A /* Register */,
 				CD0B50CC29B07C5100DF49D7 /* Chat */,
+				CD7B29A629CA071D00A266C0 /* AI */,
 				CD0968AC29C8298500DD8BE3 /* More */,
 			);
 			path = Sources;
@@ -444,6 +454,7 @@
 			isa = PBXGroup;
 			children = (
 				CDB1EB5529ADF731004D474A /* MainTabViewController.swift */,
+				CD7B29A429C9F7C000A266C0 /* DummyViewController.swift */,
 				CDB1EB6829AE50CE004D474A /* MainNaviViewController.swift */,
 			);
 			path = Base;
@@ -601,6 +612,7 @@
 				CD7D00D129BA10EC00514656 /* FridgeItemHeader.swift in Sources */,
 				CD55324429BDC7D400F1B657 /* NaverLoginManager.swift in Sources */,
 				CDB1EB6D29AE597D004D474A /* CategoryHeaderView.swift in Sources */,
+				CD7B29A529C9F7C000A266C0 /* DummyViewController.swift in Sources */,
 				CD7D00D729BAC53000514656 /* DateManager.swift in Sources */,
 				CD0968BA29C84F0C00DD8BE3 /* AppHelper.swift in Sources */,
 				CD019A5E29BCF39000001556 /* UserModel.swift in Sources */,

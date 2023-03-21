@@ -32,4 +32,11 @@ class MainNaviViewController: UINavigationController {
     @objc private func handleBackTapped() {
         navigationController?.popViewController(animated: true)
     }
+    
+    func addButtonTapped() {
+        let vc = CategoryRegisterController()
+        let nav = MainNaviViewController(rootViewController: vc)
+        nav.modalPresentationStyle = .fullScreen
+        present(nav, animated: true)
+    }
 }

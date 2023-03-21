@@ -348,7 +348,7 @@ enum ItemType: String, CaseIterable, Codable {
         case .Pumpkin:
             return 300
         case .Lettuce:
-            return -1 // 냉동 보관 불가능
+            return 0 // 냉동 보관 불가능
         case .Corn:
             return 365
         case .Carrot:
@@ -375,19 +375,19 @@ enum ItemType: String, CaseIterable, Codable {
         case .Orange:
             return 365
         case .Banana:
-            return -1 // 냉동 보관 불가능
+            return 21
         case .Melon:
             return 300
         case .Watermelon:
             return 300
         case .Strawberry:
-            return -1 // 냉동 보관 불가능
+            return 365
         case .Pineapple:
             return 365
         case .Avocado:
             return 365
         case .Kiwi:
-            return 8
+            return 60
         case .Mango:
             return 365
         case .Grape:

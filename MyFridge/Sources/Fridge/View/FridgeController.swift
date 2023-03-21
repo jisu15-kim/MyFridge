@@ -244,11 +244,23 @@ extension FridgeController: UICollectionViewDelegateFlowLayout {
     }
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, referenceSizeForHeaderInSection section: Int) -> CGSize {
+        // 1. items 모델이 비어있으면 표시X
         if viewModel.items.value.isEmpty {
             return CGSize.zero
         } else {
-            return CGSize(width: collectionView.frame.width, height: 45)
+            var isSectionExist: Bool = false
+            viewModel.items.value.forEach {
+                if KeepType.allCases[section] == $0.keepType {
+                    isSectionExist = true
+                }
+            }
+            if isSectionExist == true {
+                // 2. 해당 Section에 아이템이 존재하면 표시O
+                return CGSize(width: collectionView.frame.width, height: 45)
+            } else {
+                // 3. 해당 Section에 아이템이 존재하지 않다면 표시X
+                return CGSize.zero
+            }
         }
     }
-    
 }

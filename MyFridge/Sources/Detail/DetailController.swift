@@ -112,6 +112,19 @@ class DetailController: UIViewController {
         return view
     }()
     
+    let warningAILabel: UILabel = {
+        let label = UILabel()
+        let text = "💡AI의 답변은 경우에 따라 부정확할 수 있어요. 단순 참고용으로만 활용하세요!"
+        let paragraphStyle = NSMutableParagraphStyle()
+        paragraphStyle.headIndent = 20 // 들여쓰기 값 설정
+        let attributedText = NSMutableAttributedString(string: text, attributes: [.paragraphStyle: paragraphStyle])
+        label.attributedText = attributedText
+        label.numberOfLines = 0
+        label.font = .systemFont(ofSize: 14, weight: .light)
+        label.textColor = .lightGray
+        return label
+    }()
+    
     //MARK: - Lifecycle
     init(viewModel: FridgeItemViewModel) {
         self.viewModel = viewModel
@@ -293,6 +306,12 @@ class DetailController: UIViewController {
             $0.leading.trailing.equalToSuperview().inset(16)
             $0.top.equalTo(AIActionTitle.snp.bottom).inset(-10)
             $0.height.equalTo(100)
+        }
+        
+        view.addSubview(warningAILabel)
+        warningAILabel.snp.makeConstraints {
+            $0.leading.trailing.equalToSuperview().inset(16)
+            $0.top.equalTo(aiStack.snp.bottom).inset(-10)
         }
     }
     
