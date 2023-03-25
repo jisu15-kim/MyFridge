@@ -33,8 +33,10 @@ class FridgeItemViewModel {
     }
     
     var expireDDay: String {
-        if expireDayGapInt >= 0 {
+        if expireDayGapInt > 0 {
             return "D-\(expireDayGapInt)"
+        } else if expireDayGapInt == 0 {
+            return "오늘까지"
         } else {
             return "\(-expireDayGapInt)일 지남"
         }

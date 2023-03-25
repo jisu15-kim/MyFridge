@@ -18,6 +18,7 @@ class AIChatViewModel {
     let askType: AskType
     let storageType: KeepType
     let selectedItem: ItemType
+    var recommandDishesModel: [FridgeItemModel]?
     var isAIProcessing: CurrentValueSubject<Bool, Never>
     var chats: CurrentValueSubject<[AIChatModel], Never>
     
@@ -34,7 +35,11 @@ class AIChatViewModel {
         let firstAIModel = AIChatModel(content: "안녕하세요✋ 무엇을 도와드릴까요?", chatType: .greeting)
         self.chats = CurrentValueSubject([])
         chats.value.append(firstAIModel)
-        setupKeyword()
+    }
+    
+    convenience init(items: [FridgeItemModel]) {
+        self.init(storageType: .fridge, selectedItem: .Apple, askType: .keep)
+        self.recommandDishesModel = items
     }
     
     //MARK: - Selector
@@ -44,8 +49,18 @@ class AIChatViewModel {
     
     //MARK: - Helper
     func setupKeyword() {
-        let chat = AIChatModel(content: makeKeyword(), chatType: .my)
-        chats.value.append(chat)
+        
+        if let itemModel = recommandDishesModel {
+            if itemModel.count > 0 {
+                let chat = AIChatModel(content: makeRecommandDishesWithSelectedItem(), chatType: .my)
+                chats.value.append(chat)
+                askToAI(keyword: makeRecommandDishesWithSelectedItem()) { _ in }
+            }
+        } else {
+            let chat = AIChatModel(content: makeKeyword(), chatType: .my)
+            chats.value.append(chat)
+            askToAI(keyword: makeKeyword()) { _ in }
+        }
     }
     
     func makeKeyword() -> String {
@@ -66,6 +81,20 @@ class AIChatViewModel {
     func makeRecommandRecipeSelectedItemKeyword() -> String {
         let text = "\(selectedItem.itemName)을 활용한 추천 요리와 레시피를 알려줘"
         return text
+    }
+    
+    func makeRecommandDishesWithSelectedItem() -> String {
+        var keyword = ""
+        guard let models = recommandDishesModel else { return "" }
+        models.enumerated().forEach {
+            if models.count == $0 + 1 {
+                keyword += "\($1.itemType.itemName)"
+            } else {
+                keyword += "\($1.itemType.itemName), "
+            }
+        }
+        
+        return "\(keyword)을(를) 활용한 음식을 추천해줘"
     }
     
     // AI API 통신 함수

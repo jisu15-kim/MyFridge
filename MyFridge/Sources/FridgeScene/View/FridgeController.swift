@@ -24,6 +24,7 @@ class FridgeController: UIViewController {
     weak var authDelegate: AuthDelegate?
     private let viewModel: FridgeViewModel
     private var subscription = Set<AnyCancellable>()
+    private var refreshControl = UIRefreshControl()
     
     private let cellSpacing: Int = 10
     private let rowItemCount: Int = 2
@@ -114,11 +115,18 @@ class FridgeController: UIViewController {
     }
     
     @objc func profileViewTapped() {
-//        임시 로그아웃기능
-//        Network().updateItemInfoData()
-//        NotificationManager().getAllNotifications()
-        guard let user = viewModel.user.value else { return }
-        authDelegate?.logUserOut(user: user)
+        //        임시 로그아웃기능
+        //        Network().updateItemInfoData()
+        NotificationManager().getAllNotifications()
+        //        guard let user = viewModel.user.value else { return }
+        //        authDelegate?.logUserOut(user: user)
+    }
+    
+    @objc func handleRefreshControl() {
+        self.viewModel.fetchItems()
+            DispatchQueue.main.async { [weak self] in
+                self?.refreshControl.endRefreshing()
+            }
     }
     
     //MARK: - Helper
@@ -164,6 +172,8 @@ class FridgeController: UIViewController {
         collectionView.backgroundColor = .mainGrayBackground
         collectionView.register(FridgeItemCell.self, forCellWithReuseIdentifier: itemCellIdentifier)
         collectionView.register(FridgeItemHeader.self, forSupplementaryViewOfKind: UICollectionView.elementKindSectionHeader, withReuseIdentifier: headerIdentifier)
+        collectionView.refreshControl = refreshControl
+        refreshControl.addTarget(self, action: #selector(handleRefreshControl), for: .valueChanged)
         collectionView.dataSource = self
         collectionView.delegate = self
     }

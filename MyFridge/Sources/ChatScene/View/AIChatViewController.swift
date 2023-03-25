@@ -16,7 +16,7 @@ class AIChatViewController: UIViewController {
     
     //MARK: - Properties
     let viewModel: AIChatViewModel
-    let keyword: String
+    var keyword: String?
     var subscription = Set<AnyCancellable>()
     
     let collectionView: UICollectionView = {
@@ -47,8 +47,12 @@ class AIChatViewController: UIViewController {
     //MARK: - Lifecycle
     init(viewModel: AIChatViewModel) {
         self.viewModel = viewModel
-        self.keyword = viewModel.makeKeyword()
         super.init(nibName: nil, bundle: nil)
+//        if viewModel.recommandDishesModel.isEmpty == false {
+//            self.keyword = viewModel.makeRecommandDishesWithSelectedItem()
+//        } else {
+//            self.keyword = viewModel.makeKeyword()
+//        }
     }
     
     required init?(coder: NSCoder) {
@@ -61,7 +65,7 @@ class AIChatViewController: UIViewController {
         bind()
         setupUI()
         setupCollectionView()
-        tryRequest()
+        viewModel.setupKeyword()
     }
     //MARK: - Bind
     private func bind() {
@@ -79,9 +83,9 @@ class AIChatViewController: UIViewController {
     }
     
     //MARK: - API
-    private func tryRequest() {
-        viewModel.askToAI(keyword: keyword) { _ in return }
-    }
+//    private func tryRequest() {
+//        viewModel.askToAI(keyword: keyword) { _ in return }
+//    }
     
     //MARK: - Helper
     private func setupUI() {

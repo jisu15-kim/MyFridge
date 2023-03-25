@@ -43,6 +43,7 @@ class DetailRegisterController: UIViewController {
         }
     }
     
+    private var memoMaxCount = 50
     private var subscription = Set<AnyCancellable>()
     private var selectedColor: CurrentValueSubject<UserColorPreset?, Never>
     
@@ -133,7 +134,7 @@ class DetailRegisterController: UIViewController {
         return tf
     }()
     
-    private lazy var expireTextField: CustomTextField = {
+    lazy var expireTextField: CustomTextField = {
         let tf = makeTextField(placeholder: "유통기한", imageName: "calendar")
         let suffix = UILabel()
         suffix.text = "일"
@@ -142,12 +143,14 @@ class DetailRegisterController: UIViewController {
         tf.textField.rightViewMode = .always
         tf.textField.keyboardType = .numberPad
         tf.textField.delegate = self
+        tf.textField.tag = 0
         return tf
     }()
     lazy var expireDateLabel = makeInfoLabel(text: "🗓️ 유통기한: - 까지")
     private lazy var memoTextField: CustomTextField = {
         let tf = makeTextField(placeholder: "수량, 원산지 등..", title: "메모", imageName: "doc.text")
         tf.textField.delegate = self
+        tf.textField.tag = 1
         return tf
     }()
     
@@ -554,12 +557,19 @@ class DetailRegisterController: UIViewController {
 extension DetailRegisterController: UITextFieldDelegate {
     
     func textFieldDidChangeSelection(_ textField: UITextField) {
-        guard let text = textField.text else { return }
-        let data = Int(text) ?? 0
-        updateExpireDate(offsetDay: data)
+        if textField.tag == 0 {
+            guard let text = textField.text else { return }
+            print(text)
+            let data = Int(text) ?? 0
+            updateExpireDate(offsetDay: data)
+        }
     }
     
-    
+    func textField(_ textField: UITextField, shouldChangeCharactersIn range: NSRange, replacementString string: String) -> Bool {
+        // 새로 입력된 문자열과 기존 문자열을 합쳐서 길이 체크
+        let text = (textField.text! as NSString).replacingCharacters(in: range, with: string)
+        return text.count <= 20 // 길이가 10 이하일 때만 입력 가능하도록 설정
+    }
 }
 
 extension DetailRegisterController: UICollectionViewDataSource, UICollectionViewDelegate {

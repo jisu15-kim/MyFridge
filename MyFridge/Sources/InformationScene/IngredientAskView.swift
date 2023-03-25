@@ -14,12 +14,13 @@ private let footerIdentifier = "SelectedViewFooterView"
 
 class IngredientAskView: UIView {
     //MARK: - Properties
+    weak var delegate: InformationControllerDelegate?
     private let superView: InformationController
     
     private var subscription = Set<AnyCancellable>()
     private let guideLabel: UILabel = {
         let label = UILabel()
-        label.text = "2. 선택한 재료들 입니다"
+        label.text = "AI에게 요리를 추천받아요👍"
         label.font = .boldSystemFont(ofSize: 20)
         label.textAlignment = .center
         return label
@@ -50,10 +51,12 @@ class IngredientAskView: UIView {
     
     //MARK: - Functions
     private func bind() {
-        superView.selectedItem
+        superView.viewModel.selectedItem
             .receive(on: RunLoop.main)
             .sink { [weak self] model in
+                print("bind")
                 self?.collectionView.reloadData()
+                self?.isHidden = model.isEmpty
             }.store(in: &subscription)
     }
     
@@ -84,12 +87,12 @@ class IngredientAskView: UIView {
 
 extension IngredientAskView: UICollectionViewDelegate, UICollectionViewDataSource {
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return superView.selectedItem.value.count
+        return superView.viewModel.selectedItem.value.count
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: cellIdentifier, for: indexPath) as? SelectedItemCell else { return UICollectionViewCell() }
-        let item = superView.selectedItem.value[indexPath.row]
+        let item = superView.viewModel.selectedItem.value[indexPath.row]
         let itemViewModel = FridgeItemViewModel(item: item)
         cell.itemViewModel = itemViewModel
         return cell
@@ -97,13 +100,14 @@ extension IngredientAskView: UICollectionViewDelegate, UICollectionViewDataSourc
     
     func collectionView(_ collectionView: UICollectionView, viewForSupplementaryElementOfKind kind: String, at indexPath: IndexPath) -> UICollectionReusableView {
         guard let footer = collectionView.dequeueReusableSupplementaryView(ofKind: UICollectionView.elementKindSectionFooter, withReuseIdentifier: footerIdentifier, for: indexPath) as? SelectedViewFooterView else { return UICollectionReusableView() }
+        footer.delegate = self.delegate
         return footer
     }
 }
 
 extension IngredientAskView: UICollectionViewDelegateFlowLayout {
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
-        let item = superView.selectedItem.value[indexPath.row]
+        let item = superView.viewModel.selectedItem.value[indexPath.row]
         let offsetText = item.itemName
         let measurementLabel = UILabel(frame: .zero)
         measurementLabel.text = offsetText

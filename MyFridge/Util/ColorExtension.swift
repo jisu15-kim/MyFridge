@@ -13,11 +13,12 @@ extension UIColor {
         return UIColor(red: red/255, green: green/255, blue: blue/255, alpha: 1)
     }
     
+    static let appLightAccent = UIColor.rgb(red: 102, green: 102, blue: 255)
+    static let appDarkAccent = UIColor.rgb(red: 153, green: 153, blue: 255)
+    
     static let appMainTint = UIColor.rgb(red: 130, green: 217, blue: 217)
-    static let appMainSub = UIColor.rgb(red: 111, green: 191, blue: 191)
+    static let appMainSub = UIColor.rgb(red: 102, green: 0, blue: 255)
     static let appMainWhite = UIColor.rgb(red: 240, green: 242, blue: 242)
-    static let appMainGray = UIColor.rgb(red: 57, green: 62, blue: 89)
-    static let appMainDarkGray = UIColor.rgb(red: 57, green: 102, blue: 130)
     static let appMainBlack = UIColor.rgb(red: 1, green: 3, blue: 38)
     
     static let appBackground = dynamicColor(lightColor: appMainWhite, darkColor: appMainBlack)
@@ -27,7 +28,7 @@ extension UIColor {
     static let mainForeGround = dynamicColor(lightColor: .black, darkColor: .white)
     static let mainReverseLabel = dynamicColor(lightColor: .white, darkColor: .systemGray6)
     
-    static let mainAccent = dynamicColor(lightColor: .appMainGray, darkColor: .appMainDarkGray)
+    static let mainAccent = dynamicColor(lightColor: .appLightAccent, darkColor: .appDarkAccent)
 }
 
 extension UIColor {

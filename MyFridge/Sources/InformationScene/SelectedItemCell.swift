@@ -19,6 +19,7 @@ class SelectedItemCell: UICollectionViewCell {
     let titleLabel: UILabel = {
         let label = UILabel()
         label.font = .boldSystemFont(ofSize: 18)
+        label.textColor = .black
         return label
     }()
     

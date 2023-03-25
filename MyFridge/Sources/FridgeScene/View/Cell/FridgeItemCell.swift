@@ -14,6 +14,7 @@ class FridgeItemCell: UICollectionViewCell {
     var cellViewModel: FridgeItemViewModel? {
         didSet {
             configure()
+            configureIsSelected()
         }
     }
     

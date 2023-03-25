@@ -11,14 +11,18 @@ import Combine
 
 private let itemCellIdentifier = "FridgeItemCell"
 
+protocol InformationControllerDelegate: AnyObject {
+    func askToAIButtonTapped()
+}
+
 class InformationController: UIViewController {
     //MARK: - Properties
-    private let viewModel: FridgeViewModel
+    let viewModel: FridgeViewModel
     private var subscription = Set<AnyCancellable>()
     
     private let guideLabel: UILabel = {
         let label = UILabel()
-        label.text = "1. 냉장고 속 재료를 선택✨"
+        label.text = "☝️냉장고 속 재료를 선택✨"
         label.font = .boldSystemFont(ofSize: 20)
         label.textAlignment = .center
         return label
@@ -35,13 +39,13 @@ class InformationController: UIViewController {
     }()
     
     lazy var ingrediendAskView = IngredientAskView(viewController: self)
-    
-    var selectedItem = CurrentValueSubject<[FridgeItemModel], Never>([])
+    let emptyView = EmptyFridgeView()
     
     //MARK: - Lifecycle
     init() {
         viewModel = FridgeViewModel()
         super.init(nibName: nil, bundle: nil)
+        print("SuperViewModel : \(viewModel)")
     }
     
     required init?(coder: NSCoder) {
@@ -54,6 +58,7 @@ class InformationController: UIViewController {
         setupUI()
         bind()
         setupCollectionView()
+        configureEmptyView()
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -66,12 +71,24 @@ class InformationController: UIViewController {
             .receive(on: RunLoop.main)
             .sink { [weak self] _ in
                 self?.collectionView.reloadData()
+                self?.configureEmptyView()
             }.store(in: &subscription)
     }
     
     //MARK: - Selector
     
     //MARK: - Functions
+    
+    private func configureEmptyView() {
+        if viewModel.items.value.isEmpty {
+            emptyView.isHidden = false
+            guideLabel.isHidden = true
+        } else {
+            emptyView.isHidden = true
+            guideLabel.isHidden = false
+        }
+    }
+    
     func setupCollectionView() {
         collectionView.backgroundColor = .mainGrayBackground
         collectionView.register(FridgeItemCell.self, forCellWithReuseIdentifier: itemCellIdentifier)
@@ -106,6 +123,15 @@ class InformationController: UIViewController {
             $0.top.equalTo(collectionView.snp.bottom).inset(-20)
             $0.bottom.equalToSuperview()
         }
+        
+        view.addSubview(emptyView)
+        emptyView.snp.makeConstraints {
+            $0.center.equalToSuperview()
+            $0.width.height.equalTo(400)
+            emptyView.isHidden = true
+        }
+        
+        ingrediendAskView.delegate = self
     }
 }
 
@@ -116,8 +142,16 @@ extension InformationController: UICollectionViewDataSource, UICollectionViewDel
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: itemCellIdentifier, for: indexPath) as? FridgeItemCell else { return UICollectionViewCell() }
+        let selectedItems = self.viewModel.selectedItem
         let item = viewModel.items.value[indexPath.row]
         let cellViewModel = FridgeItemViewModel(item: item)
+        
+        // Selected Item 이라면
+        selectedItems.value.forEach {
+            if $0.docID == item.docID {
+                cellViewModel.isSelected = true
+            }
+        }
         cell.cellViewModel = cellViewModel
         return cell
     }
@@ -135,10 +169,11 @@ extension InformationController: UICollectionViewDataSource, UICollectionViewDel
         }
         cell.configureIsSelected()
         
-        if selectedItem.value.contains(where: { $0.docID == item.docID }) {
-            selectedItem.value.removeAll(where: { $0.docID == item.docID })
+        let items = self.viewModel.selectedItem
+        if items.value.contains(where: { $0.docID == item.docID }) {
+            items.value.removeAll(where: { $0.docID == item.docID })
         } else {
-            selectedItem.value.append(item)
+            items.value.append(item)
         }
     }
 }
@@ -147,5 +182,14 @@ extension InformationController: UICollectionViewDelegateFlowLayout {
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
         let cellWidth = view.frame.width * 0.4
         return CGSize(width: cellWidth, height: 120)
+    }
+}
+
+extension InformationController: InformationControllerDelegate {
+    func askToAIButtonTapped() {
+        let vm = AIChatViewModel(items: viewModel.selectedItem.value)
+        let vc = AIChatViewController(viewModel: vm)
+        vc.modalPresentationStyle = .fullScreen
+        present(vc, animated: true)
     }
 }

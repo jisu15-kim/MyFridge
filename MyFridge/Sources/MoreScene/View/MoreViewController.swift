@@ -96,7 +96,9 @@ extension MoreViewController: UICollectionViewDataSource, UICollectionViewDelega
             let vc = SettingController()
             navigationController?.pushViewController(vc, animated: true)
         default:
-            print("DEBUG - \(selectedType) 눌림")
+            guard let url = selectedType.url else { return }
+            let vc = WebViewController(url: url)
+            present(vc, animated: true)
         }
     }
 }

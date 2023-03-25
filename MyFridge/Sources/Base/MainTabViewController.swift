@@ -87,7 +87,6 @@ class MainTabViewController: UITabBarController {
         appearance.backgroundColor = .mainGrayBackground
         nav.navigationBar.standardAppearance = appearance;
         nav.navigationBar.scrollEdgeAppearance = nav.navigationBar.standardAppearance
-        
         nav.navigationBar.tintColor = .mainAccent
         return nav
     }

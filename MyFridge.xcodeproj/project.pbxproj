@@ -23,11 +23,7 @@
 		CD0968A529C72F7E00DD8BE3 /* UserConfirmController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CD0968A429C72F7E00DD8BE3 /* UserConfirmController.swift */; };
 		CD0968A729C744A500DD8BE3 /* CustomConfirmView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CD0968A629C744A500DD8BE3 /* CustomConfirmView.swift */; };
 		CD0968AB29C77F1900DD8BE3 /* CustomAllConfirmView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CD0968AA29C77F1900DD8BE3 /* CustomAllConfirmView.swift */; };
-		CD0968AE29C8299B00DD8BE3 /* MoreViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CD0968AD29C8299B00DD8BE3 /* MoreViewController.swift */; };
-		CD0968B229C82AD400DD8BE3 /* TopUserInfoView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CD0968B129C82AD400DD8BE3 /* TopUserInfoView.swift */; };
 		CD0968B429C82DA100DD8BE3 /* MoreViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = CD0968B329C82DA100DD8BE3 /* MoreViewModel.swift */; };
-		CD0968B629C8353900DD8BE3 /* MoreViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = CD0968B529C8353900DD8BE3 /* MoreViewCell.swift */; };
-		CD0968B829C84B3600DD8BE3 /* SettingController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CD0968B729C84B3600DD8BE3 /* SettingController.swift */; };
 		CD0968BA29C84F0C00DD8BE3 /* AppHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = CD0968B929C84F0C00DD8BE3 /* AppHelper.swift */; };
 		CD0B50CF29B0815600DF49D7 /* AIChatViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CD0B50CE29B0815600DF49D7 /* AIChatViewController.swift */; };
 		CD0B50D129B081BD00DF49D7 /* AIChatViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = CD0B50D029B081BD00DF49D7 /* AIChatViewModel.swift */; };
@@ -57,6 +53,12 @@
 		CD1445B929AFB92A00EFBE65 /* Alamofire in Frameworks */ = {isa = PBXBuildFile; productRef = CD1445B829AFB92A00EFBE65 /* Alamofire */; };
 		CD1445BC29AFBE5600EFBE65 /* FloatingPanel in Frameworks */ = {isa = PBXBuildFile; productRef = CD1445BB29AFBE5600EFBE65 /* FloatingPanel */; };
 		CD1445BF29AFC12A00EFBE65 /* Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = CD1445BE29AFC12A00EFBE65 /* Extension.swift */; };
+		CD51D80029CC733200EE7C0B /* Link.swift in Sources */ = {isa = PBXBuildFile; fileRef = CD51D7FF29CC733200EE7C0B /* Link.swift */; };
+		CD51D80929CC777000EE7C0B /* MoreViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CD51D80429CC777000EE7C0B /* MoreViewController.swift */; };
+		CD51D80A29CC777000EE7C0B /* TopUserInfoView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CD51D80529CC777000EE7C0B /* TopUserInfoView.swift */; };
+		CD51D80B29CC777000EE7C0B /* WebViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CD51D80629CC777000EE7C0B /* WebViewController.swift */; };
+		CD51D80C29CC777000EE7C0B /* MoreViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = CD51D80729CC777000EE7C0B /* MoreViewCell.swift */; };
+		CD51D80D29CC777000EE7C0B /* SettingController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CD51D80829CC777000EE7C0B /* SettingController.swift */; };
 		CD55324429BDC7D400F1B657 /* NaverLoginManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = CD55324329BDC7D400F1B657 /* NaverLoginManager.swift */; };
 		CD7B29A829CA078400A266C0 /* InformationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CD7B29A729CA078400A266C0 /* InformationController.swift */; };
 		CD7B29AA29CA10EA00A266C0 /* IngredientAskView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CD7B29A929CA10EA00A266C0 /* IngredientAskView.swift */; };
@@ -103,11 +105,7 @@
 		CD0968A429C72F7E00DD8BE3 /* UserConfirmController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserConfirmController.swift; sourceTree = "<group>"; };
 		CD0968A629C744A500DD8BE3 /* CustomConfirmView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomConfirmView.swift; sourceTree = "<group>"; };
 		CD0968AA29C77F1900DD8BE3 /* CustomAllConfirmView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomAllConfirmView.swift; sourceTree = "<group>"; };
-		CD0968AD29C8299B00DD8BE3 /* MoreViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MoreViewController.swift; sourceTree = "<group>"; };
-		CD0968B129C82AD400DD8BE3 /* TopUserInfoView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TopUserInfoView.swift; sourceTree = "<group>"; };
 		CD0968B329C82DA100DD8BE3 /* MoreViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MoreViewModel.swift; sourceTree = "<group>"; };
-		CD0968B529C8353900DD8BE3 /* MoreViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MoreViewCell.swift; sourceTree = "<group>"; };
-		CD0968B729C84B3600DD8BE3 /* SettingController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingController.swift; sourceTree = "<group>"; };
 		CD0968B929C84F0C00DD8BE3 /* AppHelper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppHelper.swift; sourceTree = "<group>"; };
 		CD0B50CE29B0815600DF49D7 /* AIChatViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AIChatViewController.swift; sourceTree = "<group>"; };
 		CD0B50D029B081BD00DF49D7 /* AIChatViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AIChatViewModel.swift; sourceTree = "<group>"; };
@@ -127,6 +125,12 @@
 		CD1445B229AFAE5F00EFBE65 /* AIManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AIManager.swift; sourceTree = "<group>"; };
 		CD1445B529AFAE7000EFBE65 /* Secret.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Secret.swift; sourceTree = "<group>"; };
 		CD1445BE29AFC12A00EFBE65 /* Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Extension.swift; sourceTree = "<group>"; };
+		CD51D7FF29CC733200EE7C0B /* Link.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Link.swift; sourceTree = "<group>"; };
+		CD51D80429CC777000EE7C0B /* MoreViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MoreViewController.swift; sourceTree = "<group>"; };
+		CD51D80529CC777000EE7C0B /* TopUserInfoView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TopUserInfoView.swift; sourceTree = "<group>"; };
+		CD51D80629CC777000EE7C0B /* WebViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WebViewController.swift; sourceTree = "<group>"; };
+		CD51D80729CC777000EE7C0B /* MoreViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MoreViewCell.swift; sourceTree = "<group>"; };
+		CD51D80829CC777000EE7C0B /* SettingController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SettingController.swift; sourceTree = "<group>"; };
 		CD55324329BDC7D400F1B657 /* NaverLoginManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NaverLoginManager.swift; sourceTree = "<group>"; };
 		CD7B29A729CA078400A266C0 /* InformationController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InformationController.swift; sourceTree = "<group>"; };
 		CD7B29A929CA10EA00A266C0 /* IngredientAskView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IngredientAskView.swift; sourceTree = "<group>"; };
@@ -265,25 +269,13 @@
 			path = UserConfirm;
 			sourceTree = "<group>";
 		};
-		CD0968AC29C8298500DD8BE3 /* More */ = {
+		CD0968AC29C8298500DD8BE3 /* MoreScene */ = {
 			isa = PBXGroup;
 			children = (
-				CD0968AF29C82AB200DD8BE3 /* View */,
+				CD51D80329CC777000EE7C0B /* View */,
 				CD0968B029C82ABC00DD8BE3 /* ViewModel */,
 			);
-			path = More;
-			sourceTree = "<group>";
-		};
-		CD0968AF29C82AB200DD8BE3 /* View */ = {
-			isa = PBXGroup;
-			children = (
-				CD0968AD29C8299B00DD8BE3 /* MoreViewController.swift */,
-				CD0968B129C82AD400DD8BE3 /* TopUserInfoView.swift */,
-				CD0968B529C8353900DD8BE3 /* MoreViewCell.swift */,
-				CD0968B729C84B3600DD8BE3 /* SettingController.swift */,
-			);
-			name = View;
-			path = "퍋ㅈ";
+			path = MoreScene;
 			sourceTree = "<group>";
 		};
 		CD0968B029C82ABC00DD8BE3 /* ViewModel */ = {
@@ -294,14 +286,14 @@
 			path = ViewModel;
 			sourceTree = "<group>";
 		};
-		CD0B50CC29B07C5100DF49D7 /* Chat */ = {
+		CD0B50CC29B07C5100DF49D7 /* ChatScene */ = {
 			isa = PBXGroup;
 			children = (
 				CD0831ED29B7636D00DC7974 /* Model */,
 				CD0831E829B75E6900DC7974 /* View */,
 				CD0831E729B75E6600DC7974 /* ViewModel */,
 			);
-			path = Chat;
+			path = ChatScene;
 			sourceTree = "<group>";
 		};
 		CD0B50DB29B32C5100DF49D7 /* Authentication */ = {
@@ -314,14 +306,14 @@
 			path = Authentication;
 			sourceTree = "<group>";
 		};
-		CD0B50F729B3631A00DF49D7 /* Detail */ = {
+		CD0B50F729B3631A00DF49D7 /* DetailScene */ = {
 			isa = PBXGroup;
 			children = (
 				CD0B50F829B3633F00DF49D7 /* DetailController.swift */,
 				CD0B50FA29B36DA500DF49D7 /* DateViewContainer.swift */,
 				CD0B50FC29B38A1E00DF49D7 /* AIActionView.swift */,
 			);
-			path = Detail;
+			path = DetailScene;
 			sourceTree = "<group>";
 		};
 		CD1445B429AFAE6A00EFBE65 /* Secret */ = {
@@ -341,6 +333,7 @@
 				CD0B510A29B4CAE600DF49D7 /* UserColorPreset.swift */,
 				CD7D00D629BAC53000514656 /* DateManager.swift */,
 				CD0968B929C84F0C00DD8BE3 /* AppHelper.swift */,
+				CD51D7FF29CC733200EE7C0B /* Link.swift */,
 			);
 			path = Util;
 			sourceTree = "<group>";
@@ -355,7 +348,19 @@
 			path = API;
 			sourceTree = "<group>";
 		};
-		CD7B29A629CA071D00A266C0 /* Information */ = {
+		CD51D80329CC777000EE7C0B /* View */ = {
+			isa = PBXGroup;
+			children = (
+				CD51D80429CC777000EE7C0B /* MoreViewController.swift */,
+				CD51D80529CC777000EE7C0B /* TopUserInfoView.swift */,
+				CD51D80629CC777000EE7C0B /* WebViewController.swift */,
+				CD51D80729CC777000EE7C0B /* MoreViewCell.swift */,
+				CD51D80829CC777000EE7C0B /* SettingController.swift */,
+			);
+			path = View;
+			sourceTree = "<group>";
+		};
+		CD7B29A629CA071D00A266C0 /* InformationScene */ = {
 			isa = PBXGroup;
 			children = (
 				CD7B29A729CA078400A266C0 /* InformationController.swift */,
@@ -364,7 +369,7 @@
 				CD7B29AD29CA201600A266C0 /* CustomFlowLayout.swift */,
 				CD7B29AF29CA20AE00A266C0 /* SelectedCellFooterView.swift */,
 			);
-			path = Information;
+			path = InformationScene;
 			sourceTree = "<group>";
 		};
 		CD7D00CF29BA10DB00514656 /* Cell */ = {
@@ -433,12 +438,12 @@
 			children = (
 				CDB1EB5329ADF6CF004D474A /* Base */,
 				CD0B50DB29B32C5100DF49D7 /* Authentication */,
-				CDB1EB5429ADF6DA004D474A /* Fridge */,
-				CD0B50F729B3631A00DF49D7 /* Detail */,
-				CDB1EB6429AE4D52004D474A /* Register */,
-				CD0B50CC29B07C5100DF49D7 /* Chat */,
-				CD7B29A629CA071D00A266C0 /* Information */,
-				CD0968AC29C8298500DD8BE3 /* More */,
+				CDB1EB5429ADF6DA004D474A /* FridgeScene */,
+				CD0B50F729B3631A00DF49D7 /* DetailScene */,
+				CDB1EB6429AE4D52004D474A /* RegisterScene */,
+				CD0B50CC29B07C5100DF49D7 /* ChatScene */,
+				CD7B29A629CA071D00A266C0 /* InformationScene */,
+				CD0968AC29C8298500DD8BE3 /* MoreScene */,
 			);
 			path = Sources;
 			sourceTree = "<group>";
@@ -472,14 +477,14 @@
 			path = Base;
 			sourceTree = "<group>";
 		};
-		CDB1EB5429ADF6DA004D474A /* Fridge */ = {
+		CDB1EB5429ADF6DA004D474A /* FridgeScene */ = {
 			isa = PBXGroup;
 			children = (
 				CDB1EB6129AE4100004D474A /* Model */,
 				CDB1EB4E29ADF669004D474A /* View */,
 				CDB1EB4D29ADF666004D474A /* ViewModel */,
 			);
-			path = Fridge;
+			path = FridgeScene;
 			sourceTree = "<group>";
 		};
 		CDB1EB6129AE4100004D474A /* Model */ = {
@@ -490,12 +495,12 @@
 			path = Model;
 			sourceTree = "<group>";
 		};
-		CDB1EB6429AE4D52004D474A /* Register */ = {
+		CDB1EB6429AE4D52004D474A /* RegisterScene */ = {
 			isa = PBXGroup;
 			children = (
 				CDB1EB6529AE4D8E004D474A /* View */,
 			);
-			path = Register;
+			path = RegisterScene;
 			sourceTree = "<group>";
 		};
 		CDB1EB6529AE4D8E004D474A /* View */ = {
@@ -615,16 +620,18 @@
 			buildActionMask = 2147483647;
 			files = (
 				CD7B29AA29CA10EA00A266C0 /* IngredientAskView.swift in Sources */,
+				CD51D80B29CC777000EE7C0B /* WebViewController.swift in Sources */,
 				CDB1EB5629ADF731004D474A /* MainTabViewController.swift in Sources */,
-				CD0968B229C82AD400DD8BE3 /* TopUserInfoView.swift in Sources */,
 				CD0B50E329B32D8400DF49D7 /* AuthService.swift in Sources */,
 				CD019A5B29BCF13600001556 /* FirebaseLoginManager.swift in Sources */,
+				CD51D80929CC777000EE7C0B /* MoreViewController.swift in Sources */,
 				CDB1EB7129AE7242004D474A /* DetailRegisterController.swift in Sources */,
 				CD0B50E529B32E2500DF49D7 /* Constraints.swift in Sources */,
 				CD0B510729B4BDF800DF49D7 /* ColorExtension.swift in Sources */,
 				CD7D00D129BA10EC00514656 /* FridgeItemHeader.swift in Sources */,
 				CD55324429BDC7D400F1B657 /* NaverLoginManager.swift in Sources */,
 				CDB1EB6D29AE597D004D474A /* CategoryHeaderView.swift in Sources */,
+				CD51D80029CC733200EE7C0B /* Link.swift in Sources */,
 				CD7D00D729BAC53000514656 /* DateManager.swift in Sources */,
 				CD7B29AC29CA173900A266C0 /* SelectedItemCell.swift in Sources */,
 				CD0968BA29C84F0C00DD8BE3 /* AppHelper.swift in Sources */,
@@ -637,8 +644,8 @@
 				CD0B510929B4C7CD00DF49D7 /* ColorCell.swift in Sources */,
 				CDDFE7A929C4C73B00874149 /* SocialLoginView.swift in Sources */,
 				CDB1EB6329AE410D004D474A /* FridgeItemModel.swift in Sources */,
-				CD0968B829C84B3600DD8BE3 /* SettingController.swift in Sources */,
 				CDB1EB5E29ADFCE2004D474A /* FridgeItemCell.swift in Sources */,
+				CD51D80C29CC777000EE7C0B /* MoreViewCell.swift in Sources */,
 				CDB1EB3929ADF4ED004D474A /* AppDelegate.swift in Sources */,
 				CD0831F129B7768700DC7974 /* ChatHeader.swift in Sources */,
 				CD0B50E729B333D100DF49D7 /* Network.swift in Sources */,
@@ -652,6 +659,7 @@
 				CD0831EA29B75FBA00DC7974 /* ChatBubbleCell.swift in Sources */,
 				CDB1EB6F29AE5E28004D474A /* ItemRegisterController.swift in Sources */,
 				CD019A6529BD073A00001556 /* GoogleLoginManager.swift in Sources */,
+				CD51D80A29CC777000EE7C0B /* TopUserInfoView.swift in Sources */,
 				CD1445BF29AFC12A00EFBE65 /* Extension.swift in Sources */,
 				CD7D00D429BA37D700514656 /* NotificationManager.swift in Sources */,
 				CD0B50D129B081BD00DF49D7 /* AIChatViewModel.swift in Sources */,
@@ -663,16 +671,15 @@
 				CD0968AB29C77F1900DD8BE3 /* CustomAllConfirmView.swift in Sources */,
 				CDDFE7AB29C4C7B100874149 /* SocialLoginType.swift in Sources */,
 				CD0B50FB29B36DA500DF49D7 /* DateViewContainer.swift in Sources */,
-				CD0968AE29C8299B00DD8BE3 /* MoreViewController.swift in Sources */,
 				CD1445B629AFAE7000EFBE65 /* Secret.swift in Sources */,
 				CD0B50F629B35B3800DF49D7 /* FridgeItemViewModel.swift in Sources */,
 				CDB1EB6B29AE5292004D474A /* RegisterIconCell.swift in Sources */,
 				CD019A5929BCEB1B00001556 /* KakaoLoginManager.swift in Sources */,
+				CD51D80D29CC777000EE7C0B /* SettingController.swift in Sources */,
 				CD0B50CF29B0815600DF49D7 /* AIChatViewController.swift in Sources */,
 				CDDFE7AD29C4D3A600874149 /* EmptyFridgeView.swift in Sources */,
 				CD0831EF29B7637700DC7974 /* AIChatModel.swift in Sources */,
 				CDB1EB6729AE4D96004D474A /* CategoryRegisterController.swift in Sources */,
-				CD0968B629C8353900DD8BE3 /* MoreViewCell.swift in Sources */,
 				CD7B29AE29CA201600A266C0 /* CustomFlowLayout.swift in Sources */,
 				CD0B50FD29B38A1E00DF49D7 /* AIActionView.swift in Sources */,
 			);

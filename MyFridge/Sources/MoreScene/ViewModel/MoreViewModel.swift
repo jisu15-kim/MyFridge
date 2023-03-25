@@ -13,6 +13,21 @@ enum MoreViewConfigureationType: String, CaseIterable {
     case privacyPolicy = "개인정보처리방침"
     case inquiry = "개선/보완 문의"
     case setting = "설정"
+    
+    var url: URL? {
+        switch self {
+        case .notice:
+            return Link.notice
+        case .terms:
+            return Link.terms
+        case .privacyPolicy:
+            return Link.privacyPolicy
+        case .inquiry:
+            return Link.inquiry
+        case .setting:
+            return nil
+        }
+    }
 }
 
 class MoreViewModel {
