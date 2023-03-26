@@ -114,6 +114,7 @@ class MainTabViewController: UITabBarController {
     func logout() {
         guard let user = user else { return }
         NotificationManager().deleteAllNotifications()
+        UserDefaults.standard.setthisAccoutFirstLogin(value: true)
         AuthService.shared.logUserOut(user: user) { [weak self] in
             self?.authenticateUserAndConfigureUI()
         }

@@ -143,16 +143,15 @@ extension InformationController: UICollectionViewDataSource, UICollectionViewDel
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: itemCellIdentifier, for: indexPath) as? FridgeItemCell else { return UICollectionViewCell() }
         let selectedItems = self.viewModel.selectedItem
-        let item = viewModel.items.value[indexPath.row]
-        let cellViewModel = FridgeItemViewModel(item: item)
+        let viewModel = viewModel.items.value[indexPath.row]
         
         // Selected Item 이라면
         selectedItems.value.forEach {
-            if $0.docID == item.docID {
-                cellViewModel.isSelected = true
+            if $0.docID == viewModel.item.docID {
+                viewModel.isSelected = true
             }
         }
-        cell.cellViewModel = cellViewModel
+        cell.cellViewModel = viewModel
         return cell
     }
     

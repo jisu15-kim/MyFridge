@@ -11,7 +11,7 @@ import Firebase
 
 class FridgeViewModel {
     //MARK: - Properties
-    var items: CurrentValueSubject<[FridgeItemModel], Never>
+    var items: CurrentValueSubject<[FridgeItemViewModel], Never>
     var user: CurrentValueSubject<UserModel?, Never>
     var selectedItem = CurrentValueSubject<[FridgeItemModel], Never>([])
     
@@ -33,11 +33,34 @@ class FridgeViewModel {
     func fetchItems(completion: (() -> Void)? = nil) {
         Network().fetchMyItmes { [weak self] items in
             // 유통기한 순으로 정렬 후 send
-            let sortedItem = items.sorted {
-                $0.expireDay < $1.expireDay
+            var itemViewModels: [FridgeItemViewModel] = []
+            items.forEach { item in
+                itemViewModels.append(FridgeItemViewModel(item: item))
             }
-            self?.items.send(sortedItem)
+            // 아이템 뷰 모델 생성
+            let sortedViewModel = itemViewModels.sorted {
+                $0.item.expireDay < $1.item.expireDay
+            }
+            self?.items.send(sortedViewModel)
+            self?.registerNotiAtFirstLogin(items: sortedViewModel)
         }
+    }
+    
+    func registerNotiAtFirstLogin(items: [FridgeItemViewModel]) {
+        let firstLogin = UserDefaults.standard.bool(forKey: "ThisAccoutFirstLogin")
+        print("DEBUG - firstLogin: \(firstLogin)")
+        if firstLogin == true {
+            items.forEach { itemViewModel in
+                itemViewModel.item.userNotiData.enumerated().forEach { (index, config) in
+                    let calendar = Calendar.current
+                    var dateComponents = calendar.dateComponents([.year, .month, .day], from: config.date)
+                    dateComponents.hour = 18
+                    NotificationManager().setItemNotification(withItemViewModel: itemViewModel, notiConfig: config, index: index, dateComponents: dateComponents)
+                    UserDefaults.standard.setthisAccoutFirstLogin(value: false)
+                }
+            }
+        }
+        
     }
     
     //MARK: - Helper

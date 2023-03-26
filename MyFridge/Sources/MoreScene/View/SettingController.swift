@@ -71,10 +71,11 @@ class SettingController: UIViewController {
         }
     }
     //MARK: - Selector
-    @objc private func logoutTapped() {
+    @objc private func logoutTapped() {	
         let alert = UIAlertController(title: "로그아웃", message: "로그아웃 하시겠습니까?", preferredStyle: .alert)
         let cancelAction = UIAlertAction(title: "취소", style: .cancel)
         let confirmAction = UIAlertAction(title: "로그아웃", style: .destructive) { [weak self] _ in
+            	
             self?.logout()
         }
         alert.addAction(cancelAction)

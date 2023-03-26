@@ -28,7 +28,7 @@ extension UIColor {
     static let mainForeGround = dynamicColor(lightColor: .black, darkColor: .white)
     static let mainReverseLabel = dynamicColor(lightColor: .white, darkColor: .systemGray6)
     
-    static let mainAccent = dynamicColor(lightColor: .appLightAccent, darkColor: .appDarkAccent)
+    static let mainAccent = dynamicColor(lightColor: .appLightAccent, darkColor: .appLightAccent)
 }
 
 extension UIColor {

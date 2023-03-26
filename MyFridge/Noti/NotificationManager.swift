@@ -16,18 +16,6 @@ class NotificationManager {
         let content = UNMutableNotificationContent()
         content.title = "냉장고 유통기한 알림"
         content.body = "\(viewModel.itemName)의 유통기한이 \(notiConfig.dayOffset)일 남았어요! \n어떻게 요리할지 냉장고AI에게 물어볼까요?"
-        content.badge = 1
-        
-//        let imageName = viewModel.item.itemType.rawValue
-//        print("DEBUG - ImageName \(imageName)")
-//        guard let imageUrl = Bundle.main.url(forResource: imageName, withExtension: nil) else { return }
-//        print("DEBUG - ImageUrl \(imageUrl)")
-//
-//        let attachment = try! UNNotificationAttachment(identifier: imageName, url: imageUrl)
-//        content.attachments = [attachment]
-
-        // 트리거를 만듬
-        //        let trigger = UNTimeIntervalNotificationTrigger(timeInterval: 3, repeats: false)
 
         // DateComponents 를 활용해 트리거 만듬
         let trigger = UNCalendarNotificationTrigger(dateMatching: dateComponents, repeats: false)

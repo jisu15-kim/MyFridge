@@ -116,7 +116,7 @@ class FridgeController: UIViewController {
     
     @objc func profileViewTapped() {
         //        임시 로그아웃기능
-        //        Network().updateItemInfoData()
+        UserDefaults.standard.setthisAccoutFirstLogin(value: false)
         NotificationManager().getAllNotifications()
         //        guard let user = viewModel.user.value else { return }
         //        authDelegate?.logUserOut(user: user)
@@ -199,10 +199,10 @@ extension FridgeController: UICollectionViewDelegate, UICollectionViewDataSource
         
         switch section {
         case 0:
-            let fridgeItem = item.filter({ $0.keepType == .fridge })
+            let fridgeItem = item.filter({ $0.item.keepType == .fridge })
             return fridgeItem.count
         case 1:
-            let freezerItem = item.filter({ $0.keepType == .freezer })
+            let freezerItem = item.filter({ $0.item.keepType == .freezer })
             return freezerItem.count
         default:
             return 0
@@ -215,14 +215,12 @@ extension FridgeController: UICollectionViewDelegate, UICollectionViewDataSource
         
         switch indexPath.section {
         case 0:
-            let fridgeItem = item.filter({ $0.keepType == .fridge })[indexPath.row]
-            let cellViewModel = FridgeItemViewModel(item: fridgeItem)
-            cell.cellViewModel = cellViewModel
+            let viewModel = item.filter({ $0.item.keepType == .fridge })[indexPath.row]
+            cell.cellViewModel = viewModel
             return cell
         case 1:
-            let freezerItem = item.filter({ $0.keepType == .freezer })[indexPath.row]
-            let cellViewModel = FridgeItemViewModel(item: freezerItem)
-            cell.cellViewModel = cellViewModel
+            let viewModel = item.filter({ $0.item.keepType == .freezer })[indexPath.row]
+            cell.cellViewModel = viewModel
             return cell
         default:
             return UICollectionViewCell()
@@ -260,7 +258,7 @@ extension FridgeController: UICollectionViewDelegateFlowLayout {
         } else {
             var isSectionExist: Bool = false
             viewModel.items.value.forEach {
-                if KeepType.allCases[section] == $0.keepType {
+                if KeepType.allCases[section] == $0.item.keepType {
                     isSectionExist = true
                 }
             }

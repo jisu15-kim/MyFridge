@@ -86,11 +86,11 @@ class FridgeItemViewModel {
     func registerUserNotis(notiConfigs: [ItemNotiConfig]) {
         notiConfigs.enumerated().forEach {
             let calendar = Calendar.current
-            let after10Sec = Date().addingTimeInterval(10)
-            let dateComponents = calendar.dateComponents([.year, .month, .day, .hour, .minute, .second], from: after10Sec)
+//            let after10Sec = Date().addingTimeInterval(10)
+            var dateComponents = calendar.dateComponents([.year, .month, .day], from: $1.date)
+            dateComponents.hour = 18
             NotificationManager().setItemNotification(withItemViewModel: self, notiConfig: $1, index: $0, dateComponents: dateComponents)
             print("DEBUG - dateComponents: \(dateComponents)")
-//            NotificationManager().setSampleNotification(withItemViewModel: self, notiConfig: $1, index: $0, dateComponents: dateComponents)
         }
     }
     
@@ -108,7 +108,6 @@ class FridgeItemViewModel {
     func getNotificationDate(from expireDate: Date, offset: Int) -> Date {
         return Calendar.current.date(byAdding: .day, value: -offset, to: expireDate)!
     }
-
     
     func calculateExpireDate(_ days: Int, to date: Date) -> Date? {
         var dateComponents = DateComponents()

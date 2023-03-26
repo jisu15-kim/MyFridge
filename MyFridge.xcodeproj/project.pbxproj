@@ -16,6 +16,7 @@
 		CD019A6329BD003100001556 /* GoogleSignInSwift in Frameworks */ = {isa = PBXBuildFile; productRef = CD019A6229BD003100001556 /* GoogleSignInSwift */; };
 		CD019A6529BD073A00001556 /* GoogleLoginManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = CD019A6429BD073A00001556 /* GoogleLoginManager.swift */; };
 		CD019A6829BDC20C00001556 /* naveridlogin-ios-sp in Frameworks */ = {isa = PBXBuildFile; productRef = CD019A6729BDC20C00001556 /* naveridlogin-ios-sp */; };
+		CD07E5A129CF5E5100B52885 /* UserDefaults.swift in Sources */ = {isa = PBXBuildFile; fileRef = CD07E5A029CF5E5100B52885 /* UserDefaults.swift */; };
 		CD0831EA29B75FBA00DC7974 /* ChatBubbleCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = CD0831E929B75FBA00DC7974 /* ChatBubbleCell.swift */; };
 		CD0831EC29B761BD00DC7974 /* ChatBubbleCellViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = CD0831EB29B761BD00DC7974 /* ChatBubbleCellViewModel.swift */; };
 		CD0831EF29B7637700DC7974 /* AIChatModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = CD0831EE29B7637700DC7974 /* AIChatModel.swift */; };
@@ -98,6 +99,7 @@
 		CD019A5A29BCF13600001556 /* FirebaseLoginManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FirebaseLoginManager.swift; sourceTree = "<group>"; };
 		CD019A5D29BCF39000001556 /* UserModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserModel.swift; sourceTree = "<group>"; };
 		CD019A6429BD073A00001556 /* GoogleLoginManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GoogleLoginManager.swift; sourceTree = "<group>"; };
+		CD07E5A029CF5E5100B52885 /* UserDefaults.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserDefaults.swift; sourceTree = "<group>"; };
 		CD0831E929B75FBA00DC7974 /* ChatBubbleCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChatBubbleCell.swift; sourceTree = "<group>"; };
 		CD0831EB29B761BD00DC7974 /* ChatBubbleCellViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChatBubbleCellViewModel.swift; sourceTree = "<group>"; };
 		CD0831EE29B7637700DC7974 /* AIChatModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AIChatModel.swift; sourceTree = "<group>"; };
@@ -334,6 +336,7 @@
 				CD7D00D629BAC53000514656 /* DateManager.swift */,
 				CD0968B929C84F0C00DD8BE3 /* AppHelper.swift */,
 				CD51D7FF29CC733200EE7C0B /* Link.swift */,
+				CD07E5A029CF5E5100B52885 /* UserDefaults.swift */,
 			);
 			path = Util;
 			sourceTree = "<group>";
@@ -623,6 +626,7 @@
 				CD51D80B29CC777000EE7C0B /* WebViewController.swift in Sources */,
 				CDB1EB5629ADF731004D474A /* MainTabViewController.swift in Sources */,
 				CD0B50E329B32D8400DF49D7 /* AuthService.swift in Sources */,
+				CD07E5A129CF5E5100B52885 /* UserDefaults.swift in Sources */,
 				CD019A5B29BCF13600001556 /* FirebaseLoginManager.swift in Sources */,
 				CD51D80929CC777000EE7C0B /* MoreViewController.swift in Sources */,
 				CDB1EB7129AE7242004D474A /* DetailRegisterController.swift in Sources */,
