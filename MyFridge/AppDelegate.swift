@@ -14,7 +14,7 @@ import IQKeyboardManagerSwift
 
 @main
 class AppDelegate: UIResponder, UIApplicationDelegate {
-    
+        
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
         // Override point for customization after application launch.
         
@@ -40,6 +40,9 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         UNUserNotificationCenter.current().requestAuthorization(options: [.alert, .badge, .sound]) { (isAllowed, error) in
             
         }
+        
+        ApiCallCounter.shared.resetAPICallCountIfNeeded()
+        print(ApiCallCounter.shared.getAPICallCount())
         
         return true
     }

@@ -89,6 +89,8 @@
 		CDB1EB7129AE7242004D474A /* DetailRegisterController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CDB1EB7029AE7242004D474A /* DetailRegisterController.swift */; };
 		CDC4ADAE29B632F40039C4B6 /* IQKeyboardManagerSwift in Frameworks */ = {isa = PBXBuildFile; productRef = CDC4ADAD29B632F40039C4B6 /* IQKeyboardManagerSwift */; };
 		CDC4ADB029B63A510039C4B6 /* CustomTextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = CDC4ADAF29B63A510039C4B6 /* CustomTextField.swift */; };
+		CDDE407929D320FD002F4318 /* ApiCallCounter.swift in Sources */ = {isa = PBXBuildFile; fileRef = CDDE407829D320FD002F4318 /* ApiCallCounter.swift */; };
+		CDDE407B29D323A8002F4318 /* CheckApiCallCount.swift in Sources */ = {isa = PBXBuildFile; fileRef = CDDE407A29D323A8002F4318 /* CheckApiCallCount.swift */; };
 		CDDFE7A929C4C73B00874149 /* SocialLoginView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CDDFE7A829C4C73B00874149 /* SocialLoginView.swift */; };
 		CDDFE7AB29C4C7B100874149 /* SocialLoginType.swift in Sources */ = {isa = PBXBuildFile; fileRef = CDDFE7AA29C4C7B100874149 /* SocialLoginType.swift */; };
 		CDDFE7AD29C4D3A600874149 /* EmptyFridgeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CDDFE7AC29C4D3A600874149 /* EmptyFridgeView.swift */; };
@@ -161,6 +163,8 @@
 		CDB1EB6E29AE5E28004D474A /* ItemRegisterController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ItemRegisterController.swift; sourceTree = "<group>"; };
 		CDB1EB7029AE7242004D474A /* DetailRegisterController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailRegisterController.swift; sourceTree = "<group>"; };
 		CDC4ADAF29B63A510039C4B6 /* CustomTextField.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomTextField.swift; sourceTree = "<group>"; };
+		CDDE407829D320FD002F4318 /* ApiCallCounter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ApiCallCounter.swift; sourceTree = "<group>"; };
+		CDDE407A29D323A8002F4318 /* CheckApiCallCount.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CheckApiCallCount.swift; sourceTree = "<group>"; };
 		CDDFE7A829C4C73B00874149 /* SocialLoginView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SocialLoginView.swift; sourceTree = "<group>"; };
 		CDDFE7AA29C4C7B100874149 /* SocialLoginType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SocialLoginType.swift; sourceTree = "<group>"; };
 		CDDFE7AC29C4D3A600874149 /* EmptyFridgeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EmptyFridgeView.swift; sourceTree = "<group>"; };
@@ -337,6 +341,7 @@
 				CD0968B929C84F0C00DD8BE3 /* AppHelper.swift */,
 				CD51D7FF29CC733200EE7C0B /* Link.swift */,
 				CD07E5A029CF5E5100B52885 /* UserDefaults.swift */,
+				CDDE407A29D323A8002F4318 /* CheckApiCallCount.swift */,
 			);
 			path = Util;
 			sourceTree = "<group>";
@@ -345,6 +350,7 @@
 			isa = PBXGroup;
 			children = (
 				CD0B50E229B32D8400DF49D7 /* AuthService.swift */,
+				CDDE407829D320FD002F4318 /* ApiCallCounter.swift */,
 				CD1445B229AFAE5F00EFBE65 /* AIManager.swift */,
 				CD0B50E629B333D100DF49D7 /* Network.swift */,
 			);
@@ -641,6 +647,7 @@
 				CD0968BA29C84F0C00DD8BE3 /* AppHelper.swift in Sources */,
 				CD019A5E29BCF39000001556 /* UserModel.swift in Sources */,
 				CD1445B329AFAE5F00EFBE65 /* AIManager.swift in Sources */,
+				CDDE407929D320FD002F4318 /* ApiCallCounter.swift in Sources */,
 				CD0968A529C72F7E00DD8BE3 /* UserConfirmController.swift in Sources */,
 				CDC4ADB029B63A510039C4B6 /* CustomTextField.swift in Sources */,
 				CD0B50F929B3633F00DF49D7 /* DetailController.swift in Sources */,
@@ -658,6 +665,7 @@
 				CD0968A729C744A500DD8BE3 /* CustomConfirmView.swift in Sources */,
 				CDB1EB5029ADF68C004D474A /* FridgeController.swift in Sources */,
 				CDB1EB6929AE50CE004D474A /* MainNaviViewController.swift in Sources */,
+				CDDE407B29D323A8002F4318 /* CheckApiCallCount.swift in Sources */,
 				CD0831EC29B761BD00DC7974 /* ChatBubbleCellViewModel.swift in Sources */,
 				CD0B50DE29B32CC900DF49D7 /* LoginController.swift in Sources */,
 				CD0831EA29B75FBA00DC7974 /* ChatBubbleCell.swift in Sources */,

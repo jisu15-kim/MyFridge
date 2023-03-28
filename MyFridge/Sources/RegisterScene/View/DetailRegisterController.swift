@@ -217,7 +217,10 @@ class DetailRegisterController: UIViewController {
     
     //MARK: - Selector
     @objc func handleAiAction() {
-        showAIBottomSheet()
+        checkAPICallCount { [weak self] in
+            guard let self = self else { return }
+            self.showAIBottomSheet()
+        }
     }
     
     @objc func keepTypeChanged(_ sender: BetterSegmentedControl) {
@@ -507,12 +510,13 @@ class DetailRegisterController: UIViewController {
     }
     
     private func showAIBottomSheet() {
-        let panel = FloatingPanelController()
-        let vm = AIChatViewModel(storageType: keepType, selectedItem: selectedItem, askType: .keep)
-        let vc = AIChatViewController(viewModel: vm)
-        panel.set(contentViewController: vc)
-        panel.addPanel(toParent: self, animated: true)
-        panel.backdropView.dismissalTapGestureRecognizer.isEnabled = true
+        checkAPICallCount { [weak self] in
+            guard let self = self else { return }
+            let vm = AIChatViewModel(storageType: self.keepType, selectedItem: self.selectedItem, askType: .keep)
+            let vc = AIChatViewController(viewModel: vm)
+            vc.modalPresentationStyle = .fullScreen
+            self.present(vc, animated: true)
+        }
     }
     
     private func calculateExpireDate(_ days: Int, to date: Date) -> Date? {
@@ -594,5 +598,13 @@ extension DetailRegisterController: UICollectionViewDelegateFlowLayout {
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
         
         return CGSize(width: 35, height: 35)
+    }
+}
+
+extension DetailRegisterController: FloatingPanelControllerDelegate {
+    // 특정 속도로 아래로 당겼을때 dismiss 되도록 처리
+    public func floatingPanelWillEndDragging(_ fpc: FloatingPanelController, withVelocity velocity: CGPoint, targetState: UnsafeMutablePointer<FloatingPanelState>) {
+        guard velocity.y > 50 else { return }
+        dismiss(animated: true)
     }
 }

@@ -9,7 +9,9 @@ import Foundation
 import Alamofire
 
 class AIManager {
-    let maxToken: Int = 100
+    
+    //MARK: - API
+    let maxToken: Int = 50
     let davinci: String = "text-davinci-003"
     let chatAI: String = "gpt-3.5-turbo"
     let errorMessage: String = "데이터 통신 오류가 발생했습니다. 다시 시도해주세요🙏"
@@ -32,6 +34,8 @@ class AIManager {
                 switch response.result {
                 case .success(let result):
                     completion(result.choices.first?.text ?? "error")
+                    ApiCallCounter.shared.decreaseAPICallCount()
+                    print("오늘 남은 API 호출 횟수 \(ApiCallCounter.shared.getAPICallCount())")
                 case .failure(let error):
                     print(error)
                     return
@@ -55,6 +59,8 @@ class AIManager {
                     }
                     print(message)
                     completion(true, message)
+                    ApiCallCounter.shared.decreaseAPICallCount()
+                    print("오늘 남은 API 호출 횟수 \(ApiCallCounter.shared.getAPICallCount())")
                     return
                 case .failure(let error):
                     print(error)
@@ -65,32 +71,32 @@ class AIManager {
                 }
             }
     }
-}
-
-
-struct ChatAIPostBody: Codable {
-    let model: String
-    let messages: [Message]
-    let max_tokens: Int
-}
-
-struct ChatAIPostBodyMessage: Codable {
-    let role: String
-    let content: String
-}
-
-struct OpenAICompletionsBody: Encodable {
-    let model: String
-    let prompt: String
-    let temperature: Float?
-    let max_tokens: Int
-}
-
-struct OpenAICompletionsResponse: Decodable {
-    let id: String
-    let choices: [OpenAIcompletionsOptions]
-}
-
-struct OpenAIcompletionsOptions: Decodable {
-    let text: String
+    
+    
+    struct ChatAIPostBody: Codable {
+        let model: String
+        let messages: [Message]
+        let max_tokens: Int
+    }
+    
+    struct ChatAIPostBodyMessage: Codable {
+        let role: String
+        let content: String
+    }
+    
+    struct OpenAICompletionsBody: Encodable {
+        let model: String
+        let prompt: String
+        let temperature: Float?
+        let max_tokens: Int
+    }
+    
+    struct OpenAICompletionsResponse: Decodable {
+        let id: String
+        let choices: [OpenAIcompletionsOptions]
+    }
+    
+    struct OpenAIcompletionsOptions: Decodable {
+        let text: String
+    }
 }

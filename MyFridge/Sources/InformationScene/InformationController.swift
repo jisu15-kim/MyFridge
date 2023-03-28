@@ -186,9 +186,12 @@ extension InformationController: UICollectionViewDelegateFlowLayout {
 
 extension InformationController: InformationControllerDelegate {
     func askToAIButtonTapped() {
-        let vm = AIChatViewModel(items: viewModel.selectedItem.value)
-        let vc = AIChatViewController(viewModel: vm)
-        vc.modalPresentationStyle = .fullScreen
-        present(vc, animated: true)
+        checkAPICallCount { [weak self] in
+            guard let self = self else { return }
+            let vm = AIChatViewModel(items: self.viewModel.selectedItem.value)
+            let vc = AIChatViewController(viewModel: vm)
+            vc.modalPresentationStyle = .fullScreen
+            self.present(vc, animated: true)
+        }
     }
 }

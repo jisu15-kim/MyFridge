@@ -189,22 +189,28 @@ class DetailController: UIViewController {
     
     // 보관 방법
     @objc func handleAIViewTapped1() {
-        let keepType = viewModel.item.keepType
-        let selected = viewModel.item.itemType
-        let viewModel = AIChatViewModel(storageType: keepType, selectedItem: selected, askType: .keep)
-        let vc = AIChatViewController(viewModel: viewModel)
-        vc.modalPresentationStyle = .fullScreen
-        present(vc, animated: true)
+        checkAPICallCount { [weak self] in
+            guard let self = self else { return }
+            let keepType = self.viewModel.item.keepType
+            let selected = self.viewModel.item.itemType
+            let viewModel = AIChatViewModel(storageType: keepType, selectedItem: selected, askType: .keep)
+            let vc = AIChatViewController(viewModel: viewModel)
+            vc.modalPresentationStyle = .fullScreen
+            self.present(vc, animated: true)
+        }
     }
     
     // 레시피
     @objc func handleAIViewTapped2() {
-        let keepType = viewModel.item.keepType
-        let selected = viewModel.item.itemType
-        let viewModel = AIChatViewModel(storageType: keepType, selectedItem: selected, askType: .recipe)
-        let vc = AIChatViewController(viewModel: viewModel)
-        vc.modalPresentationStyle = .fullScreen
-        present(vc, animated: true)
+        checkAPICallCount { [weak self] in
+            guard let self = self else { return }
+            let keepType = self.viewModel.item.keepType
+            let selected = self.viewModel.item.itemType
+            let viewModel = AIChatViewModel(storageType: keepType, selectedItem: selected, askType: .recipe)
+            let vc = AIChatViewController(viewModel: viewModel)
+            vc.modalPresentationStyle = .fullScreen
+            self.present(vc, animated: true)
+        }
     }
     
     //MARK: - Helper

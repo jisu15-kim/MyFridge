@@ -48,7 +48,6 @@ class FridgeViewModel {
     
     func registerNotiAtFirstLogin(items: [FridgeItemViewModel]) {
         let firstLogin = UserDefaults.standard.bool(forKey: "ThisAccoutFirstLogin")
-        print("DEBUG - firstLogin: \(firstLogin)")
         if firstLogin == true {
             items.forEach { itemViewModel in
                 itemViewModel.item.userNotiData.enumerated().forEach { (index, config) in
@@ -60,7 +59,6 @@ class FridgeViewModel {
                 }
             }
         }
-        
     }
     
     //MARK: - Helper
