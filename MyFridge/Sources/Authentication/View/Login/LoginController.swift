@@ -78,7 +78,7 @@ class LoginController: UIViewController {
     }
     
     @objc func handleAppleLoginTapped() {
-        
+        AppleLoginManager(presenter: self).startSignInWithAppleFlow()
     }
     
     //MARK: - Helpers

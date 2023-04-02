@@ -49,7 +49,6 @@ class NotificationManager {
         let content = UNMutableNotificationContent()
         content.title = "유통기한 알림"
         content.body = "\(viewModel.itemName)의 유통기한이 \(notiConfig.dayOffset)일 남았어요! \n어떻게 요리할지 냉장고AI에게 물어볼까요?"
-        content.badge = 1
 
         // 트리거를 만듬
 

@@ -11,7 +11,7 @@ import Alamofire
 class AIManager {
     
     //MARK: - API
-    let maxToken: Int = 50
+    let maxToken: Int = 2000
     let davinci: String = "text-davinci-003"
     let chatAI: String = "gpt-3.5-turbo"
     let errorMessage: String = "데이터 통신 오류가 발생했습니다. 다시 시도해주세요🙏"

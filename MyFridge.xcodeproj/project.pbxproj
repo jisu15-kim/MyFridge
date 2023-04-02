@@ -94,6 +94,7 @@
 		CDDFE7A929C4C73B00874149 /* SocialLoginView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CDDFE7A829C4C73B00874149 /* SocialLoginView.swift */; };
 		CDDFE7AB29C4C7B100874149 /* SocialLoginType.swift in Sources */ = {isa = PBXBuildFile; fileRef = CDDFE7AA29C4C7B100874149 /* SocialLoginType.swift */; };
 		CDDFE7AD29C4D3A600874149 /* EmptyFridgeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CDDFE7AC29C4D3A600874149 /* EmptyFridgeView.swift */; };
+		CDF968DD29D47937003BA0BF /* AppleLoginManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = CDF968DC29D47937003BA0BF /* AppleLoginManager.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -168,6 +169,8 @@
 		CDDFE7A829C4C73B00874149 /* SocialLoginView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SocialLoginView.swift; sourceTree = "<group>"; };
 		CDDFE7AA29C4C7B100874149 /* SocialLoginType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SocialLoginType.swift; sourceTree = "<group>"; };
 		CDDFE7AC29C4D3A600874149 /* EmptyFridgeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EmptyFridgeView.swift; sourceTree = "<group>"; };
+		CDF968DB29D47914003BA0BF /* MyFridge.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = MyFridge.entitlements; sourceTree = "<group>"; };
+		CDF968DC29D47937003BA0BF /* AppleLoginManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppleLoginManager.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -206,6 +209,7 @@
 				CD019A5A29BCF13600001556 /* FirebaseLoginManager.swift */,
 				CD019A6429BD073A00001556 /* GoogleLoginManager.swift */,
 				CD55324329BDC7D400F1B657 /* NaverLoginManager.swift */,
+				CDF968DC29D47937003BA0BF /* AppleLoginManager.swift */,
 			);
 			path = Manager;
 			sourceTree = "<group>";
@@ -427,6 +431,7 @@
 		CDB1EB3729ADF4ED004D474A /* MyFridge */ = {
 			isa = PBXGroup;
 			children = (
+				CDF968DB29D47914003BA0BF /* MyFridge.entitlements */,
 				CD1445BD29AFC12200EFBE65 /* Util */,
 				CD1445C029AFC15400EFBE65 /* API */,
 				CD1445B429AFAE6A00EFBE65 /* Secret */,
@@ -684,6 +689,7 @@
 				CDDFE7AB29C4C7B100874149 /* SocialLoginType.swift in Sources */,
 				CD0B50FB29B36DA500DF49D7 /* DateViewContainer.swift in Sources */,
 				CD1445B629AFAE7000EFBE65 /* Secret.swift in Sources */,
+				CDF968DD29D47937003BA0BF /* AppleLoginManager.swift in Sources */,
 				CD0B50F629B35B3800DF49D7 /* FridgeItemViewModel.swift in Sources */,
 				CDB1EB6B29AE5292004D474A /* RegisterIconCell.swift in Sources */,
 				CD019A5929BCEB1B00001556 /* KakaoLoginManager.swift in Sources */,
@@ -830,6 +836,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_ENTITLEMENTS = MyFridge/MyFridge.entitlements;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_TEAM = 846TMZL7WC;
@@ -857,6 +864,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_ENTITLEMENTS = MyFridge/MyFridge.entitlements;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_TEAM = 846TMZL7WC;
