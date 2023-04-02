@@ -26,19 +26,28 @@ class MainTabViewController: UITabBarController {
         if let authUser = Auth.auth().currentUser {
             uid = authUser.uid
             Network().fetchUser { [weak self] user in
-                if user.termsConfirmed == true {
-                    print("DEBUG: 로그인 되었습니다")
-                    self?.user = user
-                    self?.configureViewController()
-                    self?.selectedIndex = 0
-                    self?.uiTabBarSetting()
+                if let user = user {
+                    if user.termsConfirmed == true {
+                        print("DEBUG: 로그인 되었습니다")
+                        self?.user = user
+                        self?.configureViewController()
+                        self?.selectedIndex = 0
+                        self?.uiTabBarSetting()
+                    } else {
+                        // 동의 뷰로 이동하기
+                        let vc = UserConfirmController(user: user, uid: authUser.uid)
+                        vc.delegate = self
+                        guard let nav = self?.templateNavigationController(nil, viewController: vc) else { return }
+                        nav.modalPresentationStyle = .fullScreen
+                        self?.present(nav, animated: true)
+                    }
                 } else {
-                    // 동의 뷰로 이동하기
-                    let vc = UserConfirmController(user: user, uid: authUser.uid)
-                    vc.delegate = self
-                    guard let nav = self?.templateNavigationController(nil, viewController: vc) else { return }
-                    nav.modalPresentationStyle = .fullScreen
-                    self?.present(nav, animated: true)
+                    print("DEBUG: 로그인 상태가 아닙니다")
+                    DispatchQueue.main.async {
+                        let nav = UINavigationController(rootViewController: LoginController())
+                        nav.modalPresentationStyle = .fullScreen
+                        self?.present(nav, animated: true)
+                    }
                 }
             }
         } else {

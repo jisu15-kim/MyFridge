@@ -77,13 +77,15 @@ struct AuthService {
     
     func deleteAccout(completion: @escaping (Bool) -> Void) {
         guard let user = Auth.auth().currentUser else { return }
-        user.delete(completion: { error in
-            if let error = error {
-                print(error.localizedDescription)
-                completion(false)
-            } else {
-                Network().deleteUserAllData(uid: user.uid, completion: completion)
+        Network().deleteUserAllData(uid: user.uid) { isSucessed in
+            user.delete { error in
+                if let error = error {
+                    print(error.localizedDescription)
+                    completion(false)
+                } else {
+                    completion(true)
+                }
             }
-        })
+        }
     }
 }

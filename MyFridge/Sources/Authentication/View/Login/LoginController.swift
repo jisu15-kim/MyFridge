@@ -18,6 +18,8 @@ class LoginController: UIViewController {
     //MARK: - Properties
     let naverManager = NaverLoginManager()
     
+    var currentNonce: String?
+    
     private let backgroundImageView: UIImageView = {
         let iv = UIImageView()
         iv.image = UIImage(named: "backgroundImage")
@@ -78,7 +80,7 @@ class LoginController: UIViewController {
     }
     
     @objc func handleAppleLoginTapped() {
-        AppleLoginManager(presenter: self).startSignInWithAppleFlow()
+        startSignInWithAppleFlow()
     }
     
     //MARK: - Helpers

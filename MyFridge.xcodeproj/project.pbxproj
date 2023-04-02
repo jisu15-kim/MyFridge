@@ -94,6 +94,7 @@
 		CDDFE7A929C4C73B00874149 /* SocialLoginView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CDDFE7A829C4C73B00874149 /* SocialLoginView.swift */; };
 		CDDFE7AB29C4C7B100874149 /* SocialLoginType.swift in Sources */ = {isa = PBXBuildFile; fileRef = CDDFE7AA29C4C7B100874149 /* SocialLoginType.swift */; };
 		CDDFE7AD29C4D3A600874149 /* EmptyFridgeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CDDFE7AC29C4D3A600874149 /* EmptyFridgeView.swift */; };
+		CDF8149329D9D32600320CB5 /* ExtensionAppleLogin.swift in Sources */ = {isa = PBXBuildFile; fileRef = CDF8149229D9D32600320CB5 /* ExtensionAppleLogin.swift */; };
 		CDF968DD29D47937003BA0BF /* AppleLoginManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = CDF968DC29D47937003BA0BF /* AppleLoginManager.swift */; };
 /* End PBXBuildFile section */
 
@@ -169,6 +170,7 @@
 		CDDFE7A829C4C73B00874149 /* SocialLoginView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SocialLoginView.swift; sourceTree = "<group>"; };
 		CDDFE7AA29C4C7B100874149 /* SocialLoginType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SocialLoginType.swift; sourceTree = "<group>"; };
 		CDDFE7AC29C4D3A600874149 /* EmptyFridgeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EmptyFridgeView.swift; sourceTree = "<group>"; };
+		CDF8149229D9D32600320CB5 /* ExtensionAppleLogin.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExtensionAppleLogin.swift; sourceTree = "<group>"; };
 		CDF968DB29D47914003BA0BF /* MyFridge.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = MyFridge.entitlements; sourceTree = "<group>"; };
 		CDF968DC29D47937003BA0BF /* AppleLoginManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppleLoginManager.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -264,6 +266,7 @@
 			isa = PBXGroup;
 			children = (
 				CD0B50DC29B32CC900DF49D7 /* LoginController.swift */,
+				CDF8149229D9D32600320CB5 /* ExtensionAppleLogin.swift */,
 				CDDFE7A829C4C73B00874149 /* SocialLoginView.swift */,
 			);
 			path = Login;
@@ -697,6 +700,7 @@
 				CD0B50CF29B0815600DF49D7 /* AIChatViewController.swift in Sources */,
 				CDDFE7AD29C4D3A600874149 /* EmptyFridgeView.swift in Sources */,
 				CD0831EF29B7637700DC7974 /* AIChatModel.swift in Sources */,
+				CDF8149329D9D32600320CB5 /* ExtensionAppleLogin.swift in Sources */,
 				CDB1EB6729AE4D96004D474A /* CategoryRegisterController.swift in Sources */,
 				CD7B29AE29CA201600A266C0 /* CustomFlowLayout.swift in Sources */,
 				CD0B50FD29B38A1E00DF49D7 /* AIActionView.swift in Sources */,

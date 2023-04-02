@@ -10,7 +10,7 @@ import Firebase
 
 class Network {
     
-    func fetchUser(completion: @escaping (UserModel) -> Void) {
+    func fetchUser(completion: @escaping (UserModel?) -> Void) {
         if let user = Auth.auth().currentUser {
             let uid = user.uid
             DOC_USERS.document(uid).getDocument { (snapshot, error) in
@@ -20,7 +20,10 @@ class Network {
                     guard let document = snapshot else { return }
                     let decoder = JSONDecoder()
                     do {
-                        guard let data = document.data() else { return }
+                        guard let data = document.data() else {
+                            completion(nil)
+                            return
+                        }
                         let jsonData = try JSONSerialization.data(withJSONObject: data)
                         let item = try decoder.decode(UserModel.self, from: jsonData)
                         completion(item)
