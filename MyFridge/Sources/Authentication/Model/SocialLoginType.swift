@@ -49,7 +49,7 @@ enum SocialLoginType: String, CaseIterable {
         case .apple:
             return "Apple로 계속하기"
         case .google:
-            return "Google로 게속하기"
+            return "Google로 계속하기"
         case .naver:
             return "네이버로 계속하기"
         }

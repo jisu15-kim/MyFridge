@@ -415,6 +415,14 @@
 			path = Cell;
 			sourceTree = "<group>";
 		};
+		CD8B730129DB2009007880AB /* Splash */ = {
+			isa = PBXGroup;
+			children = (
+				CDB1EB4329ADF4EE004D474A /* LaunchScreen.storyboard */,
+			);
+			path = Splash;
+			sourceTree = "<group>";
+		};
 		CDB1EB2C29ADF4ED004D474A = {
 			isa = PBXGroup;
 			children = (
@@ -443,7 +451,7 @@
 				CDB1EB3829ADF4ED004D474A /* AppDelegate.swift */,
 				CDB1EB3A29ADF4ED004D474A /* SceneDelegate.swift */,
 				CDB1EB4129ADF4EE004D474A /* Assets.xcassets */,
-				CDB1EB4329ADF4EE004D474A /* LaunchScreen.storyboard */,
+				CD8B730129DB2009007880AB /* Splash */,
 				CDB1EB4629ADF4EE004D474A /* Info.plist */,
 				CD0B50D229B32B2400DF49D7 /* GoogleService-Info.plist */,
 			);

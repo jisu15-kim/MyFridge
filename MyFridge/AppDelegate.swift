@@ -44,6 +44,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         ApiCallCounter.shared.resetAPICallCountIfNeeded()
         print(ApiCallCounter.shared.getAPICallCount())
         
+        Thread.sleep(forTimeInterval: 1.0)    // 런치스크린 표시 시간 1초 강제 지연
+        
         return true
     }
     

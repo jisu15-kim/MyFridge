@@ -28,12 +28,46 @@ class LoginController: UIViewController {
         return iv
     }()
     
+    private let logoImageView: UIImageView = {
+        let iv = UIImageView()
+        iv.image = UIImage(named: "logo")
+        return iv
+    }()
+    
+    private let greetingLabel: UILabel = {
+        let label = UILabel()
+        label.text = "안녕하세요"
+        label.textAlignment = .center
+        label.textColor = .white
+        label.font = .systemFont(ofSize: 20, weight: .bold)
+        return label
+    }()
+    
+    private let onboardingLabel: UILabel = {
+        let label = UILabel()
+        label.text = "즐거운 요리를 위한 나만의 AI 비서"
+        label.textAlignment = .center
+        label.textColor = .white
+        label.font = .systemFont(ofSize: 14, weight: .regular)
+        return label
+    }()
+    
     private let titleLabel: UILabel = {
         let label = UILabel()
         label.text = "우리집 AI 냉장고"
         label.textAlignment = .center
         label.textColor = .white
-        label.font = .systemFont(ofSize: 40, weight: .black)
+        label.font = .systemFont(ofSize: 24, weight: .bold)
+        return label
+    }()
+    
+    private let copyrightLabel: UILabel = {
+        let label = UILabel()
+        label.text = "copyright by JSCT 2023.\nAll right reserved."
+        label.textAlignment = .center
+        label.textColor = .darkGray
+        label.numberOfLines = 0
+        label.font = .systemFont(ofSize: 10, weight: .light)
         return label
     }()
     
@@ -86,14 +120,31 @@ class LoginController: UIViewController {
     //MARK: - Helpers
     
     func configureUI() {
-        view.addSubview(backgroundImageView)
-        backgroundImageView.snp.makeConstraints {
-            $0.edges.equalToSuperview()
+        view.backgroundColor = .white
+        
+        let topBackgroundView = UIView()
+        topBackgroundView.backgroundColor = .mainAccent
+        
+        view.addSubview(topBackgroundView)
+        topBackgroundView.snp.makeConstraints {
+            $0.top.leading.trailing.equalToSuperview()
+            $0.height.equalTo(300)
         }
         
-        view.addSubview(titleLabel)
-        titleLabel.snp.makeConstraints {
-            $0.top.equalToSuperview().inset(200)
+        topBackgroundView.addSubview(logoImageView)
+        logoImageView.snp.makeConstraints {
+            $0.center.equalToSuperview()
+            $0.width.height.equalTo(100)
+        }
+        topBackgroundView.setViewShadow(backView: self.view)
+        
+        let greetingStack = UIStackView(arrangedSubviews: [titleLabel, onboardingLabel])
+        greetingStack.axis = .vertical
+        greetingStack.spacing = 5
+        
+        topBackgroundView.addSubview(greetingStack)
+        greetingStack.snp.makeConstraints {
+            $0.top.equalTo(logoImageView.snp.bottom)
             $0.centerX.equalToSuperview()
         }
         
@@ -113,6 +164,12 @@ class LoginController: UIViewController {
         stack.snp.makeConstraints {
             $0.bottom.equalToSuperview().inset(250)
             $0.leading.trailing.equalToSuperview().inset(65)
+        }
+        
+        view.addSubview(copyrightLabel)
+        copyrightLabel.snp.makeConstraints {
+            $0.centerX.equalToSuperview()
+            $0.bottom.equalToSuperview().inset(30)
         }
     }
     
@@ -146,6 +203,7 @@ class LoginController: UIViewController {
             let tap = UITapGestureRecognizer(target: self, action: #selector(handleNaverLoginTapped))
             view.addGestureRecognizer(tap)
         }
+        view.setViewShadow(backView: self.view)
         return view
     }
 }
