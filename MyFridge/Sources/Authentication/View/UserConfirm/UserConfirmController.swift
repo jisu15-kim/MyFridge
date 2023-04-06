@@ -19,25 +19,25 @@ class UserConfirmController: UIViewController {
     let allConfirmView = CustomAllConfirmView()
     
     lazy var termsView: CustomConfirmView = {
-        let view = CustomConfirmView(title: "이용약관 동의", url: "test", type: .essential)
+        let view = CustomConfirmView(title: "이용약관 동의", url: Link.terms, type: .essential)
         view.delegate = self
         return view
     }()
     
     lazy var overAgeView: CustomConfirmView = {
-        let view = CustomConfirmView(title: "만 14세 이상 확인 동의", url: "test", type: .essential)
+        let view = CustomConfirmView(title: "만 14세 이상 확인 동의", url: Link.terms, type: .essential)
         view.delegate = self
         return view
     }()
     
     lazy var privateInfoView: CustomConfirmView = {
-        let view = CustomConfirmView(title: "개인정보 수집 및 이용 동의", url: "test", type: .essential)
+        let view = CustomConfirmView(title: "개인정보 수집 및 이용 동의", url: Link.privacyPolicy, type: .essential)
         view.delegate = self
         return view
     }()
     
     lazy var marketingView: CustomConfirmView = {
-        let view = CustomConfirmView(title: "마케팅 수신 정보 동의", url: "test", type: .optional)
+        let view = CustomConfirmView(title: "마케팅 수신 정보 동의", url: Link.terms, type: .optional)
         view.delegate = self
         return view
     }()
@@ -175,6 +175,7 @@ class UserConfirmController: UIViewController {
 extension UserConfirmController: CustomConfirmViewDelegate {
     func viewLinkTapped(view: CustomConfirmView) {
         let url = view.itemUrl
-        print(url)
+        let vc = WebViewController(url: (url ?? URL(string: ""))!)
+        present(vc, animated: true)
     }
 }

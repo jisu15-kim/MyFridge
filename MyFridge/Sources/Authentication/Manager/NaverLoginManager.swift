@@ -38,7 +38,7 @@ class NaverLoginManager: NSObject {
     }()
     
     func tryNaverLogin(completion: @escaping (UserModel) -> Void) {
-        
+        tryLogout()
         guard let naver = loginInstance else { return }
         if naver.isValidAccessTokenExpireTimeNow() == false {
             print("로그인 시도")
@@ -77,7 +77,9 @@ class NaverLoginManager: NSObject {
             case .success(let loginData):
                 let user = loginData.response
                 let userInfoModel = UserModel(email: user.email, password: user.id, profileImage: URL(string: user.profile_image)!, userName: user.nickname, loginCase: .naver)
-                completion(userInfoModel)
+                FirebaseLoginManager().tryFirebaseAuth(withUser: userInfoModel) { isSuccess in
+                    completion(userInfoModel)
+                }
             case .failure(let error):
                 print("error: \(error.localizedDescription)")
             }

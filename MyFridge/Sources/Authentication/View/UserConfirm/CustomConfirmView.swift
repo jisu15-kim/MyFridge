@@ -24,7 +24,7 @@ class CustomConfirmView: UIView {
     var subscriptions = Set<AnyCancellable>()
     
     let itemTitle: String
-    let itemUrl: String
+    let itemUrl: URL?
     let itemType: ConfirmType
     
     weak var delegate: CustomConfirmViewDelegate?
@@ -59,7 +59,7 @@ class CustomConfirmView: UIView {
     }()
     
     //MARK: - Lifecycle
-    init(title: String, url: String, type: ConfirmType) {
+    init(title: String, url: URL?, type: ConfirmType) {
         itemTitle = title
         itemUrl = url
         itemType = type

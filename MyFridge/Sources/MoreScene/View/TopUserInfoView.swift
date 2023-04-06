@@ -94,11 +94,11 @@ class TopUserInfoView: UIView {
             $0.centerY.equalToSuperview()
         }
         
-        addSubview(editImageView)
-        editImageView.snp.makeConstraints {
-            $0.top.trailing.equalToSuperview().inset(10)
-            $0.width.height.equalTo(17)
-        }
+//        addSubview(editImageView)
+//        editImageView.snp.makeConstraints {
+//            $0.top.trailing.equalToSuperview().inset(10)
+//            $0.width.height.equalTo(17)
+//        }
         
         layer.cornerRadius = 15
         clipsToBounds = true

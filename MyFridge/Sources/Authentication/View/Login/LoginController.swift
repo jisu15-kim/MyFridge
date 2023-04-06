@@ -108,8 +108,8 @@ class LoginController: UIViewController {
     
     @objc func handleNaverLoginTapped() {
         print("네이버 로그인 시도")
-        naverManager.tryNaverLogin { user in
-            print(user)
+        naverManager.tryNaverLogin { [weak self] user in
+            self?.loginSuccessAndTransition()
         }
     }
     

@@ -28,6 +28,7 @@ class MainTabViewController: UITabBarController {
             Network().fetchUser { [weak self] user in
                 if let user = user {
                     if user.termsConfirmed == true {
+                        print(user.termsConfirmed)
                         print("DEBUG: 로그인 되었습니다")
                         self?.user = user
                         self?.configureViewController()
@@ -43,20 +44,21 @@ class MainTabViewController: UITabBarController {
                     }
                 } else {
                     print("DEBUG: 로그인 상태가 아닙니다")
-                    DispatchQueue.main.async {
-                        let nav = UINavigationController(rootViewController: LoginController())
-                        nav.modalPresentationStyle = .fullScreen
-                        self?.present(nav, animated: true)
-                    }
+                    self?.showLoginView()
                 }
             }
         } else {
             print("DEBUG: 로그인 상태가 아닙니다")
-            DispatchQueue.main.async {
-                let nav = UINavigationController(rootViewController: LoginController())
-                nav.modalPresentationStyle = .fullScreen
-                self.present(nav, animated: true)
-            }
+            self.showLoginView()
+        }
+    }
+    
+    func showLoginView() {
+        DispatchQueue.main.async {
+            let nav = UINavigationController(rootViewController: LoginController())
+            nav.modalPresentationStyle = .fullScreen
+            nav.modalTransitionStyle = .crossDissolve
+            self.present(nav, animated: true)
         }
     }
     
