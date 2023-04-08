@@ -21,6 +21,10 @@ class MainTabViewController: UITabBarController {
         delegate = self
     }
     
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
+    }
+    
     //MARK: - API
     func authenticateUserAndConfigureUI() {
         if let authUser = Auth.auth().currentUser {
@@ -28,7 +32,6 @@ class MainTabViewController: UITabBarController {
             Network().fetchUser { [weak self] user in
                 if let user = user {
                     if user.termsConfirmed == true {
-                        print(user.termsConfirmed)
                         print("DEBUG: 로그인 되었습니다")
                         self?.user = user
                         self?.configureViewController()

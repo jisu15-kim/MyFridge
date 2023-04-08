@@ -60,8 +60,8 @@ enum KeepType: String, CaseIterable, Codable {
 enum Category: String, CaseIterable, Codable {
     case green
     case fruit
-    case fish
     case meat
+    case fish
     case milk
     
     var categoryName: String {
