@@ -85,7 +85,13 @@ class FridgeController: UIViewController {
     
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
-        appUpdateCheck()
+        // 앱 업데이트 체크 이후 처리
+        viewModel.appUpdateCheck { [weak self] (needUpdate, version) in
+            if needUpdate == true {
+                guard let version = version else { return }
+                self?.appUpdateAlertAndExit(version: version)
+            }
+        }
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -192,30 +198,8 @@ class FridgeController: UIViewController {
     }
     
     //MARK: - AppUpdateCheck
-    func appUpdateCheck() {
-        AppConfiguration().latestVersion { [weak self] version in
-            if let version = version {
-                print("DEBUG - Version: \(version)")
-                let marketingVersion = version
-                let currentProjectVersion = AppConfiguration.appVersion
-                let splitMarketingVersion = marketingVersion.split(separator: ".").map {$0}
-                let splitCurrentProjectVersion = currentProjectVersion!.split(separator: ".").map {$0}
-                
-                // if : 가장 앞자리가 다르면 -> 업데이트 필요
-                // 메시지 창 인스턴스 생성, 컨트롤러에 들어갈 버튼 액션 객체 생성 -> 클릭하면 앱스토어로 이동
-                // else : 두번째 자리가 달라도 업데이트 필요
-                //
-                if splitCurrentProjectVersion[0] < splitMarketingVersion[0] || splitCurrentProjectVersion[1] < splitMarketingVersion[1] {
-                    self?.appUpdateAlertAndExit(version: version)
-                } else {
-                    
-                }
-            }
-        }
-    }
-    
     func appUpdateAlertAndExit(version: String) {
-        let alert = UIAlertController(title: "업데이트 알림", message: "너랑나랑의 새로운 버전이 있습니다. \(version) 버전으로 업데이트 해주세요.", preferredStyle: UIAlertController.Style.alert)
+        let alert = UIAlertController(title: "업데이트 알림", message: "우리집 AI 냉장고의 새로운 버전이 있습니다. \(version) 버전으로 업데이트 해주세요.", preferredStyle: UIAlertController.Style.alert)
         let destructiveAction = UIAlertAction(title: "업데이트", style: UIAlertAction.Style.default){(_) in
             AppConfiguration().openAppStore()
             UIApplication.shared.perform(#selector(NSXPCConnection.suspend))
