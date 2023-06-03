@@ -83,6 +83,17 @@ class FridgeController: UIViewController {
         configureEmptyView()
     }
     
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
+        // 앱 업데이트 체크 이후 처리
+        viewModel.appUpdateCheck { [weak self] (needUpdate, version) in
+            if needUpdate == true {
+                guard let version = version else { return }
+                self?.appUpdateAlertAndExit(version: version)
+            }
+        }
+    }
+    
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         navigationController?.navigationBar.prefersLargeTitles = true
@@ -184,6 +195,20 @@ class FridgeController: UIViewController {
         } else {
             emptyView.isHidden = true
         }
+    }
+    
+    //MARK: - AppUpdateCheck
+    func appUpdateAlertAndExit(version: String) {
+        let alert = UIAlertController(title: "업데이트 알림", message: "우리집 AI 냉장고의 새로운 버전이 있습니다. \(version) 버전으로 업데이트 해주세요.", preferredStyle: UIAlertController.Style.alert)
+        let destructiveAction = UIAlertAction(title: "업데이트", style: UIAlertAction.Style.default){(_) in
+            AppConfiguration().openAppStore()
+            UIApplication.shared.perform(#selector(NSXPCConnection.suspend))
+            DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
+                exit(0)
+            }
+        }
+        alert.addAction(destructiveAction)
+        self.present(alert, animated: false)
     }
 }
 

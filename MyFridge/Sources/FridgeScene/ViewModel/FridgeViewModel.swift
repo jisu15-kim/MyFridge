@@ -62,5 +62,25 @@ class FridgeViewModel {
     }
     
     //MARK: - Helper
-    
+    func appUpdateCheck(completion: @escaping (_ needUpdate: Bool, _ version: String?) -> Void) {
+        AppConfiguration().latestVersion {version in
+            if let version = version {
+                print("DEBUG - Version: \(version)")
+                let marketingVersion = version
+                let currentProjectVersion = AppConfiguration.appVersion
+                let splitMarketingVersion = marketingVersion.split(separator: ".").map {$0}
+                let splitCurrentProjectVersion = currentProjectVersion!.split(separator: ".").map {$0}
+                
+                // if : 가장 앞자리가 다르면 -> 업데이트 필요
+                // 메시지 창 인스턴스 생성, 컨트롤러에 들어갈 버튼 액션 객체 생성 -> 클릭하면 앱스토어로 이동
+                // else : 두번째 자리가 달라도 업데이트 필요
+                //
+                if splitCurrentProjectVersion[0] < splitMarketingVersion[0] || splitCurrentProjectVersion[1] < splitMarketingVersion[1] {
+                    completion(true, version)
+                } else {
+                    completion(false, nil)
+                }
+            }
+        }
+    }
 }
