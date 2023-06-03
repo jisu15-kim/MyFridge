@@ -16,39 +16,13 @@ class AIManager {
     let chatAI: String = "gpt-3.5-turbo"
     let errorMessage: String = "데이터 통신 오류가 발생했습니다. 다시 시도해주세요🙏"
     
-    func askRecommandStoreWay(keyword: String, completion: @escaping (String) -> Void) {
-        let baseUrl = Secret.baseUrl
-        let body = OpenAICompletionsBody(model: davinci, prompt: keyword, temperature: 0.7, max_tokens: maxToken)
-        let headers: HTTPHeaders = ["Authorization": "Bearer \(Secret.token)"]
-        
-        AF.request(baseUrl + "chat/completions", method: .post, parameters: body, encoder: .json, headers: headers)
-            .responseData(completionHandler: { data in
-                switch data.result {
-                case .success(let data):
-                    print(data)
-                case .failure(let error):
-                    print(error)
-                }
-            })
-            .responseDecodable(of: OpenAICompletionsResponse.self) { response in
-                switch response.result {
-                case .success(let result):
-                    completion(result.choices.first?.text ?? "error")
-                    ApiCallCounter.shared.decreaseAPICallCount()
-                    print("오늘 남은 API 호출 횟수 \(ApiCallCounter.shared.getAPICallCount())")
-                case .failure(let error):
-                    print(error)
-                    return
-                }
-            }
-    }
-    
     func askChatAIApi(keyword: String, completion: @escaping (Bool, String) -> Void) {
-        let baseUrl = Secret.baseUrl + "chat/completions"
+        let baseUrl = Secret.baseUrl.rawValue + "chat/completions"
         let message = Message(role: "user", content: keyword)
         
         let body = ChatAIPostBody(model: "gpt-3.5-turbo", messages: [message], max_tokens: maxToken)
-        let headers: HTTPHeaders = ["Authorization": "Bearer \(Secret.token)", "content-Type": "application/json"]
+        let headers: HTTPHeaders = ["Authorization": "Bearer \(Secret.token.rawValue)", "content-Type": "application/json"]
+        
         AF.request(baseUrl, method: .post, parameters: body, encoder: .json, headers: headers)
             .responseDecodable(of: OpenAIChatResponse.self) { [weak self] response in
                 switch response.result {
