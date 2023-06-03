@@ -82,7 +82,7 @@ class Network {
     }
     
     func itemCreateUpdate(item: FridgeItemModel, type: DetailRegisterController.ActionType, itemID: String? = nil,
-                    completion: @escaping(Bool) -> Void) {
+                          completion: @escaping(Bool) -> Void) {
         guard let uid = Auth.auth().currentUser?.uid else { return }
         guard let data = item.asDictionary else {
             print("ERROR - asDictionary 디코딩 에러")
@@ -185,6 +185,20 @@ class Network {
                 completion(false)
             } else {
                 completion(true)
+            }
+        }
+    }
+    
+    //MARK: - ChatGPT Token
+    func getChatGPTToken(completion: @escaping (String) -> Void) {
+        DOC_SECRET.document("chat-gpt-token").getDocument { (snapshot, error) in
+            if let error = error {
+                print(error)
+            } else {
+                guard let document = snapshot,
+                      let data = document.data()?.first?.value,
+                      let token = data as? String else { return }
+                completion(token)
             }
         }
     }

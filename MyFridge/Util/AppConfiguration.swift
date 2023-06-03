@@ -20,13 +20,14 @@ struct AppStoreLookupResult: Codable {
 }
 
 struct AppConfiguration {
+    static var needUpdate: Bool? = nil
     // 현재 버전 정보 : 타겟 -> 일반 -> Version
     static let appVersion = Bundle.main.infoDictionary?["CFBundleShortVersionString"] as? String
 //    static let appVersion = "0.0.0"
     // 개발자가 내부적으로 확인하기 위한 용도 : 타겟 -> 일반 -> Build
     static let buildNumber = Bundle.main.infoDictionary?["CFBundleVersion"] as? String
     
-    static let appStoreOpenUrlString = "itms-apps://itunes.apple.com/app/apple-store/\(Secret.appID.rawValue)"
+    static let appStoreOpenUrlString = "itms-apps://itunes.apple.com/app/apple-store/\(Secret.appID)"
     
     // 앱 스토어 최신 정보 확인
     //

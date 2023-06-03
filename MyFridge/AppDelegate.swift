@@ -19,7 +19,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         // Override point for customization after application launch.
         
         // 카카오 로그인 활성화
-        KakaoSDK.initSDK(appKey: "d2a36df8b2c538654b2ae98219eb9d2f")
+        KakaoSDK.initSDK(appKey: Secret.kakaoAppID)
         
         // 네이버 로그인 활성화
         let naverLogin = NaverThirdPartyLoginConnection.getSharedInstance()
@@ -45,6 +45,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         print(ApiCallCounter.shared.getAPICallCount())
         
         Thread.sleep(forTimeInterval: 1.0)    // 런치스크린 표시 시간 1초 강제 지연
+        
+        Secret.getAITokenFromFirebase()
         
         return true
     }

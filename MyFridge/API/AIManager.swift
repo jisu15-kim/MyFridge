@@ -17,11 +17,11 @@ class AIManager {
     let errorMessage: String = "데이터 통신 오류가 발생했습니다. 다시 시도해주세요🙏"
     
     func askChatAIApi(keyword: String, completion: @escaping (Bool, String) -> Void) {
-        let baseUrl = Secret.baseUrl.rawValue + "chat/completions"
+        let baseUrl = Secret.baseUrl + "chat/completions"
         let message = Message(role: "user", content: keyword)
         
         let body = ChatAIPostBody(model: "gpt-3.5-turbo", messages: [message], max_tokens: maxToken)
-        let headers: HTTPHeaders = ["Authorization": "Bearer \(Secret.token.rawValue)", "content-Type": "application/json"]
+        let headers: HTTPHeaders = ["Authorization": "Bearer \(Secret.token)", "content-Type": "application/json"]
         
         AF.request(baseUrl, method: .post, parameters: body, encoder: .json, headers: headers)
             .responseDecodable(of: OpenAIChatResponse.self) { [weak self] response in
